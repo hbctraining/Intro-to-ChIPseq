@@ -11,8 +11,9 @@ Approximate time: 90 minutes
 ## Learning Objectives
 
 * Understand the different components of the MACS2 algorithm
-* Learn to use MACS2 for peak calling
-* Interpret results from MACS2
+* Describe parameters involved in peak calling use MACS2
+* Describe different file formats encountered during ChIP-seq analysis
+* Assess results generated from MACS2
 
 # Peak Calling
 
@@ -102,19 +103,19 @@ We will be using the newest version of this tool, MACS2. The underlying algorith
 
 To run MACS2, we will first start an interactive session:
 
-	$ bsub -Is -q interactive bash  
+	$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash	 
 	
 We will also need to create a directory for the output generated from MACS2:
 
-	$ mkdir -p ~/ngs_course/chipseq/results/macs2
+	$ mkdir -p ~/chipseq/results/macs2
 	
 Now change directories to the `results` folder:
 
-	$ cd ~/ngs_course/chipseq/results/
+	$ cd ~/chipseq/results/
 	
 We only have the BAM file for our Input-rep1, but will need alignment information for **all 6 files**. We have generated the remaining BAM files for you, so **you will need to copy them over**:
 
-	$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2/* bowtie2/
+	$ cp /n/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2/* bowtie2/
 
 ### MACS2 parameters
 
@@ -223,13 +224,13 @@ Let's first obtain a summary of how many peaks were called in each sample. We ca
 	$ wc -l *.narrowPeak
 
 We can also generate plots using the R script file that was output by MACS2. There is a `_model.R` script in the directory. Let's load the R module and run the R script in the command line using the `Rscript` command as demonstrated below:
-<<<<<<< HEAD
 
-=======
->>>>>>> b681cc9aecf74b6aa10cb68bb483f143b578672e
 
-	$ module load stats/R/3.2.1
+	$ module load gcc/6.2.0 R/3.4.1
+	
 	$ Rscript Nanog-rep1_model.r
+	
+> **NOTE:** We need to load the `gcc/6.2.0` before loading R. You can find out which modules need to be loaded first by using module spider R/3.4.1` 
 	
 Now you should see a pdf file in your current directory by the same name. Create the plots for each of the samples and move them over to your laptop using `Filezilla`. 
 
