@@ -67,10 +67,10 @@ ssh username@o2.hms.harvard.edu
 > **NOTE:** This workshop assumes a basic knowledge of logging onto the O2 cluster environment. Mac users can use the "Terminal" application to login and PC users can use PuTTy or GitBash as described in the [Intro to Shell lesson](https://github.com/hbctraining/Intro-to-Shell/blob/master/lessons/01_the_filesystem.md#logging-in) 
 
 
-Next we will start an interactive session on O2:
+Next we will start an interactive session on O2 with 2 cores (add the `-n 2`):
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash
+$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HSPH bash
 ```
 
 Make sure that your command prompt is now preceded by a character string that contains the word "compute".
