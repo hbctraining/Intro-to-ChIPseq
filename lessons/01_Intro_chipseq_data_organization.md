@@ -66,26 +66,12 @@ ssh username@o2.hms.harvard.edu
 ```
 > **NOTE:** This workshop assumes a basic knowledge of logging onto the O2 cluster environment. Mac users can use the "Terminal" application to login and PC users can use PuTTy or GitBash as described in the [Intro to Shell lesson](https://github.com/hbctraining/Intro-to-Shell/blob/master/lessons/01_the_filesystem.md#logging-in) 
 
-You will receive a prompt for your password, and you should type in your associated password; note that the cursor will *not move* as you type in your password.
 
-A warning might pop up the first time you try to connect to a remote machine, type "Yes" or "Y". 
-We will start by creating a directory that we can use for the rest of the ChIP-seq session.
-
-**Once logged in**, you should see the O2 icon, some news, and the command prompt: 
-
-```bash
-[rc_training10@login01 ~]$ 
-```
-
-The command prompt will have some characters before it, something like `[rc_training01@login01 ~]`, this is telling you what the name of the computer you are working on is.
-
-The first command we will type on the command prompt will be to start a so-called "interactive session" on O2.
+Next we will start an interactive session on O2:
 
 ```bash
 $ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash
 ```
-
-Press enter after you type in that command. You will get a couple of messages, but in a few seconds you should get back the command prompt `$`; the string of characters before the command prompt, however, have changed. They should say something like `[rc_training01@compute-a-16-73 ~]`. *We will be explaining what this means in more detail later when we talk about HPC and O2.* 
 
 Make sure that your command prompt is now preceded by a character string that contains the word "compute".
 
