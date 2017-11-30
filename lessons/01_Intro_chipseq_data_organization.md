@@ -12,7 +12,6 @@ Approximate time: 30 minutes
 - Recognize the need for data management.
 - Plan a good genomics experiment and getting started with project organization.
 - Explain the ChIP-seq experiment and its objectives.
-- Define "metadata" and describe it for the example experiment.
 
 ## Introduction to ChIP-Seq
 Chromatin immunoprecipitation (ChIP) experiments isolate the chromatin from a cell and immunoprecipitate (IP) DNA fragments bound to a protein of interest. In ChIP-Seq, the DNA fragments are sequenced, enriched regions of DNA or peaks are determined, and over-represented sequence motifs and functional annotations can be identified. 
