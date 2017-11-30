@@ -10,9 +10,22 @@ Approximate time: 60 minutes
 
 ## Learning Objectives
 
-* to use previous knowledge of quality control steps to perform FastQC
-* to learn how to use Trimmomatic to perform quality trimming
-* to understand parameters and perform alignment using Bowtie2
+* Become familiar wih NGS best practices
+* Evaluate the quality of your NGS data using FastQC
+* Describe and use the Trimmomatic tool to perform quality trimming
+* Describe parameters for performing alignment using Bowtie2
+
+## Best practices for NGS Analysis 
+
+Ok so now you are all set up and have begun your analysis. You have followed best practices to set up your analysis directory structure in a way such that someone unfamiliar with your project should be able to look at it and understand what you did and why. But there is more...:
+
+1. **Make sure to use the appropriate software.** Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions! If you run out-of-date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
+
+2. **Keep up with the literature.** Bioinformatics is a fast-moving field and it's always good to stay in the know about recent developments. This will help you determine what is appropriate and what is not.  
+
+3. **Do not re-invent the wheel.** If you run into problems, more often than not someone has already encountered that same problem. A solution is either already available or someone is working on it -- so find it! Ask colleagues or search/ask online forums such as [BioStars](https://www.biostars.org/).
+
+4. **Testing is essential.** If you are using a tool for the first time, test it out on a single sample or a subset of the data before running your entire dataset through. This will allow you to debug quicker and give you a chance to also get a feel for the tool and the different parameters.
 
 ## Quality control of sequence reads
 
@@ -31,9 +44,16 @@ Let's run FastQC on all of our files.
 Start an interactive session with 2 cores if don't have one going, and change directories to the `raw_data` folder.
 
 ```bash
-$ cd ~/ngs_course/chipseq/raw_data 
+$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HSPH bash
 
-$ module load seq/fastqc/0.11.3 
+$ cd ~/chipseq/raw_data 
+
+```
+
+Now we need to load the FASTQC module to use the tool. Then we can run FASTQC on the Input Replicate 1 sample:
+
+```bash
+$ module load fastqc/0.11.3
 
 $ fastqc H1hesc_Input_Rep1_chr12.fastq 
 ```
@@ -51,6 +71,10 @@ Transfer the FastQC zip file for Input replicate 1 to your local machine using F
 
 Based on the sequence quality plot, we see across the length of the read the quality drops into the low range. Trimming should be performed from both ends of the sequences. 
 
+> **NOTE:** If you are interested in learning more about the FASTQ file format and information on how to interpret the FASTQC reports we have a [QC lesson](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/02_assessing_quality.html) as part of the RNA-seq workflow.
+>
+> FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We also recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data.
+
 ### Trimmomatic
 
 [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic) can be used to trim away adapters and filter out poor quality score reads. *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain quality threshold. *Trimmomatic* offers the option to trim reads using a hard crop, sliding window or base-by-base methods. It can also trim adapter sequences and remove reads if below a minimum length. In addition, *Trimmomatic* can be multi-threaded to run quickly using a single, complex command. 
@@ -60,9 +84,9 @@ We will use Trimmomatic to trim the reads from both ends of the sequence.
 Let's check for the *Trimmomatic* module and load it:
 
 ```bash
-$ module avail seq/
+$ module spider Trimmomatic
 
-$ module load seq/Trimmomatic/0.33
+$ module load trimmomatic/0.36
 
 $ module list
 
@@ -96,7 +120,7 @@ Now that we know what parameters  we can set up our command. Since we are only t
 > *NOTE:* `java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>. Even though *Trimmomatic* is in our PATH, we still need to specify the full path to the `.jar` file in the command.
 
 ```bash
-$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
+$ java -jar $TRIMMOMATIC/trimmomatic-0.36.jar SE \
 -threads 2 \
 -phred33 \
 H1hesc_Input_Rep1_chr12.fastq \
@@ -141,7 +165,7 @@ However, if you needed to create a genome index yourself, you would use the foll
 
 bowtie2-build <path_to_reference_genome.fa> <prefix_to_name_indexes>
 
-# Can find indexes for the entire genome on Orchestra using following path: /groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/
+# Can find indexes for the entire genome on Orchestra using following path: /n/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/
 ```
 
 ### Aligning reads with Bowtie2
@@ -149,7 +173,7 @@ bowtie2-build <path_to_reference_genome.fa> <prefix_to_name_indexes>
 Since we have our indices already created, we can get started with read alignment. Change directories to the `bowtie2` folder:
 
 ```bash
-$ cd ~/ngs_course/chipseq/results/bowtie2
+$ cd ~/chipseq/results/bowtie2
 ```
 
 We will perform alignment on our single trimmed sample, `H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq`. Details on Bowtie2 and its functionality can be found in the [user manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml); we encourage you to peruse through to get familiar with all available options.
@@ -164,16 +188,15 @@ The basic options for aligning reads to the genome using Bowtie2 are:
 
 ```bash
 $ bowtie2 -p 2 -q \
--x ~/ngs_course/chipseq/reference_data/chr12 \
--U ~/ngs_course/chipseq/results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
--S ~/ngs_course/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
+-x ~/chipseq/reference_data/chr12 \
+-U ~/chipseq/results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
+-S ~/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
 
 ```
 > **NOTE:** If you had untrimmed fastq files, you would want use local alignment to perform soft-clipping by including the option `--local`.
 >
 
 ## Filtering reads
-
 
 An important issue concerns the inclusion of multiple mapped reads (reads mapped to multiple loci on the reference genome). **Allowing for multiple mapped reads increases the number of usable reads and the sensitivity of peak detection; however, the number of false positives may also increase** [[1]](https://www.ncbi.nlm.nih.gov/pubmed/21779159/). Therefore we need to filter our alignment files to **contain only uniquely mapping reads** in order to increase confidence in site discovery and improve reproducibility. Since there is no parameter in Bowtie2 to keep only uniquely mapping reads, we will need to perform the following steps to generate alignment files containing only the uniquely mapping reads:
 
