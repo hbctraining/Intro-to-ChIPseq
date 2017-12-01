@@ -27,17 +27,17 @@ This repository has teaching materials for a 3-day Introduction to ChIP-sequenci
 |[Shell scripts and `for` loops](https://hbctraining.github.io/Intro-to-Shell/lessons/04_loops_and_scripts.html) | 75 min |
 |[Permissions and environment variables](https://hbctraining.github.io/Intro-to-Shell/lessons/05_permissions_and_environment_variables.html) | 50 min |
 |[Introduction to ChIP-seq](https://hbctraining.github.io/Intro-to-ChIPseq/) | 60 min |
-|[Project setup and data organization](https://hbctraining.github.io/Intro-to-ChIPseq/01_Intro_chipseq_data_organization.html) | 40 min |
+|[Project setup and data organization](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/01_Intro_chipseq_data_organization.html) | 40 min |
 |[Introduction to High-Performance Computing for HMS-RC's O2 cluster](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lectures/HPC_intro_O2.pdf) | 45 min |
-|[Quality control and Alignment](https://hbctraining.github.io/Intro-to-ChIPseq/02_QC_and_alignment.html) | 60 min |
-|[Peak Calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/03_peak_calling_macs.html) | 90 min |
-|[ChIP quality assessment using cross-correlation](https://hbctraining.github.io/Intro-to-ChIPseq/04_QC_cross_correlation.html) | 90 min |
-|[ChIP quality assessment using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/05_QC_quality_metrics.html) | 90 min |
-|[Handling replicates](https://hbctraining.github.io/Intro-to-ChIPseq/06_handling-replicates.html) | 75 min |
-|[Functional analysis using ChipSeeker](https://hbctraining.github.io/Intro-to-ChIPseq/07_ChIPseeker_functional_analysis.html) | 60 min |
-|[Web-based fucntional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/08_functional_analysis.html) | 60 min |
-|[Differential enrichment of peaks](https://hbctraining.github.io/Intro-to-ChIPseq/09_differential_peaks.html) | 90 min |
-|[Visualization of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/10_QC_visualization.html) | 45 min |
+|[Quality control and Alignment](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_and_alignment.html) | 60 min |
+|[Peak Calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_peak_calling_macs.html) | 90 min |
+|[ChIP quality assessment using cross-correlation](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_QC_cross_correlation.html) | 90 min |
+|[ChIP quality assessment using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_QC_quality_metrics.html) | 90 min |
+|[Handling replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_handling-replicates.html) | 75 min |
+|[Functional analysis using ChipSeeker](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_ChIPseeker_functional_analysis.html) | 60 min |
+|[Web-based fucntional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_functional_analysis.html) | 60 min |
+|[Differential enrichment of peaks](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_differential_peaks.html) | 90 min |
+|[Visualization of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_QC_visualization.html) | 45 min |
 
 ### Dataset
 
