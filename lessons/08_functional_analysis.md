@@ -30,19 +30,19 @@ Since the motif and functional enrichment analyses are unlikely to give reliable
 Start an interactive session:
 
 ```bash
-$ bsub -Is -q interactive bash
+$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash	
 ```
 
 Extract the first three columns of the IDR peak calls for the whole genome of Nanog:
 
 ```bash
-$ cd ~/ngs_course/chipseq/results
+$ cd ~/chipseq/results
 
 $ mkdir functional_analysis
 
 $ cd functional_analysis
 
-$ cp /groups/hbctraining/chip-seq/full-dataset/idr/*.bed .
+$ cp /n/groups/hbctraining/chip-seq/full-dataset/idr/*.bed .
 
 $ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-great.bed
 ```
@@ -50,10 +50,10 @@ $ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-great.bed
 To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [bedtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. 
 
 ```bash
-$ module load seq/BEDtools/2.23.0
+$ module load gcc/6.2.0 bedtools/2.26.0
 
 $ bedtools getfasta -fi \
-/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
+/n/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
 -bed Nanog-idr-merged-great.bed \
 -fo Nanog-idr-merged-dreme.fasta
 ```
