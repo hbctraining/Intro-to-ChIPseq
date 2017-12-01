@@ -60,7 +60,7 @@ Load the modules for `bedtools` and `samtools`:
 	
 ```bash
 
-$ $ module load gcc/6.2.0 bedtools/2.26.0 samtools/1.3.1
+$ module load gcc/6.2.0 bedtools/2.26.0 samtools/1.3.1
 ```	
 	
 ### Finding overlapping peaks between replicates
