@@ -47,10 +47,11 @@ As the name implies, this suite of tools works with **Bed** files, but it also w
 ### Setting up
 
 Let's start an interactive session and change directories and set up a space for the resulting overlaps. 
-```bash
-$ bsub -Is -q interactive bash
 
-$ cd ~/ngs_course/chipseq/results/
+```bash
+$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash	
+
+$ cd ~/chipseq/results/
 
 $ mkdir bedtools
 ```
@@ -58,9 +59,8 @@ $ mkdir bedtools
 Load the modules for `bedtools` and `samtools`:
 	
 ```bash
-$ module load seq/BEDtools/2.26.0
 
-$ module load seq/samtools/1.3
+$ $ module load gcc/6.2.0 bedtools/2.26.0 samtools/1.3.1
 ```	
 	
 ### Finding overlapping peaks between replicates
@@ -185,14 +185,14 @@ $  module load seq/idr/2.0.2
 Now let's move into the `chipseq/results` directory and create a new directory for the results of our IDR analysis.
 
 ```bash
-$ cd ngs_course/chipseq/results
+$ cd chipseq/results
 $ mkdir IDR
 ```
 
 Copy over the sorted narrowPeak files for each replicate for Nanog and Pou5f1:
 
 ```bash
-$ cp /groups/hbctraining/ngs-data-analysis-longcourse/chipseq/idr/macs/*sorted* IDR/
+$ cp /n/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/idr/macs/*sorted* IDR/
 ```	
 
 ### Peak consistency between true replicates
@@ -307,11 +307,10 @@ _We will not run this analysis, but have provided a bash script below if you wan
     ## Sort peaks called on pseudo-replicates,
     ## IDR analysis using pseudo-replicate peak calls
 
-# Please use the following LSF directives:
-	## -W 10:00
-	## -q priority
-	## -R "rusage[mem=40000]"
-	## -e pseudorep-idr.err
+# Please use the following SLURM directives:
+	## -t 0-12:00
+	## -p short
+	## --mem=40G
 
 date 
 
@@ -325,15 +324,15 @@ NAME1=`basename $treatFile1 _full.bam`
 NAME2=`basename $treatFile2 _full.bam`
 
 # Make Directories
-mkdir -p /n/scratch2/mm573/idr_ngscourse/macs
-mkdir -p /n/scratch2/mm573/idr_ngscourse/pooled_pseudoreps
-mkdir -p /n/scratch2/mm573/idr_ngscourse/tmp
+mkdir -p /n/scratch2/mm573/idr_chipseq/macs
+mkdir -p /n/scratch2/mm573/idr_chipseq/pooled_pseudoreps
+mkdir -p /n/scratch2/mm573/idr_chipseq/tmp
 
 # Set paths
-baseDir=/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2
-macsDir=/n/scratch2/mm573/idr_ngscourse/macs
-outputDir=/n/scratch2/mm573/idr_ngscourse/pooled_pseudoreps
-tmpDir=/n/scratch2/mm573/idr_ngscourse/tmp
+baseDir=/n/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2
+macsDir=/n/scratch2/mm573/idr_chipseq/macs
+outputDir=/n/scratch2/mm573/idr_chipseq/pooled_pseudoreps
+tmpDir=/n/scratch2/mm573/idr_chipseq/tmp
 
 #Merge treatment BAMS
 echo "Merging BAM files for pseudoreplicates..."
