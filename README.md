@@ -1,4 +1,4 @@
-# Introduction to ChIP-seq using high performance computing
+## Introduction to ChIP-seq using high performance computing
 
 
 | Audience | Computational Skills | Prerequisites | Duration |
