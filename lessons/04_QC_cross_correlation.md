@@ -8,10 +8,10 @@ Approximate time: 1.5 hours
 
 ## Learning Objectives
 
-* Discussing sources of low quality ChIP-seq data
-* Understanding strand cross-correlation
-* Using `phantompeakqualtools` to compute cross-correlation and associated QC metrics
-* Evaluating the cross-correlation plot
+* Discuss sources of low quality ChIP-seq data
+* Understand strand cross-correlation
+* Ue `phantompeakqualtools` to compute cross-correlation and associated QC metrics
+* Evaluate an interpret QC metrics and the cross-correlation plot
 
 ## ChIP-Seq quality assessment
 
@@ -95,11 +95,11 @@ The [`phantompeakqualtools`](https://code.google.com/archive/p/phantompeakqualto
 The `phantompeakqualtools` package is written as an R script, that uses `samtools` as a dependency. The package has various options that need to be specified when running from the command line. To get set up, we will need to start an interactive session, load the necessary modules and set up the directory structure:
 
 ```
-$ bsub -Is -n 2 -q interactive bash
+$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash	
 
-$ module load stats/R/3.2.1 seq/samtools/1.2
+$ module load gcc/6.2.0 R/3.4.1 samtools/1.3.1
 
-$ cd ~/ngs_course/chipseq/results
+$ cd ~/chipseq/results
 
 $ mkdir chip_qc
 
@@ -193,7 +193,7 @@ $ Rscript run_spp.R -c=<tagAlign/BAMfile> -savp -out=<outFile>
 From within the `phantompeakqualtools` directory, we will create output directories and use a 'for loop' to **run the script on every Nanog and Pouf51 BAM file**:
 
 ```
-$ mkdir -p logs qual
+$ mkdir logs qual
 
 $ for bam in ../../bowtie2/*Nanog*aln.bam ../../bowtie2/*Pou5f1*aln.bam
 do 
@@ -235,7 +235,6 @@ The qual files are tab-delimited with the columns containing the following infor
 > **NOTE:** The most important metrics we are interested in are the values in columns 9 through 11, however these numbers are computed from values in the other columns.
 
 **How do the values compare to the thresholds mentioned above?** All samples have quite high NSC values indicating more enrichment, a good signal to noise and a fair number of peaks. Nanog-rep2 has a comparably higher NSC value which might explain the increased number of peaks for that sample compared to the others. The RSC and quality tags further indicate good chip signal and a quality IP, yielding a very high quality tag. Based on these metrics, the samples look good for further analysis.
-
 
 
 ### Cross-correlation plots
