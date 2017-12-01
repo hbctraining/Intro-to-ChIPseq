@@ -6,7 +6,7 @@ date: "June 12, 2017"
 
 Contributors: Mary Piper and Meeta Mistry
 
-Approximate time: 1.5 hours
+Approximate time: 60 minutes
 
 ## Learning Objectives
 
