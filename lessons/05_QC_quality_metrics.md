@@ -15,7 +15,6 @@ Approximate time: 1.5 hours
 * Identify sources of low quality data
 
 
-
 ## Additional Quality Metrics for ChIP-seq data
 
 <img src="../img/chip_workflow_june2017_step3.png" width="700">
@@ -81,12 +80,12 @@ biocLite("ChIPQC")
 
 Now let's move over the appropriate files from Orchestra to our laptop. You can do this using `FileZilla` or the `scp` command.
 
-1. Move over the **BAM files (`chr12_aln.bam`)** and the corresponding **indices (`chr12_aln.bam.bai`)** from `~/ngs_course/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
+1. Move over the **BAM files (`chr12_aln.bam`)** and the corresponding **indices (`chr12_aln.bam.bai`)** from `~/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
 
 > *NOTE*: Do not copy over the input file that we initially ran QC and alignment on (i.e `H1hesc_Input_Rep1_chr12_aln_sorted.bam`). Only the files you had copied over to your home directory is what you need.
 
 
-2. Move over the **narrowPeak files (`.narrowPeak`)** `~/ngs_course/chipseq/results/macs2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/peakcalls` folder.**
+2. Move over the **narrowPeak files (`.narrowPeak`)** `~/chipseq/results/macs2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/peakcalls` folder.**
 
 3. Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv). Move the samplesheet into the `meta` folder.
 
