@@ -21,23 +21,28 @@ Approximate time: 45 minutes
 > -[https://genome.ucsc.edu/goldenpath/help/bigWig.html](https://genome.ucsc.edu/goldenpath/help/bigWig.html)
 
 ```bash
-cd ~/ngs_course/chipseq/results/
-mkdir visualization
+$ cd ~/chipseq/results/
+$ mkdir visualization
 ```
 
 ```bash
-module load seq/deeptools/2.4.0
-bamCompare -h
+$ module load gcc/6.2.0 python/2.7.12 
+$ module load deeptools/2.5.3 
+
+
+$ bamCompare -h
 ```
 
 ```bash
-bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -o visualization/Nanog_Rep1_chr12.bw 2> visualization/Nanog_Rep1_bamcompare.log
-bamCompare -b1 bowtie2/H1hesc_Nanog_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Nanog_Rep2_chr12.bw 2> visualization/Nanog_Rep2_bamcompare.log
+$ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -o visualization/Nanog_Rep1_chr12.bw 2> visualization/Nanog_Rep1_bamcompare.log
+
+$ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Nanog_Rep2_chr12.bw 2> visualization/Nanog_Rep2_bamcompare.log
 ```
 
 ```bash
-bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -o visualization/Pou5f1_Rep1_chr12.bw 2> visualization/Pou5f1_Rep1_bamcompare.log
-bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Pou5f1_Rep2_chr12.bw 2> visualization/Pou5f1_Rep2_bamcompare.log
+$ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -o visualization/Pou5f1_Rep1_chr12.bw 2> visualization/Pou5f1_Rep1_bamcompare.log
+
+$ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Pou5f1_Rep2_chr12.bw 2> visualization/Pou5f1_Rep2_bamcompare.log
 ```
 
 * Copy over the bigWig files to your laptop using filezilla or scp. 
