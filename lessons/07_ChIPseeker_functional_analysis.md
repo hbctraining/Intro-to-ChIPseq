@@ -15,7 +15,6 @@ Approximate time: 1.5 hours
 * Functional enrichment of gene annotations obtained from peak calls
 
 
-
 # ChIPseeker
 
 Now that we have a set of high confidence peaks for our samples, the next step is to **annotate our peaks to identify relative location relationship information between query peaks and genes/genomic features** to obtain some biological context. 
