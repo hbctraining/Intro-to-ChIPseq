@@ -133,16 +133,14 @@ chipseq/
 ├── reference_data/
 ├── results/
 │   ├── bowtie2/
-│   ├── trimmed/
-│   ├── trimmed_fastqc/
-│   └── untrimmed_fastqc/
+│   └── fastqc/
 └── scripts/
 ```
 
 ```bash
 $ mkdir raw_data reference_data scripts logs meta
 
-$ mkdir -p results/untrimmed_fastqc results/trimmed results/trimmed_fastqc results/bowtie2
+$ mkdir -p results/fastqc results/bowtie2
 ```
 
 > Note that we are using the parents flag (`-p` or `--parents`) with `mkdir` to complete the file path by creating any parent directories that do not exist. In our case, we have not yet created the `results` directory and so since it does not exist it will be created. This flag can be very useful when scripting workflows. 
