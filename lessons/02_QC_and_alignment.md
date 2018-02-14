@@ -33,9 +33,8 @@ Ok so now you are all set up and have begun your analysis. You have followed bes
 
 Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. For any NGS analysis method, our first step in the workflow is to explore the quality of our reads prior to aligning them to the reference genome and proceeding with downstream analyses. 
 
-We will use FastQC to get a good idea of the overall quality of our data. We will use FastQC to identify whether any samples appear to be outliers, to examine our data for contamination, and to determine a trimming strategy.
+We will use FastQC to get a good idea of the overall quality of our data. We will use FastQC to identify whether any samples appear to be outliers, to examine our data for contamination.
 
->**NOTE:** We will trim poor quality bases and/or adapters prior to alignment because that was the workflow previously used by ENCODE. However, we do not need to trim as the downstream alignment tool, Bowtie2, has an option for soft-clipping.
 
 ### FASTQC
 
@@ -173,6 +172,7 @@ $ sambamba sort -t 2 \
 -o H1hesc_Input_Rep1_chr12_aln_sorted.bam \
 H1hesc_Input_Rep1_chr12_aln_unsorted.bam 
 ```
+> **Can we use `samtools` to do the sorting instead?** We could have also used `samtools` to perform the sort, however using `sambamba` gives us dual functionality. List the contents of the directory -- what do you see? The advantage to using `sambamba` is that along with the sort an index file is generated. If we used `samtools` this would have been a two-step process.
 
 ### 3. Filtering uniquely mapping reads
 
