@@ -138,7 +138,7 @@ If you were unable to run the code successfully you can take a look an example r
 ### `ChIPQC` report
 
 
-Since our report is based only on a small subset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** Download [this html file](https://www.dropbox.com/sh/kmaplb5iqzhx6c8/AADREI4ir3Qwy25UWrFe-t45a?dl=0) and open up the html in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
+Since our report is based only on a small subset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=0). Uncompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
 
 Let's start with the **QC summary table**:
 
