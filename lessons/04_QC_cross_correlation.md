@@ -166,7 +166,7 @@ Use the install.packages() function to install `caTools`:
 ```
 > install.packages("caTools", lib="~/R/library")
 
-# Choose a mirror near to your location (i.e. northeast). I chose the PA 1 mirror, which is number 117.
+# Choose a mirror near to your location (i.e. northeast). I chose the USA (NY) mirror, which is number 58.
 
 > quit()
 
