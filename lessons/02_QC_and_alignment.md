@@ -58,10 +58,10 @@ $ module load fastqc/0.11.3
 $ fastqc H1hesc_Input_Rep1_chr12.fastq 
 ```
 
-Now, move all of the `fastqc` files to the `results/untrimmed_fastqc` directory:
+Now, move all of the `fastqc` files to the `results/fastqc` directory:
 
 ```bash
-$ mv *fastqc* ../results/untrimmed_fastqc/
+$ mv *fastqc* ../results/fastqc/
 ```
 
 Transfer the FastQC zip file for Input replicate 1 to your local machine using FileZilla and view the report.
@@ -69,88 +69,17 @@ Transfer the FastQC zip file for Input replicate 1 to your local machine using F
 ![fastqc](../img/fastqc_input_rep1.png)
 
 
-Based on the sequence quality plot, we see across the length of the read the quality drops into the low range. Trimming should be performed from both ends of the sequences. 
+Based on the sequence quality plot, we see across the length of the read the quality drops into the low range. Trimming could be performed from both ends of the sequences, or we can use an alignment tool that can acccount for this. 
 
 > **NOTE:** If you are interested in learning more about the FASTQ file format and information on how to interpret the FASTQC reports we have a [QC lesson](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/02_assessing_quality.html) as part of the RNA-seq workflow.
 >
 > FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We also recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data.
 
-### Trimmomatic
-
-[*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic) can be used to trim away adapters and filter out poor quality score reads. *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain quality threshold. *Trimmomatic* offers the option to trim reads using a hard crop, sliding window or base-by-base methods. It can also trim adapter sequences and remove reads if below a minimum length. In addition, *Trimmomatic* can be multi-threaded to run quickly using a single, complex command. 
-
-We will use Trimmomatic to trim the reads from both ends of the sequence.
-
-Let's check for the *Trimmomatic* module and load it:
-
-```bash
-$ module spider Trimmomatic
-
-$ module load trimmomatic/0.36
-
-$ module list
-
-$ echo $PATH
-```
-
-By loading the *Trimmomatic* module, Java and Trimmomatic are loaded and appear in our PATH. 
-
-We will run Trimmomatic using the following parameters:
-
-* `SE`: Single End reads
-* `-threads`: number of threads / cores
-* `-phred33`: quality score format
-* `LEADING`: cut bases off the start of a read, if below a threshold quality
-* `TRAILING`: cut bases off the end of a read, if below a threshold quality
-* `MINLEN`: drop an entire read if it is below a specified length
-
-> *NOTE:* We have to specify the `-threads` parameter because *Trimmomatic* uses all threads on a node by default.
-
-*Trimmomatic* has a variety of other options and parameters:
-
-* **_SLIDINGWINDOW_** Perform sliding window trimming, cutting once the average quality within the window falls below a threshold.
-* **_CROP_** Cut the read to a specified length.
-* **_HEADCROP_** Cut the specified number of bases from the start of the read.
-* **_ILLUMINACLIP_** Cut adapter and other illumina-specific sequences from the read
-* **_TOPHRED33_** Convert quality scores to Phred-33.
-* **_TOPHRED64_** Convert quality scores to Phred-64.
-
-Now that we know what parameters  we can set up our command. Since we are only trimming a single file, we will run the command in the interactive session rather than creating a script. Because *Trimmomatic* is java based, it is run using the `java -jar` command. In addition to the options as described above, we have two arguments specifying our input file and output file names. 
-
-> *NOTE:* `java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>. Even though *Trimmomatic* is in our PATH, we still need to specify the full path to the `.jar` file in the command.
-
-```bash
-$ java -jar $TRIMMOMATIC/trimmomatic-0.36.jar SE \
--threads 2 \
--phred33 \
-H1hesc_Input_Rep1_chr12.fastq \
-../results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
-LEADING:20 \
-TRAILING:20 \
-MINLEN:36
-```
-
-Let's see how much trimming improved our reads by running FastQC again:
-
-```bash
-$ fastqc ../results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq
-```
-
-Move the FastQC folders to the results directory for trimmed FastQC results:
-
-```bash
-$ mv ../results/trimmed/*fastqc* ../results/trimmed_fastqc/
-```
-
-Using Filezilla, transfer the file for the trimmed Input replicate 1 FastQC to your computer.
-
-![trimmed_fastqc](../img/chipseq_trimmed_fastqc.png)
-
 ## Alignment
 
-Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. Most ChIP-seq experiments do not require gapped alignments because the sequenced reads do not contain them, unlike exon junctions in RNA-seq analyses; therefore, we do not need a splice-aware aligner. We can use a traditional short-read aligner to quickly and accurately align reads to the genome.
+Now that we have assessed the quality of our sequence data, we are ready to align the reads to the reference genome. Most ChIP-seq experiments do not require gapped alignments because the sequenced reads do not contain them, unlike exon junctions in RNA-seq analyses; therefore, we do not need a splice-aware aligner. We can use a traditional short-read aligner to quickly and accurately align reads to the genome.
 
-[Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global end-to-end read alignment, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads.
+[Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global end-to-end read alignment, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads. We will use this option since we did not trim our reads.
 
 > _**NOTE:** Our reads are only 36 bp, so technically we should explore alignment Bowtie1 to see if it is better. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
 
@@ -176,25 +105,35 @@ Since we have our indices already created, we can get started with read alignmen
 $ cd ~/chipseq/results/bowtie2
 ```
 
-We will perform alignment on our single trimmed sample, `H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq`. Details on Bowtie2 and its functionality can be found in the [user manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml); we encourage you to peruse through to get familiar with all available options.
+Now let's load the module. We can find out more on the module on O2:
+
+```bash
+$ module spider bowtie2
+```
+You will notice that before we load this module we also need to load the gcc compiler (as will be the case for many of the NGS analysis tools on O2. Always check `module spider` first.)
+
+```bash
+$ module load gcc/6.2.0 bowtie2/2.2.9
+```
+
+We will perform alignment on our single raw FASTQ file, `H1hesc_Input_Rep1_chr12.fastq`. Details on Bowtie2 and its functionality can be found in the [user manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml); we encourage you to peruse through to get familiar with all available options.
 
 The basic options for aligning reads to the genome using Bowtie2 are:
 
 * `-p`: number of processors / cores
 * `-q`: reads are in FASTQ format
+* `--local`: local alignment feature to perform soft-clipping
 * `-x`: /path/to/genome_indices_directory
 * `-U`: /path/to/FASTQ_file
 * `-S`: /path/to/output/SAM_file
 
 ```bash
-$ bowtie2 -p 2 -q \
+$ bowtie2 -p 2 -q --local \
 -x ~/chipseq/reference_data/chr12 \
--U ~/chipseq/results/trimmed/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
+-U ~/chipseq/raw_data/H1hesc_Input_Rep1_chr12.fastq \
 -S ~/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
 
 ```
-> **NOTE:** If you had untrimmed fastq files, you would want use local alignment to perform soft-clipping by including the option `--local`.
->
 
 ## Filtering reads
 
