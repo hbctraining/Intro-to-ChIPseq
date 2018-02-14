@@ -150,12 +150,15 @@ There should also be a `README.txt` which contains all the commands, options, an
 ```
 $ less README.txt
 ```
-Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). This is the script we will be using, however the script has a bug with the version of `spp` we are using. We can make a quick change to fix this; open up the script with `vim`:
+Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). **This is the script we will be using, however the script has a bug with the version of `spp` we are using. We can fix this; open up the script with `vim`**:
 
 ```
 $ vim run_spp_nodups.R
 ```
-Now, while in ESC mode type in `:set number`. Scroll down to line 650. Underneath `library(spp)` type in `library(caTools)`. Your file should look something like this:
+1. While in ESC mode type in `:set number`. 
+2. Scroll down to line 650. Underneath `library(spp)` type in `library(caTools)`. 
+
+Your file should look something like this:
 
 ```
 649 # Load SPP library
