@@ -153,25 +153,46 @@ $ less README.txt
 ```
 Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). This is the script we will be using.
 
-### Installing R libraries
+### Using R libraries
 
-In the README you will have noticed an *INSTALLATION* section. We will need to install the R package, `caTools`, into our personal R library to run the script. To do this, first open up R:
+In the README you will have noticed an *INSTALLATION* section. We will need to install the R package, `spp` and `caTools`, into our personal R library to run the script. Since this is a bit more involved, in the interest of time we have creataed the libraries and shared them for you to use. To use our libraries, you will need to setup an environmental variable called `R_LIBS_USER` and point it to the location on O2 where our libraries reside:
+
+```
+$  export R_LIBS_USER="/n/groups/hbctraining/R/library/"
+```
+
+If you want to check and see that this is working, you can open up R by typing R and pressing Enter:
 
 ```
 $ R
 ```
 
-Use the install.packages() function to install `caTools`:
+And then once in R, try loading the libraries:
 
 ```
-> install.packages("caTools", lib="~/R/library")
+R version 3.4.1 (2017-06-30) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
-# Choose a mirror near to your location (i.e. northeast). I chose the USA (NY) mirror, which is number 58.
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
 
-> quit()
+  Natural language support but running in an English locale
 
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(spp)
+> library(caTools)
 ```
- > **NOTE:** We do not need to install `spp` because the R module we have loaded has the package pre-installed.
+
+To exit, type: `q()` in the console.
 
 ### Running `phantompeakqualtools`
 
