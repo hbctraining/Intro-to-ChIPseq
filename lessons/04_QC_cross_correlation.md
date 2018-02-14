@@ -72,7 +72,6 @@ A failed experiment will resemble a cross-correlation plot using **input only**,
 <img src="../img/input.png" width="300"> 
 
 
-
 ### Cross-correlation quality metrics
 
 Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment** and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. These metrics are described in more detail below:
@@ -151,7 +150,20 @@ There should also be a `README.txt` which contains all the commands, options, an
 ```
 $ less README.txt
 ```
-Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). This is the script we will be using.
+Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). This is the script we will be using, however the script has a bug with the version of `spp` we are using. We can make a quick change to fix this; open up the script with `vim`:
+
+```
+$ vim run_spp_nodups.R
+```
+Now, while in ESC mode type in `:set number`. Scroll down to line 650. Underneath `library(spp)` type in `library(caTools)`. Your file should look something like this:
+
+```
+649 # Load SPP library
+650 library(spp)
+651 library(caTools)
+```
+
+Save and quit vim.
 
 ### Using R libraries
 
