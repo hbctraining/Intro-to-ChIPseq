@@ -220,7 +220,11 @@ The BedGraph format also allows display of continuous-valued data in track forma
 	
 	$ ls -lh
 	
-There should be 6 files output to the results directory for each of the 4 samples, so a total of 24 files:
+Let's first move the log files to the `log` directory:
+
+	$ mv *.log ../../logs/
+	
+Now, there should be 6 files output to the results directory for each of the 4 samples, so a total of 24 files:
 
 * `_peaks.narrowPeak`: BED6+4 format file which contains the peak locations together with peak summit, pvalue and qvalue
 * `_peaks.xls`: a tabular file which contains information about called peaks. Additional information includes pileup and fold enrichment
