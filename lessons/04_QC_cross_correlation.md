@@ -176,13 +176,14 @@ In the README you will have noticed an *INSTALLATION* section. We will need to i
 $  export R_LIBS_USER="/n/groups/hbctraining/R/library/"
 ```
 
-If you want to check and see that this is working, you can open up R by typing R and pressing Enter:
-
+> **Testing libraries**
+> If you want to check and see that this is working, you can open up R by typing R and pressing Enter:
+> 
 ```
 $ R
 ```
-
-And then once in R, try loading the libraries:
+> 
+> And then once in R, try loading the libraries:
 
 ```
 R version 3.4.1 (2017-06-30) -- "Single Candle"
@@ -206,8 +207,8 @@ Type 'q()' to quit R.
 > library(spp)
 > library(caTools)
 ```
-
-To exit, type: `q()` in the console.
+>
+>To exit, type: `q()` in the console.
 
 ### Running `phantompeakqualtools`
 
