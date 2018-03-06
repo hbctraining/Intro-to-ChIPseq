@@ -176,7 +176,8 @@ In the README you will have noticed an *INSTALLATION* section. We will need to i
 $  export R_LIBS_USER="/n/groups/hbctraining/R/library/"
 ```
 
-> **Testing libraries**
+> **NOTE: Testing libraries**
+>
 > If you want to check and see that this is working, you can open up R by typing R and pressing Enter:
 > 
 ```
