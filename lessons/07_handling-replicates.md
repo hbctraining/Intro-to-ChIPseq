@@ -174,14 +174,12 @@ sort -k8,8nr NAME_OF_INPUT_peaks.narrowPeak > macs/NAME_FOR_OUPUT_peaks.narrowPe
 
 ### Setting up 
 
-IDR is an open source tool available on [GitHub](https://github.com/nboley/idr). It is a Python program that has already been installed on Orchestra. The first thing we need to do is load the module (and all dependency modules) to run IDR:
+IDR is an open source tool available on [GitHub](https://github.com/nboley/idr). It is a Python program that has already been installed on O2. The first thing we need to do is load the module (and all dependency modules) to run IDR:
 
 ```bash
 $ module load gcc/6.2.0  python/3.6.0
 $ module load idr/2.0.2
 ```
-
-> *NOTE:*  After loading the module, if your run the command `module list` you will notice that it has many dependencies which have also been loaded for you. 
 
 Now let's move into the `chipseq/results` directory and create a new directory for the results of our IDR analysis.
 
