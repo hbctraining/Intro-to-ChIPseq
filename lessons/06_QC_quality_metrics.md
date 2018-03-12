@@ -175,7 +175,7 @@ samples <- read.csv('~/chipseq/results/chip_qc/ChIPQC/samplesheet.csv')
 chipObj <- ChIPQC(samples, annotation="hg19")
 
 ## Save the chipObj to file
-save(chipObj, file="../results/chip_qc/ChIPQC/chipObj.RData")
+save(chipObj, file="~/chipseq/results/chip_qc/ChIPQC/chipObj.RData")
 
 ## Create ChIPQC report
 #ChIPQCreport(chipObj, reportName="Nanog_and_Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
