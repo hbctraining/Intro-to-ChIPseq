@@ -11,8 +11,7 @@ Approximate time: 1.5 hours
 ## Learning Objectives
 
 * Discuss other quality metrics for evaluating ChIP-Seq data
-* Generate a report containing quality metrics using the R Bioonductor package `ChIPQC`
-* Learn to run R scripts from the command-line
+* Generate a report containing quality metrics using `ChIPQC`
 * Identify sources of low quality data
 
 
@@ -59,32 +58,49 @@ experiment quality report**. We are going to use this package to generate a repo
 
 ### Setting up 
 
-In order to install the `ChIPQC` package for use on the cluster, we will need to load the R module. Also, you will want to create a directory for your results:
 
-```bash
-$ module load gcc/6.2.0 R/3.4.1
+1. Open up RStudio and create a new project for your ChIP-seq analyses on your Desktop. Select 'File' -> 'New Project' -> 'New directory' and call the new directory `chipseq-project`.
+2. Create a directory structure for your analyses. You will want to create four directories: `data`, `meta`, `results`, and `figures`.
+3. Inside `data` create two subdirectories: one for your BAM files called `bams` and one for the MACS2 peak calls called `peakcalls`.
+4. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as chipQC.R
 
-$ mkdir ~/chipseq/results/chip_qc/ChIPQC
+Your Rstudio interface should look something like the screenshot below:
 
+<img src="../img/rstudio-screenshot.png">
+
+
+> **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3 or higher) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
+>
+```
+source("http://bioconductor.org/biocLite.R")
+biocLite("ChIPQC")
 ```
 
-Since installing packages can sometimes be problematic on the cluster, we will not have you do the installation and rather **use the libraries we have prepared for this workshop**. You will likely have this library accessible from the last lesson, but in case you have started a new session on O2, you will need to set the `R_LIBS_USER` environment variable.
+### Getting data 
 
-```bash
-# check if the variable is already set 
-$ echo $R_LIBS_USER 
+Now let's move over the appropriate files from Orchestra to our laptop. You can do this using `FileZilla` or the `scp` command.
 
-# If the above command returns nothing, then run the command below
-$ export R_LIBS_USER="/n/groups/hbctraining/R/library/"
+1. Move over the **BAM files (`chr12_aln.bam`)** and the corresponding **indices (`chr12_aln.bam.bai`)** from `~/chipseq/results/bowtie2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/bams` folder.**
+
+> *NOTE*: Do not copy over the input file that we initially ran QC and alignment on (i.e `H1hesc_Input_Rep1_chr12_aln_sorted.bam`). Only the files you had copied over to your home directory is what you need.
+
+
+2. Move over the **narrowPeak files (`.narrowPeak`)** `~/chipseq/results/macs2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/peakcalls` folder.**
+
+3. Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv). Move the samplesheet into the `meta` folder.
+
+
+### Running `ChIPQC` 
+
+Let's start by loading the `ChIPQC` library and the samplesheet into R. Use the `View()` function to take a look at what the samplesheet contains.
 
 ```
+## Load libraries
+library(ChIPQC)
 
-The last thing we need is the **sample sheet**. Let's copy it over and take a quick look at it:
-
-```bash
-$ cp /n/groups/hbctraining/chip-seq/ChIPQC/samplesheet.csv ~/chipseq/results/chip_qc/ChIPQC
-
-$ less ~/chipseq/results/chip_qc/ChIPQC
+## Load sample data
+samples <- read.csv('meta/samplesheet_chr12.csv')
+View(samples)
 ```
 
 The **sample sheet** contains metadata information for our dataset.Each row represents a peak set (which in most cases is every ChIP sample) and several columns of required information, which allows us to easily load the associated data in one single command. _NOTE: The column headers have specific names that are expected by ChIPQC!!_. 
@@ -97,100 +113,30 @@ The **sample sheet** contains metadata information for our dataset.Each row repr
 * **bamControl**: file path for bam file containing aligned reads for control sample
 * **Peaks**: path for file containing peaks for sample
 * **PeakCaller**: Identifier string for peak caller used. Possible values include “raw”, “bed”, “narrow”, “macs”
- 
-### Creating an R script
 
-We are going to create an R script which contains the R code required to generate the report. You can start by using vim to open up the text editor and creating a file called `run_chipQC.R`:
-
-```bash
-
-$ cd ~/chipseq/scripts
-
-$ vim run_chipQC.R
-```
-
-
-**Don't worry about understanding the syntax of the code below, just copy and paste into your text editor.**  There are very few lines of code and so we will briefly explain what each line is doing, so the script is not a complete black box:
-
-Let's start with a shebang line. Note that this is different from that which we used for our bash shell scripts. 
+Next we will create a ChIPQC object which might take a few minutes to run. `ChIPQC` will use the samplesheet read in the data for each sample (BAMs and narrowPeak files) and compute quality metrics. The results will be stored into the object. 
 
 ```
-#!/usr/bin/env Rscript
-```
 
-Next we can load the `ChIPQC` library so we have access to all the package functions and then load the samplesheet into R. 
-
-```
-## Load libraries
-library(ChIPQC)
-
-## Load sample data
-samples <- read.csv('~/chipseq/results/chip_qc/ChIPQC/samplesheet.csv')
-```
-
-Next we will create a ChIPQC object. `ChIPQC` will use the samplesheet to read in the data for each sample (BAM files and narrowPeak files) and compute quality metrics. The results will be stored into the object `chipObj`. 
-
-```
 ## Create ChIPQC object
 chipObj <- ChIPQC(samples, annotation="hg19") 
-```
-
-The next line of code will export the chipObj from the R environment to an actual physical file. This file can be loaded into R at a later time (on your local computer or on the cluster) and you will have access to all of the metrics that were computed and stored in that object. 
 
 ```
-## Save the chipObj to file
-save(chipObj, file="~/chipseq/results/chip_qc/ChIPQC/chipObj.RData")
-```
 
-The final step is taking those quality metrics and summarize information into an HTML report with tables and figures. **We will not run this line of code, and so we have a put `#` sign in front of that line.** 
-
+Now let's take those quality metrics and summarize information into an HTML report with tables and figures.
 
 ```
-## Create ChIPQC report
-# ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
-```
-
-> **NOTE:** The reason we have commented out this line is because in order to generate the report on **O2 you require the X11 system**, which we are currently not setup to do. If you are interested in learning more about using X11 applications you can [find out more on the O2 wiki page](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely). Alternatively, if you are familiar with R you can also copy the `chipObj.RData` object over to your local computer, load it into R and then run the line of code we had commented out.
-> 
->  Keep in mind you will have to install the `ChIPQC` package (vChIPQC_1.10.3 or higher) if you are doing this locally. 
-> 
-```
-source("http://bioconductor.org/biocLite.R")
-biocLite("ChIPQC")
-```
-
-**Your final script should look like this:**
-
-
-```
-#!/usr/bin/env Rscript
-
-## Load libraries
-library(ChIPQC)
-
-## Load sample data
-samples <- read.csv('~/chipseq/results/chip_qc/ChIPQC/samplesheet.csv')
-
-## Create ChIPQC object
-chipObj <- ChIPQC(samples, annotation="hg19")
-
-## Save the chipObj to file
-save(chipObj, file="../results/chip_qc/ChIPQC/chipObj.RData")
 
 ## Create ChIPQC report
-#ChIPQCreport(chipObj, reportName="Nanog_and_Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
-```
-
-Save your script and quit `vim`. Now we can run the script interactively. This will take 2-3 minutes to complete and you will see a bunch of text written to the screen as each line of code is run. When completed you can check the `results/chip_qc/ChlPQC` to make sure you have the `.RData` file.
+ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolder="ChIPQCreport")
 
 ```
-$ Rscript run_chipQC.R
-```
 
->**NOTE:** Sometimes the information printed to screen is useful log information. If you wanted to capture all of the verbosity into a file you can run the script using `2>` and specify a file name.
-> `Rscript run_chipQC.R 2> ../logs/ChIPQC.Rout`
+If you were unable to run the code successfully you can take a look an example report found [here]().
+
 
 ### `ChIPQC` report
+
 
 Since our report is based only on a small subset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=0). Uncompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
 
