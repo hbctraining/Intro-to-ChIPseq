@@ -36,10 +36,9 @@ This repository has teaching materials for a 3-day Introduction to ChIP-sequenci
 |[ChIP quality assessment using cross-correlation](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_QC_cross_correlation.html) | 90 min |
 |[ChIP quality assessment using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_QC_quality_metrics.html) | 90 min |
 |[Handling replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_handling-replicates.html) | 75 min |
-|[Differential enrichment of peaks](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_differential_peaks.html) | 90 min |
 |[Visualization of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_QC_visualization.html) | 45 min |
-|[Functional analysis using ChipSeeker](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_ChIPseeker_functional_analysis.html) | 60 min |
-|[Web-based functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_functional_analysis.html) | 60 min 
+|[Differential enrichment of peaks](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_differential_peaks.html) | 90 min |
+|[Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_functional_analysis.html) | 60 min 
 
 
 
