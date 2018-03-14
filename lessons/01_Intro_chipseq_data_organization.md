@@ -1,7 +1,7 @@
 ---
 title: "Introduction to ChIP-Seq and directory setup"
 author: "Mary Piper, Radhika Khetani, Meeta Mistry"
-date: "March 14, 2018"
+date: "March 14th, 2018"
 ---
 
 Approximate time: 40 minutes
