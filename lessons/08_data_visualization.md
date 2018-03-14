@@ -1,5 +1,5 @@
 ---
-title: "QC visualization of peaks with IGV"
+title: "Visualization of peaks"
 author: "Meeta Mistry"
 date: "Thursday July 29th, 2017"
 ---
@@ -7,18 +7,30 @@ date: "Thursday July 29th, 2017"
 Approximate time: 45 minutes
 
 ## Learning Objectives
+* Visualizing peak locations with respect to the TSS
 * Generate bigWig files
 * Use IGV to visualize BigWig, BED and data from ENCODE
 
 ## Visualization of ChIP-seq data
 
-* We are going to generate some bigWig files to visualize our data using IGV. Instead of using BAM files that can be large and cannot be normalized, we generate bigWig files that have been normalized for read count relative to the input control. We will be using the `bamCompare` command within [deepTools](https://deeptools.github.io/) for this: [instructions to generate normalized bigwigs with deepTools](https://github.com/fidelram/deepTools/wiki/Normalizations).
+The first part of ChIP-sequencing analysis uses common processing pipelines, which involves the alignment of raw reads to the genome, data filtering, and identification of enriched signal regions (peak calling). In the second stage, individual programs allow detailed analysis of those peaks, biological interpretation, and visualization of ChIP-seq results.
 
-> "**The bigWig format** is useful for dense, continuous data that will be displayed in the Genome Browser as a graph. BigWig files are created from [wiggle (wig)](https://genome.ucsc.edu/goldenpath/help/wiggle.html) type files using the program wigToBigWig.
-> 
-> The bigWig files are in an indexed binary format. The main advantage of this format is that only those portions of the file needed to display a particular region are transferred to the Genome Browser server. Because of this, bigWig files have considerably faster display performance than regular wiggle files when working with large data sets. The bigWig file remains on your local web-accessible server (http, https or ftp), not on the UCSC server, and only the portion needed for the currently displayed chromosomal position is locally cached as a "sparse file"."
->
-> -[https://genome.ucsc.edu/goldenpath/help/bigWig.html](https://genome.ucsc.edu/goldenpath/help/bigWig.html)
+
+There are various strategies for visualizing enrichment patterns and we will explore a few of them. To start, we will create bigWig files for our samples, a standard file format commonly used for ChIP-seq data visulaization.
+
+### Creating bigWig files
+
+The first thing we want to do is take our alignment files (BAM) and convert them into bigWig files. The bigWig format is an indexed binary format useful for dense, continuous data that will be displayed in a genome browser as a graph/track, but also is used as input for some of the visualization commands we will be running in `deepTools`. 
+
+[`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), is a suite of Python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. `deepTools` has a wide variety of commands that go beyond those that are covered in this lesson. We encourage you to look through the docuementation and explore on your own time. 
+
+To create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input).
+
+<img src="../img/bam_to_bigwig.png">
+
+*Image aquired from [deepTools documentation](http://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html?highlight=bigwig) pages*
+
+We will begin by creating a directory for the visualization output and loading the required modules to run `deepTools`.
 
 ```bash
 $ cd ~/chipseq/results/
@@ -26,12 +38,14 @@ $ mkdir visualization
 ```
 
 ```bash
-$ module load gcc/6.2.0 python/2.7.12 
+$ module load gcc/6.2.0  python/2.7.12
 $ module load deeptools/2.5.3 
 
-
-$ bamCompare -h
 ```
+
+Create the bigWig files:
+
+For just one file and copy over the full dataset ones.
 
 ```bash
 $ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -o visualization/Nanog_Rep1_chr12.bw 2> visualization/Nanog_Rep1_bamcompare.log
@@ -44,6 +58,37 @@ $ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Inp
 
 $ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Pou5f1_Rep2_chr12.bw 2> visualization/Pou5f1_Rep2_bamcompare.log
 ```
+
+Compute the matrix (for TSS):
+- plot Nanog and Pou5f1 on same plot
+- plot them separately each with a heatmap
+- 
+
+
+Compute matrix (for specific binding sites):
+- look at Nanog enrichment on Pou5f1 bidning sites
+- look at Pou5f1 enrichment on Nanog sites
+- 
+
+
+
+
+
+
+
+
+
+### Differential enrichment
+To provide a more complex picture of biological processes in a cell, many studies aim to compare different datasets obtained by ChIP-seq. 
+
+
+
+
+
+
+
+
+### IGV: Viewing files in a genome browser
 
 * Copy over the bigWig files to your laptop using filezilla or scp. 
 * Copy over the BEDtools overlap/intersect files to your computer.

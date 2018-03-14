@@ -93,8 +93,13 @@ However, if you needed to create a genome index yourself, you would use the foll
 
 bowtie2-build <path_to_reference_genome.fa> <prefix_to_name_indexes>
 
-# Can find indexes for the entire genome on Orchestra using following path: /n/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/
 ```
+
+> A quick note on shared databases for human and other commonly used model organisms. The O2 cluster has a designated directory at `/n/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databases, such as NCBI and PDB. So when using a tool that requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
+>
+>```bash
+>$ ls -l /n/groups/shared_databases/igenome/
+>```
 
 ### Aligning reads with Bowtie2
 

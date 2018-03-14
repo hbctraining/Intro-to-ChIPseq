@@ -158,9 +158,9 @@ $ mkdir -p results/fastqc results/bowtie2
 Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our FASTQ files and reference data files:
 
 ```bash
-$ cp /n/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/raw_fastq/*fastq raw_data/
+$ cp /n/groups/hbctraining/chip-seq/raw_fastq/*fastq raw_data/
 
-$ cp /n/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/reference_data/chr12* reference_data/
+$ cp /n/groups/hbctraining/chip-seq/reference_data/chr12* reference_data/
 ```
 
 Now we are all set up for our analysis!

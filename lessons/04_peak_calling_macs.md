@@ -113,9 +113,9 @@ Now change directories to the `results` folder:
 
 	$ cd ~/chipseq/results/
 	
-We only have the BAM file for our Input-rep1, but will need alignment information for **all 6 files**. We have generated the remaining BAM files for you, so **you will need to copy them over**:
-
-	$ cp /n/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2/* bowtie2/
+> **NOTE:** If your automation script was successful, you should have alignment information for **all 6 files**. However, if you do not have these BAM files then you can copy them over using the command below:
+> 
+>	`$ cp /n/groups/hbctraining/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/`
 
 ### MACS2 parameters
 
