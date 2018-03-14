@@ -57,7 +57,7 @@ The same starting material should be divided to be used for both the protein-spe
 
 ## Setting up
 
-Since we are going to be working with this data on our remote server, **Orchestra 2 (O2)**, we first need to log onto the server. 
+Since we are going to be working with this data on our remote server, **O2**, we first need to log onto the server. 
 
 Type in the following command with your username to login:
 
