@@ -150,6 +150,10 @@ echo "Processing file $fq"
 
 ### Running the tools
 
+Let's write up the commands to run the tools we have already tested, with a couple of modifications:
+* use variable names instead of actual file names
+* multithread when possible (`bowtie2`, `sambamba`)
+
 ```
 # Run FastQC
 fastqc $fq
