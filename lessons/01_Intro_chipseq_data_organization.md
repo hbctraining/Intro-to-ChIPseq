@@ -1,5 +1,5 @@
 ---
-title: "Introduction to ChIP-Seq and directory setup"
+title: "Introduction to ChIP-seq and directory setup"
 author: "Mary Piper, Radhika Khetani, Meeta Mistry"
 date: "March 14th, 2018"
 ---
@@ -8,13 +8,11 @@ Approximate time: 40 minutes
 
 ## Learning Objectives
 
-- Understand the experimental setup and design for ChIP-Seq experiments
-- Recognize the need for data management.
-- Plan a good genomics experiment and getting started with project organization.
-- Explain the ChIP-seq experiment and its objectives.
+- Describe the best practices for designing a ChIP-seq experiment
+- Recognize the need for data management and project organization
 
 ## Introduction to ChIP-Seq
-Chromatin immunoprecipitation (ChIP) experiments isolate the chromatin from a cell and immunoprecipitate (IP) DNA fragments bound to a protein of interest. In ChIP-Seq, the DNA fragments are sequenced, enriched regions of DNA or peaks are determined, and over-represented sequence motifs and functional annotations can be identified. 
+Chromatin immunoprecipitation (ChIP) experiments are performed to identify DNA bound to specific (chromatin) proteins of interest. The first step involves isolating the chromatin and immunoprecipitating (IP) fragements with an antibody against the protein of interest. In ChIP-seq, the immunoprecipitated DNA fragments are then sequenced, followed by identification of enriched regions of DNA or peaks. These peak calls can then be used to make biological inferences by determining the associated genomic features and/or over-represented sequence motifs. 
 
 ![chipseq_overview](../img/chipseq_overall.png)
 
@@ -73,19 +71,6 @@ $ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HSPH bash
 
 Make sure that your command prompt is now preceded by a character string that contains the word "compute".
 
-To use some of the tools for the analysis you will need to have bcbio in you path, but please check that it is:
-
-```bash
-$ echo $PATH
-```
-
-If `/n/app/bcbio/tools/bin/` is not part of `$PATH`, add it by adding the following line within your `~/.bashrc` file and then run `source ~/.bashrc`:
-
-```bash
-export PATH=/n/app/bcbio/tools/bin:$PATH
-```
-
-
 ## Data Management
 
 > *"Data Management is the process of providing the appropriate labeling, storage, and access for data at all stages of a research project. We recognize that best practices for each of these aspects of data management can and often do change over time, and are different for different stages in the data lifecycle."*
@@ -95,7 +80,7 @@ export PATH=/n/app/bcbio/tools/bin:$PATH
 <img src="../img/data_life_cycle_gouldv2.png" width="350">
 
 The data lifecycle is not linear and you may find yourself jumping around this lifecycle throughout the course of your
-project. Today we will cover some parts of this lifecycle by talking about **best practices for the Research half** of the above lifecycle. Later in this workshop we will talk a little more about the data storage. For more information about the full lifecycle and more guidelines, please look at the resources linked below.
+project. Today we will cover some parts of this lifecycle by talking about **best practices for the Research half** of the above lifecycle. For more information about the full lifecycle and more guidelines, please look at the resources linked below.
 
 **Resources**
 * The [HMS Data Management Working Group's website](https://datamanagement.hms.harvard.edu/)
@@ -139,6 +124,8 @@ chipseq/
 $ mkdir raw_data reference_data scripts logs meta
 
 $ mkdir -p results/fastqc results/bowtie2
+
+$ tree     # this will show you the directory structure you just created
 ```
 
 > Note that we are using the parents flag (`-p` or `--parents`) with `mkdir` to complete the file path by creating any parent directories that do not exist. In our case, we have not yet created the `results` directory and so since it does not exist it will be created. This flag can be very useful when scripting workflows. 
@@ -196,6 +183,7 @@ reference_data:
 results:
 scripts:
 ```
+
 ### File naming conventions
 
 Another aspect of staying organized is making sure that all the filenames in an analysis are as consistent as possible, and are not things like `alignment1.bam`, but more like `20170823_kd_rep1_STAR-1.4.bam`. [This link](https://datamanagement.hms.harvard.edu/file-naming-conventions) and [this slideshow](http://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf) have some good guidelines for file naming dos and don'ts.
@@ -204,7 +192,8 @@ Another aspect of staying organized is making sure that all the filenames in an 
 
 ### Exercise
 
-- Take a moment to create a README for the `chipseq/` folder (hint: use `vim` to create the file). Give a short description of the project and brief descriptions of the types of files you will be storing within each of the sub-directories. 
+- Create a README for the `chipseq/` folder (hint: use `vim` to create the file). Give a short description of the project and as homework add brief descriptions of the types of files you will be storing within each of the sub-directories. 
+
 ***
 
 
@@ -224,13 +213,9 @@ For these 6 samples, we will be using reads from only a 32.8 Mb of chromosome 12
 
 ## The ChIP-seq workflow
 
-Below is the workflow that we will be using today. These workflows in bioinformatics adopt a plug-and-play approach in that the output of one tool can be easily used as input to another tool without any extensive configuration. The tools that are used to analyze data at different stages of the workflow are built under the assumption that the data will be provided in a specific format to facilitate a more streamlined analysis. 
+Below is the workflow that we will be using today. Bioinformatics workflows, like this one, adopt a plug-and-play approach in that the output of one tool can be easily used as input to another tool without any extensive configuration. The tools that are used to analyze data at different stages of the workflow are built under the assumption that the data will be provided in a specific format to facilitate a more streamlined analysis. Hence different tools that can be implemented at specific steps in the workflow will have similar outputs.
 
 <img src="../img/chip_workflow_june2017.png" width="700">	
 
-
-
-
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-
