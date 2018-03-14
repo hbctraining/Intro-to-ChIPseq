@@ -85,7 +85,7 @@ To ensure that all the output files from the workflow are properly named with sa
 
 ```
 # grab base of filename for naming outputs
-base=`basename $fq _chr12.fastq`
+base=`basename $fq .fastq`
 echo "Sample name is $base"           
 ```
 
@@ -194,7 +194,7 @@ Your script should now look like this:
 fq=$1
 
 # grab base of filename for naming outputs
-base=`basename $fq _chr12.fastq`
+base=`basename $fq .fastq`
 echo "Sample name is $base"    
 
 # directory with bowtie genome index
