@@ -199,7 +199,7 @@ The first three **required BED fields** are:
 
 **narrowPeak:**
 
-A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichement based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means the first 6 columns of a BED file with 4 additional fields:
+A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichment based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means the first 6 columns of a BED file with 4 additional fields:
 
 7. signalValue - Measurement of overall enrichment for the region
 8. pValue - Statistical significance (-log10)
