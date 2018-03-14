@@ -185,10 +185,10 @@ It is okay to specify this after everything else is set up, since you will have 
 Your script should now look like this:
 
 ```
+#!/bin/bash/
+
 # This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by read name and has duplicate reads removed using sambamba.
 # USAGE: sh chipseq_analysis_on_input_file.sh <name of fastq file>
-
-#!/bin/bash/
 
 # initialize a variable with an intuitive name to store the name of the input fastq file
 fq=$1
@@ -205,6 +205,7 @@ genome=~/chipseq/reference_data/chr12
 # does not exist and refrain from complaining if it does exist
 mkdir -p ~/chipseq/results/fastqc
 mkdir -p ~/chipseq/results/bowtie2
+mkdir -p ~/chipseq/results/bowtie2/intermediate_bams
 
 # set up output filenames and locations
 fastqc_out=~/chipseq/results/fastqc/
@@ -237,6 +238,9 @@ sambamba sort -t 6 -o $align_sorted $align_bam
 
 # Filter out duplicates
 sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
+
+# Move intermediate files
+mv $bowtie_results/*sorted* $intermediate_bams
 ```
 
 ### Saving and running script
@@ -275,7 +279,7 @@ Below is what this second script (`chipseq_analysis_on_allfiles.slurm`) would lo
 for fq in ~/chipseq/raw_data/*.fastq
 do
   echo "running analysis on $fq"
-  chipseq_analysis_on_input_file.sh $fq
+  sh chipseq_analysis_on_input_file.sh $fq
 done
 ```
 
