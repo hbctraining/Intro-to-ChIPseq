@@ -116,10 +116,16 @@ Now that we have already created our output directories, we can now specify vari
 ```
 # set up output filenames and locations
 fastqc_out=~/chipseq/results/fastqc/
+
+## set up file names
 align_out=~/chipseq/results/bowtie2/${base}_unsorted.sam
 align_bam=~/chipseq/results/bowtie2/${base}_unsorted.bam
 align_sorted=~/chipseq/results/bowtie2/${base}_sorted.bam
 align_filtered=~/chipseq/results/bowtie2/${base}_aln.bam
+
+## set up more variables for 2 additional directoties to help clean up the results folder
+bowtie_results=~/chipseq/results/bowtie2
+intermediate_bams=~/chipseq/results/bowtie2/intermediate_bams
 ```
 
 ### Keeping track of tool versions
@@ -169,6 +175,9 @@ sambamba sort -t 6 -o $align_sorted $align_bam
 
 # Filter out duplicates
 sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
+
+# Move intermediate files
+mv $bowtie_results/*sorted* $intermediate_bams
 ```
 
 ### Last addition to the script
@@ -209,10 +218,16 @@ mkdir -p ~/chipseq/results/bowtie2/intermediate_bams
 
 # set up output filenames and locations
 fastqc_out=~/chipseq/results/fastqc/
+
+## set up file names
 align_out=~/chipseq/results/bowtie2/${base}_unsorted.sam
 align_bam=~/chipseq/results/bowtie2/${base}_unsorted.bam
 align_sorted=~/chipseq/results/bowtie2/${base}_sorted.bam
 align_filtered=~/chipseq/results/bowtie2/${base}_aln.bam
+
+## set up more variables for 2 additional directoties to help clean up the results folder
+bowtie_results=~/chipseq/results/bowtie2
+intermediate_bams=~/chipseq/results/bowtie2/intermediate_bams
 
 # set up the software environment
 module load fastqc/0.11.3
@@ -239,7 +254,7 @@ sambamba sort -t 6 -o $align_sorted $align_bam
 # Filter out duplicates
 sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
 
-# Move intermediate files
+# Move intermediate files out of the bowtie2 directory
 mv $bowtie_results/*sorted* $intermediate_bams
 ```
 
