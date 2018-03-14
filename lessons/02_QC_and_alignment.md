@@ -32,28 +32,137 @@ Ok so now you are all set up and have begun your analysis. You have followed bes
 
 Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. For any NGS analysis method, our first step in the workflow is to explore the quality of our reads prior to aligning them to the reference genome and proceeding with downstream analyses. 
 
-We will use FastQC to get a good idea of the overall quality of our data. We will use FastQC to identify whether any samples appear to be outliers and to examine our data for contamination.
+### Unmapped read data (FASTQ)
 
+The [FASTQ](https://en.wikipedia.org/wiki/FASTQ_format) file format is the defacto file format for sequence reads generated from next-generation sequencing technologies. This file format evolved from FASTA in that it contains sequence data, but also contains quality information. Similar to FASTA, the FASTQ file begins with a header line. The difference is that the FASTQ header is denoted by a `@` character. For a single record (sequence read) there are four lines, each of which are described below:
 
-### FASTQC
+|Line|Description|
+|----|-----------|
+|1|Always begins with '@' and then information about the read|
+|2|The actual DNA sequence|
+|3|Always begins with a '+' and sometimes the same info in line 1|
+|4|Has a string of characters which represent the quality scores; must have same number of characters as line 2|
+
+Let's use the following read as an example:
+
+```
+@HWI-ST330:304:H045HADXX:1:1101:1111:61397
+CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNNNNNNNNNNNNNNGATCTTGG
++
+@?@DDDDDDHHH?GH:?FCBGGB@C?DBEGIIIIAEF;FCGGI#########################################################
+```
+
+As mentioned previously, line 4 has characters encoding the quality of each nucleotide in the read. The legend below provides the mapping of quality scores (Phred-33) to the quality encoding characters. *Different quality encoding scales exist (differing by offset in the ASCII table), but note the most commonly used one is fastqsanger.*
+
+ ```
+ Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+                   |         |         |         |         |
+    Quality score: 0........10........20........30........40                                
+```
+ 
+Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2. **As you can tell by now, this is a bad read.** 
+
+Each quality score represents the probability that the corresponding nucleotide call is incorrect. This quality score is logarithmically based and is calculated as:
+
+	Q = -10 x log10(P), where P is the probability that a base call is erroneous
+
+These probabaility values are the results from the base calling algorithm and dependent on how much signal was captured for the base incorporation. The score values can be interpreted as follows:
+
+|Phred Quality Score |Probability of incorrect base call |Base call accuracy|
+|:-------------------|:---------------------------------:|-----------------:|
+|10	|1 in 10 |	90%|
+|20	|1 in 100|	99%|
+|30	|1 in 1000|	99.9%|
+|40	|1 in 10,000|	99.99%|
+|50	|1 in 100,000|	99.999%|
+|60	|1 in 1,000,000|	99.9999%|
+
+Therefore, for the first nucleotide in the read (C), there is less than a 1 in 1000 chance that the base was called incorrectly. Whereas, for the the end of the read there is greater than 50% probabaility that the base is called incorrectly.
+
+## Assessing quality with FastQC
+
+Now we understand what information is stored in a FASTQ file, the next step is to examine quality metrics for our data.
+
+[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) provides a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.
+
+The main functions of FastQC are:
+
+* Import of data from BAM, SAM or FastQ files (any variant)
+* Providing a quick overview to tell you in which areas there may be problems
+* Summary graphs and tables to quickly assess your data
+* Export of results to an HTML based permanent report
+* Offline operation to allow automated generation of reports without running the interactive application
+
+### Run FastQC  
 
 Let's run FastQC on all of our files. 
 
-Start an interactive session with 2 cores if don't have one going, and change directories to the `raw_data` folder.
+Change directories to the `raw_data` folder.
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HSPH bash
-
 $ cd ~/chipseq/raw_data 
 
 ```
+Before we start using software, we have to load the environments for each software package. On the O2 cluster, this is done using an **LMOD** system. 
 
-Now we need to load the FASTQC module to use the tool. Then we can run FASTQC on the Input Replicate 1 sample:
+If we check which modules we currently have loaded, we should not see FastQC.
+
+```bash
+$ module list
+```
+
+This is because the FastQC program is not in our $PATH (i.e. its not in a directory that unix will automatically check to run commands/programs).
+
+```bash
+$ echo $PATH
+```
+
+To run the FastQC program, we first need to load the appropriate module, so it puts the program into our path. To find the FastQC module to load we need to search the versions available:
+
+```bash
+$ module spider
+```
+
+Then we can load the FastQC module:
 
 ```bash
 $ module load fastqc/0.11.3
+```
 
-$ fastqc H1hesc_Input_Rep1_chr12.fastq 
+Once a module for a tool is loaded, you have essentially made it directly available to you like any other basic UNIX command.
+
+```bash
+$ module list
+
+$ echo $PATH
+```
+
+FastQC will accept multiple file names as input, so we can use the `*.fq` wildcard.
+
+```bash
+$ fastqc *.fastq
+```
+
+*Did you notice how each file was processed serially? How do we speed this up?*
+
+Exit the interactive session and start a new one with 6 cores, and use the multi-threading functionality of FastQC to run 6 jobs at once.
+
+```bash
+$ exit  #exit the current interactive session
+
+$ srun --pty -n 6 -p short -t 0-12:00 --mem 8G --reservation=HBC /bin/bash  #start a new one with 6 cpus (-n 6) and 8G RAM (--mem 8G)
+
+$ module load fastqc/0.11.3  #reload the module for the new session
+
+$ cd ~/chipseq/raw_data
+
+$ fastqc -t 6 *.fastq  #note the extra parameter we specified for 6 threads
+```
+
+How did I know about the -t argument for FastQC?
+
+```bash
+$ fastqc --help
 ```
 
 Now, move all of the `fastqc` files to the `results/fastqc` directory:
@@ -62,16 +171,46 @@ Now, move all of the `fastqc` files to the `results/fastqc` directory:
 $ mv *fastqc* ../results/fastqc/
 ```
 
-Transfer the FastQC zip file for Input replicate 1 to your local machine using FileZilla and view the report.
+### FastQC Results
+   
+Let's take a closer look at the files generated by FastQC:
+   
+`$ ls -lh ../results/fastqc/`
 
-![fastqc](../img/fastqc_input_rep1.png)
+#### HTML reports
+The .html files contain the final reports generated by fastqc, let's take a closer look at them. Transfer the file for `H1hesc_Input_Rep1_chr12.fastq` over to your laptop via *FileZilla*.
 
+##### Filezilla - Step 1
+
+Open *FileZilla*, and click on the File tab. Choose 'Site Manager'.
+ 
+![FileZilla_step1](../img/Filezilla_step1.png)
+
+##### Filezilla - Step 2
+
+Within the 'Site Manager' window, do the following: 
+
+1. Click on 'New Site', and name it something intuitive (e.g. O2)
+2. Host: transfer.rc.hms.harvard.edu 
+3. Protocol: SFTP - SSH File Transfer Protocol
+4. Logon Type: Normal
+5. User: ECommons ID
+6. Password: ECommons password
+7. Click 'Connect'
+
+<img src="../img/Filezilla_step2.png" width="500">	
+	
+The **"Per base sequence quality"** plot is the most important analysis module in FastQC for ChIP-Seq; it provides the distribution of quality scores across all bases at each position in the reads. This information can help determine whether there were problems at the sequencing facility.
+
+![FastQC_seq_qual](../img/FastQC_seq_qual.png)
 
 Based on the sequence quality plot, we see across the length of the read the quality drops into the low range. Trimming could be performed from both ends of the sequences, or we can use an alignment tool that can acccount for this. 
 
-> **NOTE:** If you are interested in learning more about the FASTQ file format and information on how to interpret the FASTQC reports we have a [QC lesson](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lessons/02_assessing_quality.html) as part of the RNA-seq workflow.
->
-> FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We also recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data.
+We will not be able to go through the remaining plots in class, but FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data. Also, FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.
+
+> **We also have a [slidedeck](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/raw/master/lectures/error_profiles_mm.pdf) of error profiles for Illumina sequencing, where we discuss specific FASTQC plots and possible sources of these types of errors.**
+
+
 
 ## Alignment
 
