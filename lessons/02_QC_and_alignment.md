@@ -1,7 +1,7 @@
 ---
 title: "FastQC and alignment"
 author: "Mary Piper, Radhika Khetani"
-date: "June 28th, 2017"
+date: "March 14th, 2018"
 ---
 
 Contributors: Mary Piper, Radhika Khetani
