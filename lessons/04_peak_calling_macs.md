@@ -40,7 +40,7 @@ MACS improves the spatial resolution of binding sites through **combining the in
 
 ### Removing redundancy
 
-MACS provides different options for dealing with **duplicate tags** at the exact same location, that is tags with the **same coordination and the same strand**. The default is to keep a single read at each location. The `auto` option, which is very commonly used, tells MACS to calculate the maximum tags at the exact same location based on binomal distribution using 1e-5 as pvalue cutoff. Another alternative is to set the `all` option keeps every tags. If an `integer` is given, at most this number of tags will be kept at the same location. This redundancy is addressed for both the ChIP and input samples.
+MACS provides different options for dealing with **duplicate tags** at the exact same location, that is tags with the **same coordination and the same strand**. The default is to keep a single read at each location. The `auto` option, which is very commonly used, tells MACS to calculate the maximum tags at the exact same location based on binomal distribution using 1e-5 as pvalue cutoff. Another alternative is to set the `all` option, which keeps every tag. If an `integer` is given, at most this number of tags will be kept at the same location. This redundancy is addressed for both the ChIP and input samples.
 
 > **Why worry about duplicates?**
 Reads with same start position considered duplicates. These duplicates can arise from experimental artefacts, but can also contribute to genuine ChIP-signal.
