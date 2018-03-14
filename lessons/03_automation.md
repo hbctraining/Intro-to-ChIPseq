@@ -151,9 +151,8 @@ echo "Processing file $fq"
 ### Running the tools
 
 ```
-# Run FastQC and move output to the appropriate folder
+# Run FastQC
 fastqc $fq
-mv *_fastqc.* ~/chipseq/results/fastqc/
 
 # Run bowtie2
 bowtie2 -q --local -x $genome -U $fq -S $align_out
