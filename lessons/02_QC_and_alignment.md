@@ -10,9 +10,8 @@ Approximate time: 60 minutes
 
 ## Learning Objectives
 
-* Become familiar wih NGS best practices
+* Become familiar with NGS best practices
 * Evaluate the quality of your NGS data using FastQC
-* Describe and use the Trimmomatic tool to perform quality trimming
 * Describe parameters for performing alignment using Bowtie2
 
 ## Best practices for NGS Analysis 
