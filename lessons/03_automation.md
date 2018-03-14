@@ -85,13 +85,13 @@ To ensure that all the output files from the workflow are properly named with sa
 
 ```
 # grab base of filename for naming outputs
-base=`basename $fq .subset.fq`
+base=`basename $fq _chr12.fastq`
 echo "Sample name is $base"           
 ```
 
 > **Remember `basename`?**
 >
-> 1. the `basename` command: this command takes a path or a name and trims away all the information before the last `\` and if you specify the string to clear away at the end, it will do that as well. In this case, if the variable `$fq` contains the path *"~/unix_lesson/rnaseq/raw_data/Mov10_oe_1.subset.fq"*, `basename $fq .subset.fq` will output "Mov10_oe_1".
+> 1. the `basename` command: this command takes a path or a name and trims away all the information before the last `\` and if you specify the string to clear away at the end, it will do that as well. In this case, if the variable `$fq` contains the path *"~/chipseq/raw_data/H1hesc_Nanog_Rep1_chr12.fastq"*, `basename $fq _chr12.fastq` will output "H1hesc_Nanog_Rep1".
 > 2. to assign the value of the `basename` command to the `base` variable, we encapsulate the `basename...` command in backticks. This syntax is necessary for assigning the output of a command to a variable.
 
 Next we want to specify how many cores the script should use to run the analysis. This provides us with an easy way to modify the script to run with more or fewer cores without have to replace the number within all commands where cores are specified.
