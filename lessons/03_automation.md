@@ -176,7 +176,7 @@ sambamba sort -t 6 -o $align_sorted $align_bam
 # Filter out duplicates
 sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
 
-# Move intermediate files
+# Move intermediate files out of the bowtie2 directory
 mv $bowtie_results/*sorted* $intermediate_bams
 ```
 
