@@ -39,12 +39,12 @@ For example, we can refer to the components of the following command as numbered
 
 ```bash
 # * DO NOT RUN *
-sh  run_analysis.sh  input.fq  input.gtf  12
+sh  run_analysis.sh  input.fastq  input.gtf  12
 ```
 
 `$0` => run_analysis.sh
 
-`$1` => input.fq
+`$1` => input.fastq
 
 `$2` => input.gtf
 
@@ -269,7 +269,7 @@ Below is what this second script (`chipseq_analysis_on_allfiles.slurm`) would lo
 
 # this `for` loop, will take chip-seq fastq files as input and output filtered BAM files ready for peak calling.
 
-for fq in ~/chipseq/raw_data/*.fq
+for fq in ~/chipseq/raw_data/*.fastq
 do
   echo "running analysis on $fq"
   chipseq_analysis_on_input_file.sh $fq
@@ -297,7 +297,7 @@ This script loops through the same files as in the previous (demo) script, but t
 ```bash
 #! /bin/bash
 
-for fq in ~/chipseq/raw_data/*.fq
+for fq in ~/chipseq/raw_data/*.fastq
 do
 
 sbatch -p short -t 0-2:00 -n 6 --job-name chipseq-analysis --wrap="sh ~/chipseq/scripts/chipseq_analysis_on_input_file.sh $fq"
