@@ -191,7 +191,7 @@ Your script should now look like this:
 fq=$1
 
 # grab base of filename for naming outputs
-base=`basename $fq .subset.fq`
+base=`basename $fq _chr12.fastq`
 echo "Sample name is $base"    
 
 # directory with bowtie genome index
