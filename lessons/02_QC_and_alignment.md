@@ -10,15 +10,15 @@ Approximate time: 60 minutes
 
 ## Learning Objectives
 
-* Become familiar with NGS best practices
-* Evaluate the quality of your NGS data using FastQC
+* Evaluate the quality of your sequencing data using FastQC
 * Describe parameters for performing alignment using Bowtie2
+* Become familiar with data analysis best practices
 
 ## Best practices for NGS Analysis 
 
-Ok so now you are all set up and have begun your analysis. You have followed best practices to set up your analysis directory structure in a way such that someone unfamiliar with your project should be able to look at it and understand what you did and why. But there is more...:
+Ok so now you are all set up and have begun your analysis. You have followed best practices to set up your analysis directory structure in a way such that someone unfamiliar with your project should be able to look at it and understand what you did and why (reproducibility). But there is more...
 
-1. **Make sure to use the appropriate software.** Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions! If you run out-of-date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
+1. **Use appropriate software.** Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions, and keeping track of the version number! If you run out-of-date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
 
 2. **Keep up with the literature.** Bioinformatics is a fast-moving field and it's always good to stay in the know about recent developments. This will help you determine what is appropriate and what is not.  
 
@@ -97,13 +97,15 @@ The main functions of FastQC are:
 
 Let's run FastQC on all of our files. 
 
-Change directories to the `raw_data` folder.
+Change directories to the `raw_data` folder and check the contents
 
 ```bash
 $ cd ~/chipseq/raw_data 
 
+$ ls -l
 ```
-Before we start using software, we have to load the environments for each software package. On the O2 cluster, this is done using an **LMOD** system. 
+
+Before we start using any software, we either have to check if it's available on the cluster, and if it is we have to load it into our environment (or `$PATH`). On the O2 cluster, we can check for, and load packages (or modules) using the **LMOD** system. 
 
 If we check which modules we currently have loaded, we should not see FastQC.
 
@@ -117,7 +119,7 @@ This is because the FastQC program is not in our $PATH (i.e. its not in a direct
 $ echo $PATH
 ```
 
-To run the FastQC program, we first need to load the appropriate module, so it puts the program into our path. To find the FastQC module to load we need to search the versions available:
+To find the FastQC module to load we need to search the versions available:
 
 ```bash
 $ module spider
@@ -145,7 +147,7 @@ $ fastqc *.fastq
 
 *Did you notice how each file was processed serially? How do we speed this up?*
 
-Exit the interactive session and start a new one with 6 cores, and use the multi-threading functionality of FastQC to run 6 jobs at once.
+Exit the interactive session and once you are on a "login node," start a new interactive session with 6 cores. Now we can use the multi-threading functionality of FastQC to speed this up by running 6 jobs at once, one job for one file.
 
 ```bash
 $ exit  #exit the current interactive session
@@ -194,8 +196,8 @@ Within the 'Site Manager' window, do the following:
 2. Host: transfer.rc.hms.harvard.edu 
 3. Protocol: SFTP - SSH File Transfer Protocol
 4. Logon Type: Normal
-5. User: ECommons ID
-6. Password: ECommons password
+5. User: training_account
+6. Password: password for training_account
 7. Click 'Connect'
 
 <img src="../img/Filezilla_step2.png" width="500">	
@@ -204,19 +206,17 @@ The **"Per base sequence quality"** plot is the most important analysis module i
 
 ![FastQC_seq_qual](../img/FastQC_seq_qual.png)
 
-Based on the sequence quality plot, we see across the length of the read the quality drops into the low range. While this doesn't represent a problem from the sequencing facility, we need to address these low quality reads since they will not likely align properly to the genome. Trimming could be performed from both ends of the sequences, or we can use an alignment tool that can ignore these poor quality bases at the ends of reads. 
+Based on the sequence quality plot, we see across the length of the read the quality drops into the low range. While this doesn't represent a problem from the sequencing facility, we need to address these low quality reads since they will not likely align properly to the genome. Trimming could be performed from both ends of the sequences, or we can use an alignment tool that can ignore these poor quality bases at the ends of reads (soft clip). 
 
-We will not be able to go through the remaining plots in class, but FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data. Also, FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.
+We will be going through the remaining plots in class, but FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data. Also, FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.
 
 > **We also have a [slidedeck](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/raw/master/lectures/error_profiles_mm.pdf) of error profiles for Illumina sequencing, where we discuss specific FASTQC plots and possible sources of these types of errors.**
 
+## Alignment to Genome
 
+Now that we have assessed the quality of our sequence data, we are ready to align the reads to the reference genome. [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform method to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global end-to-end read alignment, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads. We will use this option since we did not trim our reads.
 
-## Alignment
-
-Now that we have assessed the quality of our sequence data, we are ready to align the reads to the reference genome. [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. *Bowtie2* supports gapped, local and paired-end alignment modes and works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1). By default, Bowtie2 will perform a global end-to-end read alignment, which is best for quality-trimmed reads. However, it also has a local alignment mode, which will perform soft-clipping for the removal of poor quality bases or adapters from untrimmed reads. We will use this option since we did not trim our reads.
-
-> _**NOTE:** Our reads are only 36 bp, so technically we should explore alignment with Bowtie1 to see if it is better. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
+> _**NOTE:** Our reads are only 36 bp, so technically we should explore alignment with [bwa](http://bio-bwa.sourceforge.net/) or Bowtie1 to see if it is better. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
 
 ### Creating Bowtie2 index
 
@@ -228,16 +228,15 @@ However, if you needed to create a genome index yourself, you would use the foll
 # DO NOT RUN
 
 bowtie2-build <path_to_reference_genome.fa> <prefix_to_name_indexes>
-
 ```
 
 > A quick note on shared databases for human and other commonly used model organisms. The O2 cluster has a designated directory at `/n/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databases, such as NCBI and PDB. So when using a tool that requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
->
+
 >```bash
 >$ ls -l /n/groups/shared_databases/igenome/
 >```
 
-### Aligning reads with Bowtie2
+### Aligning reads to the genome with Bowtie2
 
 Since we have our indices already created, we can get started with read alignment. Change directories to the `bowtie2` folder:
 
@@ -272,12 +271,11 @@ $ bowtie2 -p 2 -q --local \
 -x ~/chipseq/reference_data/chr12 \
 -U ~/chipseq/raw_data/H1hesc_Input_Rep1_chr12.fastq \
 -S ~/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
-
 ```
 
 ## Filtering reads
 
-An important issue concerns the inclusion of multiple mapped reads (reads mapped to multiple loci on the reference genome). **Allowing for multiple mapped reads increases the number of usable reads and the sensitivity of peak detection; however, the number of false positives may also increase** [[1]](https://www.ncbi.nlm.nih.gov/pubmed/21779159/). Therefore we need to filter our alignment files to **contain only uniquely mapping reads** in order to increase confidence in site discovery and improve reproducibility. Since there is no parameter in Bowtie2 to keep only uniquely mapping reads, we will need to perform the following steps to generate alignment files containing only the uniquely mapping reads:
+An important issue with ChIP-seq data concerns the inclusion of multiple mapped reads (reads mapped to multiple loci on the reference genome). **Allowing for multiple mapped reads increases the number of usable reads and the sensitivity of peak detection; however, the number of false positives may also increase** [[1]](https://www.ncbi.nlm.nih.gov/pubmed/21779159/). Therefore we need to filter our alignment files to **contain only uniquely mapping reads** in order to increase confidence in site discovery and improve reproducibility. Since there is no parameter in Bowtie2 to keep only uniquely mapping reads, we will need to perform the following steps to generate alignment files containing only the uniquely mapping reads:
 
 1. Change alignment file format from SAM to BAM
 2. Sort BAM file by read coordinate locations
@@ -302,7 +300,8 @@ You can find additional parameters for the samtools functions in the [manual](ht
 
 ### 2. Sorting BAM files by genomic coordinates
 
-Before we can filter to keep the uniquely mapping reads, we need to sort our BAM alignment files by genomic coordinates. To perform this sort, we will use [Sambamba](http://lomereiter.github.io/sambamba/index.html), which is a tool that quickly processes BAM and SAM files. It is similar to SAMtools, but has unique functionality.
+Before we can filter to keep the uniquely mapping reads, we need to sort our BAM alignment files by genomic coordinates (instead of by name). To perform this sort, we will use [Sambamba](http://lomereiter.github.io/sambamba/index.html), which is a tool that quickly processes BAM and SAM files.
+
 The command we will use is `sambamba sort` with the following parameters:
 
 * `-t`: number of threads / cores
@@ -313,7 +312,7 @@ $ sambamba sort -t 2 \
 -o H1hesc_Input_Rep1_chr12_aln_sorted.bam \
 H1hesc_Input_Rep1_chr12_aln_unsorted.bam 
 ```
-> **Can we use `samtools` to do the sorting instead?** We could have also used `samtools` to perform the sort, however using `sambamba` gives us dual functionality. List the contents of the directory -- what do you see? The advantage to using `sambamba` is that along with the sort an index file is generated. If we used `samtools` this would have been a two-step process.
+We could have also used `samtools` to perform the above sort, however using `sambamba` gives us dual functionality. List the contents of the directory -- what do you see? The advantage to using `sambamba` is that along with the newly sorted file, an index file is generated. If we used `samtools` this would have been a two-step process.
 
 ### 3. Filtering uniquely mapping reads
 
@@ -333,7 +332,7 @@ We filtered out unmapped reads by specifying in the filter `not unmapped`. Also,
 
 Now that the alignment files contain only uniquely mapping reads, we are ready to perform peak calling.
 
-> _**NOTE:** After performing read alignment, it's often useful to generate QC metrics for the alignment using tools such as [QualiMap](http://qualimap.bioinfo.cipf.es/doc_html/analysis.html#bam-qc) or [MultiQC](http://multiqc.info) prior to moving on to the next steps of the analysis._ 
+> _**NOTE:** After performing read alignment, it's useful to generate QC metrics for the alignment using tools such as [MultiQC](http://multiqc.info) prior to moving on to the next steps of the analysis._
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
