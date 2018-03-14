@@ -204,7 +204,7 @@ The **"Per base sequence quality"** plot is the most important analysis module i
 
 ![FastQC_seq_qual](../img/FastQC_seq_qual.png)
 
-Based on the sequence quality plot, we see across the length of the read the quality drops into the low range. Trimming could be performed from both ends of the sequences, or we can use an alignment tool that can acccount for this. 
+Based on the sequence quality plot, we see across the length of the read the quality drops into the low range at the ends of the reads. While this doesn't represent a problem from the sequencing facility, we need to address these low quality reads since they will not likely align properly to the genome. Trimming could be performed from both ends of the sequences, or we can use an alignment tool that can ignore these poor quality bases. 
 
 We will not be able to go through the remaining plots in class, but FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data. Also, FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.
 
