@@ -7,8 +7,8 @@ date: "Thursday July 29th, 2017"
 Approximate time: 45 minutes
 
 ## Learning Objectives
-* Visualizing peak locations with respect to the TSS
 * Generate bigWig files
+* Visualizing enrichment patterns at particular locations in the genome
 * Use IGV to visualize BigWig, BED and data from ENCODE
 
 ## Visualization of ChIP-seq data
@@ -24,17 +24,22 @@ The first thing we want to do is take our alignment files (BAM) and convert them
 
 [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), is a suite of Python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. `deepTools` has a wide variety of commands that go beyond those that are covered in this lesson. We encourage you to look through the docuementation and explore on your own time. 
 
-To create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input).
 
 <img src="../img/bam_to_bigwig.png">
 
 *Image aquired from [deepTools documentation](http://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html?highlight=bigwig) pages*
 
+Start an interactive session with 6 cores. *If you are already logged on to a compute node you will want to exit and start a new session*.
+
+```bash
+$ srun --pty -p short -t 0-12:00 --mem 8G -n 6 --reservation=HSPH bash
+```
+
 We will begin by creating a directory for the visualization output and loading the required modules to run `deepTools`.
 
 ```bash
 $ cd ~/chipseq/results/
-$ mkdir visualization
+$ mkdir -p visualization/bigWig visualization/figures
 ```
 
 ```bash
@@ -43,24 +48,60 @@ $ module load deeptools/2.5.3
 
 ```
 
-Create the bigWig files:
+To create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input).
 
-For just one file and copy over the full dataset ones.
+Let's create a bigWig file for Nanog replicate 1 using the `bamCoverage` command. In addition to the input and output files, there are a few additional parameters we have added. 
+
+* `normalizeTo1x`: Report read coverage normalized to 1x sequencing depth (also known as Reads Per Genomic Content (RPGC)). Sequencing depth is defined as: (total number of mapped reads * fragment length) / effective genome size). So the number provided here represents the effective genome size. Some examples for commonly used organisms can be [found here](http://deeptools.readthedocs.io/en/latest/content/feature/effectiveGenomeSize.html)
+* `binSize`: size of bins in bases
+* `smoothLength`: defines a window, larger than the `binSize`, to average the number of reads over. This helps produce a more continuous plot.
+* `centerReads`: reads are centered with respect to the fragment length as specified by `extendReads`. This option is useful to get a sharper signal around enriched regions
 
 ```bash
-$ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -o visualization/Nanog_Rep1_chr12.bw 2> visualization/Nanog_Rep1_bamcompare.log
-
-$ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Nanog_Rep2_chr12.bw 2> visualization/Nanog_Rep2_bamcompare.log
+bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
+-o visualization/bigWig/H1hesc_Nanog_Rep1_chr12.bw \
+--binSize 20 \
+--normalizeTo1x 130000000 \
+--smoothLength 60 \
+--extendReads 150 \
+--centerReads \
+-p 6 2> ../logs/Nanog_rep1_bamCoverage.log
 ```
+
+Now, if we wanted to create a bigWig file in which we normalize the ChIP against the input we would use `bamCompare`. The command is quite similar to `bamCoverage`, the only difference being you require two files as input (`b1` and `b2`).
 
 ```bash
-$ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -o visualization/Pou5f1_Rep1_chr12.bw 2> visualization/Pou5f1_Rep1_bamcompare.log
-
-$ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -b2 bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -o visualization/Pou5f1_Rep2_chr12.bw 2> visualization/Pou5f1_Rep2_bamcompare.log
+bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
+-b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam \
+-o visualization/bigWig/H1hesc_Nanog_Rep1_chr12_bgNorm.bw \
+--binSize 20 \
+--normalizeTo1x 130000000 \
+--smoothLength 60 \
+--extendReads 150 \
+--centerReads \
+-p 6 2> ../logs/Nanog_rep1_bamCompare.log
 ```
+
+> **NOTE:** When you are creating bigWig files for your full dataset, this will take considerably longer and you will not want to run this interactively (except for testing purposes). Instead, you might want to consider writing a job submission script with a loop that runs this command over all of your BAM files.
+
+Since we are a subset of the data, using theses bigWigs for visualization would not give us meaningful results. As such, **we have created bigWig files from the full dataset that you can copy over and use for the rest of this lesson.**
+
+```bash
+cp /n/groups/hbctraining/chip-seq/full-dataset/bigWig/*.bw visualization/bigWig/
+
+```
+
+
+
 
 Compute the matrix (for TSS):
-- plot Nanog and Pou5f1 on same plot
+- plot Nanog on one plot (2 replicates)
+- plot Pou5f1 one one plot (2 replicates)
+
+```
+
+```
+
 - plot them separately each with a heatmap
 - 
 
