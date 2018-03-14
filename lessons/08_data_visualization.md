@@ -91,16 +91,42 @@ cp /n/groups/hbctraining/chip-seq/full-dataset/bigWig/*.bw visualization/bigWig/
 
 ```
 
+### Profile plots and heatmaps
+
+Profile plots are useful in evaluating the read density in particular regions of interest. For example, if we expected our protein to be binding at the transcription start site (TSS) of genes we might want to validate that we do in fact see that in our data.
+
+We will look at enrichment around the TSS using our data and plot this separately for the Nanog and Pou5f1 samples (two replicates in each plot). We will only look at genes on chromosome 12 in the interest of time, and so you will need to copy over the BED file to use.
+
+```bash
+cp /n/groups/hbctraining/chip-seq/deepTools/chr12_genes.bed ~/chipseq/results/visualization/
+```
+
+> **NOTE:** Typically, the genome regions are genes, and can be obtained from the [UCSC table browser](http://rohsdb.cmb.usc.edu/GBshape/cgi-bin/hgTables). Alternatively, you could look at other regions of interest that are not genomic feature related (i.e. binding regions from another protein of interest).
+
+We first need to prepare an intermediate file that can be used with `plotHeatmap` and `plotProfile`.
+
+<img src="../img/computeMatrix_overview.png">
 
 
+`computeMatrix` accepts multiple bigWig files and multiple region files (BED format). This tool can also be used to filter and sort regions according to their score. Using a window of +/- 1000bp around the TSS of genes (`-b` and `-a`) `computeMatrix` calculates scores per window based on the read density values in the bigWig files.
+
+```bash
+
+computeMatrix reference-point --referencePoint TSS \
+-b 1000 -a 1000 \
+-R ~/chipseq/reference_data/chr12_genes.bed \
+-S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
+--skipZeros \
+-o ~/chipseq/results/visualization/matrix_TSS_chr12.gz \
+--outFileSortedRegions regions_TSS_chr12.bed
+
+```
 
 Compute the matrix (for TSS):
 - plot Nanog on one plot (2 replicates)
 - plot Pou5f1 one one plot (2 replicates)
 
-```
 
-```
 
 - plot them separately each with a heatmap
 - 
