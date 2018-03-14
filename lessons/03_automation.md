@@ -155,7 +155,7 @@ echo "Processing file $fq"
 fastqc $fq
 
 # Run bowtie2
-bowtie2 -q --local -x $genome -U $fq -S $align_out
+bowtie2 -p 6 -q --local -x $genome -U $fq -S $align_out
 
 # Create BAM from SAM
 samtools view -h -S -b -@ 6 -o $align_bam $align_out
@@ -223,7 +223,7 @@ fastqc $fq
 mv *_fastqc.* ~/chipseq/results/fastqc/
 
 # Run bowtie2
-bowtie2 -q --local -x $genome -U $fq -S $align_out
+bowtie2 -p 6 -q --local -x $genome -U $fq -S $align_out
 
 # Create BAM from SAM
 samtools view -h -S -b -@ 6 -o $align_bam $align_out
