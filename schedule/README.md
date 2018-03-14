@@ -27,18 +27,18 @@
 |11:30 - 12:30 | [Sequencing data QC and Alignment to Genome]() | Mary |
 |12:30 - 13:30 | Lunch | |
 |13:45 - 14:45 | [Automating generation of alignment files]() | Radhika |
-|14:45 - 15:15 | [Peak calling with MACS2]() | Mary |
+|14:45 - 15:15 | [Peak calling with MACS2]() | Meeta |
 |15:15 - 15:30 | Break | |
-|15:30 - 16:30 | [Peak calling with MACS2]() | Mary |
-|16:30 - 17:00 | [Assessing ChIP quality using cross correlation]() | Meeta |
+|15:30 - 16:30 | [Peak calling with MACS2]() | Meeta |
+|16:30 - 17:00 | [Assessing ChIP quality using cross correlation]() | Mary |
 
 ## Day 3
 
 | Time            |  Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-|9:00 - 10:00 | [Assessing ChIP quality using cross correlation (contd.)]() | Meeta |
+|9:00 - 10:00 | [Assessing ChIP quality using cross correlation (contd.)]() | Mary |
 |10:00 - 10:15 | Break | |
-|10:15 - 11:45| [Assessing Peak calls and ChIP quality using ChIPQC]() | Mary |
+|10:15 - 11:45| [Assessing Peak calls and ChIP quality using ChIPQC]() | Meeta |
 |11:45 - 12:45 | Lunch | |
 |12:45 - 14:00 | [Handling Replicates]() | Radhika |
 |14:00 - 14:15 | Break | |
