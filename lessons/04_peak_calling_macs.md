@@ -182,7 +182,7 @@ Ok, now let's do the same peak calling for the rest of our samples:
 ## MACS2 Output files
 
 ### File formats
-Before we start exploring the output of MACS2, we'll briefly talk about some new file formats that we haven't yet encountered in this course.
+Before we start exploring the output of MACS2, we'll briefly talk about the new file formats you will encounter.
 
 **BED:**
 The BED format consists of one line per feature, each containing 3-12 columns of data (whitespace-delimited or tab-delimited), plus optional track definition lines. This is a zero-based format.
