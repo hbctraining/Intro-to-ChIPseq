@@ -64,8 +64,6 @@ Type in the following command with your username to login:
 ```bash
 ssh username@o2.hms.harvard.edu
 ```
-> **NOTE:** This workshop assumes a basic knowledge of logging onto the O2 cluster environment. Mac users can use the "Terminal" application to login and PC users can use PuTTy or GitBash as described in the [Intro to Shell lesson](https://hbctraining.github.io/Intro-to-Shell/lessons/01_the_filesystem.html) 
-
 
 Next we will start an interactive session on O2 with 2 cores (add the `-n 2`):
 
