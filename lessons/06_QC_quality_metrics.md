@@ -158,10 +158,7 @@ The final step is taking those quality metrics and summarize information into an
 > 
 >  Keep in mind you will have to install the `ChIPQC` package (vChIPQC_1.10.3 or higher) if you are doing this locally. 
 > 
-```
-source("http://bioconductor.org/biocLite.R")
-biocLite("ChIPQC")
-```
+
 
 **Your final script should look like this:**
 
