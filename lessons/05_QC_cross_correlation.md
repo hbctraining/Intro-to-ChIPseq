@@ -105,18 +105,19 @@ $ mkdir chip_qc
 $ cd chip_qc
 ```
 
-To use this `phantompeakqualtools` package, you can download it from the project website. On the [project website](https://code.google.com/archive/p/phantompeakqualtools/), click on the *Downloads* option on the left-hand side of the page. The *Downloads* page has all updates for the package, with the most recent being from 2013. 
-
-**You do not have to download this, as we have a copy you can use.** 
+**We have downloaded this for you, and have a copy you can use.**  The directory contains several files.
 
 ```
 $ ls -l /n/groups/hbctraining/chip-seq/phantompeakqualtools/
 ```
 
+> **NOTE:**  You can download the `phantompeakqualtools` package, directly from [GitHub](https://github.com/kundajelab/phantompeakqualtools), if you wanted your own local version. This repo is actively maintained by the developer Anshul Kundaje.
+
+
 In this folder there should be a `README.txt` which contains all the commands, options, and output descriptions. Let's check out the `README.txt`:
 
 ```
-$ less README.txt
+$ less /n/groups/hbctraining/chip-seq/phantompeakqualtools/README.txt
 ```
 Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). **This is the script we will be using.**
 
