@@ -179,7 +179,7 @@ The options that we will be using include:
 ## THIS SCRIPT IS FOR COMPUTING METRICS ON A SINGLE FILE
 $ Rscript /n/groups/hbctraining/chip-seq/phantompeakqualtools/run_spp.R -c=<tagAlign/BAMfile> -savp -out=<outFile>
 ```
->_**NOTE:** Even though the script is called `run_spp.R`, we aren't actually performing peak calling with SPP. 
+>_**NOTE:** Even though the script is called `run_spp.R`, we aren't actually performing peak calling with SPP._
 
 From within the `phantompeakqualtools` directory, we will create output directories and use a 'for loop' to **run the script on every Nanog and Pouf51 BAM file**:
 
@@ -205,7 +205,7 @@ To visualize the quality metrics (.qual) files more easily, we will concatenate 
 ```
 $ cat qual/*qual > qual/phantompeaks_summary.xls
 ```
-Let's use Filezilla or `scp` move the summary file over to our local machine for viewing. Open up the file in Excel and take a look at our NSC and RSC values. 
+Let's use Filezilla or `scp` to move the summary file over to our local machine for viewing. Open up the file in Excel and take a look at our NSC and RSC values. 
 
 ### `phantompeakqualtools`: quality metrics output
 
