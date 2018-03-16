@@ -1,7 +1,7 @@
 ---
 title: "ChIP-Seq Quality Assessment: Cross-correlation"
 authors: "Mary Piper and Meeta Mistry"
-date: "June 28th, 2017"
+date: "March 17, 2018"
 ---
 
 Approximate time: 1.5 hours
