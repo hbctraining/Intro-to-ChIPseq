@@ -105,72 +105,24 @@ $ mkdir chip_qc
 $ cd chip_qc
 ```
 
-### Downloading `phantompeakqualtools`
+To use this `phantompeakqualtools` package, you can download it from the project website. On the [project website](https://code.google.com/archive/p/phantompeakqualtools/), click on the *Downloads* option on the left-hand side of the page. The *Downloads* page has all updates for the package, with the most recent being from 2013. 
 
-To use this `phantompeakqualtools` package, we need to download it from the project website. On the [project website](https://code.google.com/archive/p/phantompeakqualtools/), click on the *Downloads* option on the left-hand side of the page. The *Downloads* page has all updates for the package, with the most recent being from 2013. 
-
-Right-click on the link for the most recent update, and copy the link.
-
-Download the `phantompeakqualtools` to your directory using `wget`:
+**You do not have to download this, as we have a copy you can use.** 
 
 ```
-$ wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/phantompeakqualtools/ccQualityControl.v.1.1.tar.gz
-
-$ ls
+$ ls -l /n/groups/hbctraining/chip-seq/phantompeakqualtools/
 ```
 
-> **NOTE:** *You may be asked to choose a mirror. If so, just choose a location nearest to where you are located (i.e. in the northeast). Some mirrors can be slower than others for downloads depending on the server speed and distance to the server.*
-
-You should see `ccQualityControl.v.1.1.tar.gz` appear in the folder. This is a compressed folder, to extract the contents we use the `tar -xzf` command:
-
-```
-$ tar -xzf ccQualityControl.v.1.1.tar.gz
-```
-The `tar` command offers a simple way to compress and uncompress entire directories. We are using the command to uncompress the `ccQualityControl.v.1.1.tar.gz` directory. 
-
-The options included are:
-
-`-x`: extract a tar archive (or tarball) file
-
-`-z`: the file is a compressed gzip archive file
-
-`-f`: file name of archive file (needs to precede the file name)
-
-> **NOTE:** *To compress a directory, you would issue the same command, but replace -x with -c, which specifies to create a new tar archive (or tarball) file, and after the name of the tar file you would name the directory to be compressed*
-
-You should now see a `phantompeakqualtools` folder. Let's explore the contents a bit:
-
-```
-$ cd phantompeakqualtools
-
-$ ls -l
-```
-There should also be a `README.txt` which contains all the commands, options, and output descriptions. Let's check out the `README.txt`:
+In this folder there should be a `README.txt` which contains all the commands, options, and output descriptions. Let's check out the `README.txt`:
 
 ```
 $ less README.txt
 ```
-Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). **This is the script we will be using, however the script has a bug with the version of `spp` we are using. We can fix this; open up the script with `vim`**:
-
-```
-$ vim run_spp_nodups.R
-```
-1. While in ESC mode type in `:set number`. 
-2. Scroll down to line 650. Underneath `library(spp)` type in `library(caTools)`. 
-
-Your file should look something like this:
-
-```
-649 # Load SPP library
-650 library(spp)
-651 library(caTools)
-```
-
-Save and quit vim.
+Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). **This is the script we will be using.**
 
 ### Using R libraries
 
-In the README you will have noticed an *INSTALLATION* section. We will need to install the R package, `spp` and `caTools`, into our personal R library to run the script. Since this is a bit more involved, in the interest of time we have creataed the libraries and shared them for you to use. To use our libraries, you will need to setup an environmental variable called `R_LIBS_USER` and point it to the location on O2 where our libraries reside:
+In the README you will have noticed an *INSTALLATION* section. We will need to install the R package, `spp` and `caTools`, into our personal R library to run the script. Since this is a bit more involved, in the interest of time we have created the libraries and shared them for you to use. To use our libraries, you will need to setup an environmental variable called `R_LIBS_USER` and point it to the location on O2 where our libraries reside:
 
 ```
 $  export R_LIBS_USER="/n/groups/hbctraining/R/library/"
@@ -224,7 +176,7 @@ The options that we will be using include:
 ```
 ## DO NOT RUN THIS
 ## THIS SCRIPT IS FOR COMPUTING METRICS ON A SINGLE FILE
-$ Rscript run_spp.R -c=<tagAlign/BAMfile> -savp -out=<outFile>
+$ Rscript /n/groups/hbctraining/chip-seq/phantompeakqualtools/run_spp.R -c=<tagAlign/BAMfile> -savp -out=<outFile>
 ```
 >_**NOTE:** Even though the script is called `run_spp.R`, we aren't actually performing peak calling with SPP. 
 
@@ -236,7 +188,7 @@ $ mkdir logs qual
 $ for bam in ../../bowtie2/*Nanog*aln.bam ../../bowtie2/*Pou5f1*aln.bam
 do 
 bam2=`basename $bam _aln.bam`
-Rscript run_spp_nodups.R -c=$bam -savp -out=qual/${bam2}.qual > logs/${bam2}.Rout
+Rscript /n/groups/hbctraining/chip-seq/phantompeakqualtools/run_spp_nodups.R -c=$bam -savp -out=qual/${bam2}.qual > logs/${bam2}.Rout
 done
 ```
 
