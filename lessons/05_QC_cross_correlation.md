@@ -11,7 +11,7 @@ Approximate time: 1.5 hours
 * Discuss sources of low quality ChIP-seq data
 * Understand strand cross-correlation
 * Ue `phantompeakqualtools` to compute cross-correlation and associated QC metrics
-* Evaluate an interpret QC metrics and the cross-correlation plot
+* Evaluate and interpret QC metrics and the cross-correlation plot
 
 ## ChIP-Seq quality assessment
 
