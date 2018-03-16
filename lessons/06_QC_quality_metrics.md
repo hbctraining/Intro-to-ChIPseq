@@ -104,17 +104,7 @@ The **sample sheet** contains metadata information for our dataset.Each row repr
  
 ### Creating an R script
 
-We are going to create an R script which contains the R code required to generate the report. You can start by using vim to open up the text editor and creating a file called `run_chipQC.R`:
-
-```bash
-
-$ cd ~/chipseq/scripts
-
-$ vim run_chipQC.R
-```
-
-
-**Don't worry about understanding the syntax of the code below, just copy and paste into your text editor.**  There are very few lines of code and so we will briefly explain what each line is doing, so the script is not a complete black box:
+We are going to walk through an R script which contains the lines of code required to generate the report. There are very few lines of code and so we will briefly explain what each line is doing, so the script is not a complete black box.
 
 Let's start with a shebang line. Note that this is different from that which we used for our bash shell scripts. 
 
@@ -122,7 +112,7 @@ Let's start with a shebang line. Note that this is different from that which we 
 #!/usr/bin/env Rscript
 ```
 
-Next we can load the `ChIPQC` library so we have access to all the package functions and then load the samplesheet into R. 
+Next we will load the `ChIPQC` library so we have access to all the package functions and then load the samplesheet into R. 
 
 ```
 ## Load libraries
@@ -146,21 +136,20 @@ The next line of code will export the chipObj from the R environment to an actua
 save(chipObj, file="~/chipseq/results/chip_qc/ChIPQC/chipObj.RData")
 ```
 
-The final step is taking those quality metrics and summarize information into an HTML report with tables and figures. **We will not run this line of code, and so we have a put `#` sign in front of that line.** 
-
+The final step is taking those quality metrics and summarize information into an HTML report with tables and figures.
 
 ```
 ## Create ChIPQC report
-# ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
+ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
 ```
 
-> **NOTE:** The reason we have commented out this line is because in order to generate the report on **O2 you require the X11 system**, which we are currently not setup to do. If you are interested in learning more about using X11 applications you can [find out more on the O2 wiki page](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely). Alternatively, if you are familiar with R you can also copy the `chipObj.RData` object over to your local computer, load it into R and then run the line of code we had commented out.
+> **NOTE:** In order to generate the report on **O2 you require the X11 system**, which we are currently not setup to do. If you are interested in learning more about using X11 applications you can [find out more on the O2 wiki page](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely). Alternatively, if you are familiar with R you can also copy the `chipObj.RData` object over to your local computer, load it into R and then run the line of code we had commented out.
 > 
 >  Keep in mind you will have to install the `ChIPQC` package (vChIPQC_1.10.3 or higher) if you are doing this locally. 
 > 
 
 
-**Your final script should look like this:**
+**Your final script will look like this:**
 
 
 ```
@@ -179,10 +168,10 @@ chipObj <- ChIPQC(samples, annotation="hg19")
 save(chipObj, file="~/chipseq/results/chip_qc/ChIPQC/chipObj.RData")
 
 ## Create ChIPQC report
-#ChIPQCreport(chipObj, reportName="Nanog_and_Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
+ChIPQCreport(chipObj, reportName="Nanog_and_Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
 ```
 
-Save your script and quit `vim`. Now we can run the script interactively. This will take 2-3 minutes to complete and you will see a bunch of text written to the screen as each line of code is run. When completed you can check the `results/chip_qc/ChlPQC` to make sure you have the `.RData` file.
+You can run the script interactively. This will take 2-3 minutes to complete and you will see a bunch of text written to the screen as each line of code is run. When completed you can check the `results/chip_qc/ChlPQC` to make sure you have the `.RData` file.
 
 ```
 $ Rscript run_chipQC.R
