@@ -65,7 +65,7 @@ Let's create a directory for the output of the ChIPQC R package:
 $ mkdir ~/chipseq/results/chip_qc/ChIPQC
 ```
 
-Since installing packages can sometimes be problematic on the cluster, we will not have you do the installation of the chIPQC pacakage, just like we did with the tools in the last lesson we have included this in the **R libraries we have prepared for this workshop**. You will likely have the R module loaded and this library accessible from the last lesson, but let's do a couple of checks in case you restarted a new interactive session on O2:
+Since installing packages can sometimes be problematic on the cluster, we will not have you do the installation of the ChIPQC package, just like we did with the tools in the last lesson we have included this in the **R libraries we have prepared for this workshop**. You will likely have the R module loaded and this library accessible from the last lesson, but let's do a couple of checks in case you restarted a new interactive session on O2:
 
 ```bash
 # check if the variable is already set 
