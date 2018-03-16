@@ -117,7 +117,7 @@ $ ls -l /n/groups/hbctraining/chip-seq/phantompeakqualtools/
 In this folder there should be a `README.txt` which contains all the commands, options, and output descriptions. Let's check out the `README.txt`:
 
 ```
-$ less /n/groups/hbctraining/chip-seq/phantompeakqualtools/README.txt
+$ less /n/groups/hbctraining/chip-seq/phantompeakqualtools/README.md
 ```
 Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). **This is the script we will be using.**
 
@@ -196,7 +196,7 @@ done
 The for loop generates **three output files**. The **quality metrics** are written in a tab-delimited text file, and the **log files** contains the standard output text. A third file is created in the same directory as the BAM files. These are pdf files that contain the **cross-correlation** plot for each sample. Let's move those files into the appropriate output directory:
 
 ```
-$ mv ../../bowtie2/*pdf qual  
+$ mv ../bowtie2/*pdf qual  
 
 ```
 
