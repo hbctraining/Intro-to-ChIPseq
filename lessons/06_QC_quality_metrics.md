@@ -59,16 +59,13 @@ experiment quality report**. We are going to use this package to generate a repo
 
 ### Setting up 
 
-In order to install the `ChIPQC` package for use on the cluster, we will need to load the R module. Also, you will want to create a directory for your results:
+Let's create a directory for the output of the ChIPQC R package: 
 
 ```bash
-$ module load gcc/6.2.0 R/3.4.1
-
 $ mkdir ~/chipseq/results/chip_qc/ChIPQC
-
 ```
 
-Since installing packages can sometimes be problematic on the cluster, we will not have you do the installation and rather **use the libraries we have prepared for this workshop**. You will likely have this library accessible from the last lesson, but in case you have started a new session on O2, you will need to set the `R_LIBS_USER` environment variable.
+Since installing packages can sometimes be problematic on the cluster, we will not have you do the installation of the chIPQC pacakage, just like we did with the tools in the last lesson we have included this in the **R libraries we have prepared for this workshop**. You will likely have the R module loaded and this library accessible from the last lesson, but let's do a couple of checks in case you restarted a new interactive session on O2:
 
 ```bash
 # check if the variable is already set 
@@ -76,7 +73,14 @@ $ echo $R_LIBS_USER
 
 # If the above command returns nothing, then run the command below
 $ export R_LIBS_USER="/n/groups/hbctraining/R/library/"
+```
 
+```bash
+# check if the R/3.4.1 module is loaded
+$ module list
+
+# if R/3.4.1 is not listed in the output of the above command, then load it 
+$ module load gcc/6.2.0 R/3.4.1
 ```
 
 The last thing we need is the **sample sheet**. Let's copy it over and take a quick look at it:
@@ -84,7 +88,7 @@ The last thing we need is the **sample sheet**. Let's copy it over and take a qu
 ```bash
 $ cp /n/groups/hbctraining/chip-seq/ChIPQC/samplesheet.csv ~/chipseq/results/chip_qc/ChIPQC
 
-$ less ~/chipseq/results/chip_qc/ChIPQC
+$ less ~/chipseq/results/chip_qc/ChIPQC/samplesheet.csv
 ```
 
 The **sample sheet** contains metadata information for our dataset.Each row represents a peak set (which in most cases is every ChIP sample) and several columns of required information, which allows us to easily load the associated data in one single command. _NOTE: The column headers have specific names that are expected by ChIPQC!!_. 
