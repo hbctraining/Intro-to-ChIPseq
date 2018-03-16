@@ -184,12 +184,12 @@ $ Rscript /n/groups/hbctraining/chip-seq/phantompeakqualtools/run_spp.R -c=<tagA
 From within the `phantompeakqualtools` directory, we will create output directories and use a 'for loop' to **run the script on every Nanog and Pouf51 BAM file**:
 
 ```
-$ mkdir logs qual
+$ mkdir -p logs qual
 
-$ for bam in ../../bowtie2/*Nanog*aln.bam ../../bowtie2/*Pou5f1*aln.bam
+$ for bam in ../bowtie2/*Nanog*aln.bam ../bowtie2/*Pou5f1*aln.bam
 do 
 bam2=`basename $bam _aln.bam`
-Rscript /n/groups/hbctraining/chip-seq/phantompeakqualtools/run_spp_nodups.R -c=$bam -savp -out=qual/${bam2}.qual > logs/${bam2}.Rout
+Rscript /n/groups/hbctraining/chip-seq/phantompeakqualtools/run_spp.R -c=$bam -savp -out=qual/${bam2}.qual > logs/${bam2}.Rout
 done
 ```
 
