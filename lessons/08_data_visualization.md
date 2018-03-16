@@ -25,7 +25,7 @@ The first thing we want to do is take our alignment files (BAM) and convert them
 [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), is a suite of Python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. `deepTools` has a wide variety of commands that go beyond those that are covered in this lesson. We encourage you to look through the docuementation and explore on your own time. 
 
 
-<img src="../img/bam_to_bigwig.png">
+<img src="../img/bam_to_bigwig.png" width=500>
 
 *Image aquired from [deepTools documentation](http://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html?highlight=bigwig) pages*
 
@@ -105,10 +105,12 @@ cp /n/groups/hbctraining/chip-seq/deepTools/chr12_genes.bed ~/chipseq/results/vi
 
 We first need to prepare an intermediate file that can be used with `plotHeatmap` and `plotProfile`.
 
-<img src="../img/computeMatrix_overview.png">
+<img src="../img/computeMatrix_overview.png" width=500>
 
 
 `computeMatrix` accepts multiple bigWig files and multiple region files (BED format). This tool can also be used to filter and sort regions according to their score. Using a window of +/- 1000bp around the TSS of genes (`-b` and `-a`) `computeMatrix` calculates scores per window based on the read density values in the bigWig files.
+
+First we will create one for the Nanog replicates:
 
 ```bash
 
@@ -121,6 +123,36 @@ computeMatrix reference-point --referencePoint TSS \
 --outFileSortedRegions regions_TSS_chr12.bed
 
 ```
+
+Create another matrix for the Pou5f1 replicates:
+
+```bash
+
+computeMatrix reference-point --referencePoint TSS \
+-b 1000 -a 1000 \
+-R ~/chipseq/reference_data/chr12_genes.bed \
+-S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw \
+--skipZeros -o ~/chipseq/results/visualization/matrixPou5f1_TSS_chr12.gz \
+--outFileSortedRegions regionsPou5f1_TSS_chr12.bed
+
+```
+
+This matrix can now be used as input to visualization tools. We can create a profile plot which is essentially a density plot that evaluates read density across all transcription start sites. For Nanog, we can see 
+
+```bash
+plotProfile -m visualization/matrix_TSS_chr12.gz \
+-out visualization/TSS_Nanog_profile.png \
+--perGroup \
+--colors green purple \
+--plotTitle "" --samplesLabel "Rep1" "Rep2" \
+--refPointLabel "TSS" \
+-T "Nanog read density" \
+-z ""
+
+```
+
+
+This will generate two output files for each of t
 
 Compute the matrix (for TSS):
 - plot Nanog on one plot (2 replicates)
