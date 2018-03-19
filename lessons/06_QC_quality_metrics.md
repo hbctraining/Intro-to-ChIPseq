@@ -188,24 +188,24 @@ Let's start with the **QC summary table**:
 
 <img src="../img/QCsummary.png">
 
-Here, we see the metrics mentioned above (SSD, RiP and RiBL). A higher SSD is more indicative of better enrichment. Higher scores are obseved for the Pou5f1 replicates and so greatest enrichment for depth of signal. SSD scores are dependent on the degree of total genome wide signal pile-up and so are sensitive to regions of high signal found with Blacklisted regions as well as genuine ChIP enrichment. The RiBL percentages are not incredibly high (also shown in the plot in the  next section) and FriP percentages are around 5% or higher, except for Pou5f1-rep2. 
+Here, we see the metrics mentioned above (SSD, RiP and RiBL). A higher SSD is more indicative of better enrichment. SSD scores are dependent on the degree of total genome wide signal pile-up and so are sensitive to regions of high signal found with Blacklisted regions as well as genuine ChIP enrichment. The RiBL percentages are not incredibly high (also shown in the plot in the  next section) and FriP percentages are around 5% or higher, except for Pou5f1-rep2. 
 
 Additionally, we see other statistics related to the strand cross-correlation (FragLength and RelCC which is similar to the RSC). With RelCC values larger than one for all ChIP samples suggest good enrichment.
 
-The next table contains **the mapping quality, and duplication rate,** however since we had already filtered our BAM files we find the numbers do not report much for us.
+The next table contains **the mapping quality and duplication rate,** however since we already filtered our BAM files we find the numbers do not report much for us.
 
-Next is a plot showing the effect of blacklisting, with the proportion of reads that do and do not overlap with blacklisted regions. The final plot in this section uses the genomic annotation to show **where reads map in terms of genomic features**. This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. We find that there is most enrichment in promotor regions. This plot is useful when you expect enrichment of specific genomic regions.  
+Next is a plot showing the effect of blacklisting, with the proportion of reads that do and do not overlap with blacklisted regions. The final plot in this section uses the genomic annotation to show **where reads map in terms of genomic features**. This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. We find that there is the most enrichment in promotor regions. This plot is useful when you expect enrichment of specific genomic regions.  
  
 <img src="../img/GenomicFeatureEnrichment.png" width="500">
 
-The next section, **ChIP Signal Distribution and Structure**, looks at the inherent ”peakiness” of the samples. The first plot is a **coverage histogram**. The x-axis represents the read pileup height at a basepair position, and the y-axis represents how many positions have this pileup height. This is on a log scale. **A ChIP sample with good enrichment should have a reasonable ”tail”, that is more positions (higher values on the y-axis) having higher sequencing depth**. 
-Samples with low enrichment (i.e input), consisting of mostly background reads will have lower genome wide low pile-up. In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. The cross-correlation plot which is displayed next is one we have already covered. 
+The next section, **ChIP Signal Distribution and Structure**, looks at the inherent "peakiness" of the samples. The first plot is a **coverage histogram**. The x-axis represents the read pileup height at a basepair position, and the y-axis represents how many positions have this pileup height. This is on a log scale. **A ChIP sample with good enrichment should have a reasonable "tail", that is more positions (higher values on the y-axis) having higher sequencing depth**. 
+Samples with low enrichment (i.e input), consisting of mostly background reads, will have lower genome wide pile-up. In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. The cross-correlation plot which is displayed next is one we have already covered. 
 
 <img src="../img/CoverageHistogramPlot.png" width="500">
 
 
 
-The final set of plots, **Peak Profile and ChIP Enrichment**, are based on metric computed using the supplied peaks if available. The first plot shows average peak profiles, centered on the summit (point of highest pileup) for each peak.
+The final set of plots, **Peak Profile and ChIP Enrichment**, are based on the metric computed using the supplied peaks, if available. The first plot shows average peak profiles, centered on the summit (point of highest pileup) for each peak.
 
 <img src="../img/PeakProfile.png" width="500">
 

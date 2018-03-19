@@ -27,7 +27,7 @@ The first thing we want to do is take our alignment files (BAM) and convert them
 
 <img src="../img/bam_to_bigwig.png" width=500>
 
-*Image aquired from [deepTools documentation](http://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html?highlight=bigwig) pages*
+*Image acquired from [deepTools documentation](http://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html?highlight=bigwig) pages*
 
 Start an interactive session with 6 cores. *If you are already logged on to a compute node you will want to exit and start a new session*.
 
@@ -45,7 +45,6 @@ $ mkdir -p visualization/bigWig visualization/figures
 ```bash
 $ module load gcc/6.2.0  python/2.7.12
 $ module load deeptools/2.5.3 
-
 ```
 
 To create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input) and will return a single bigWig file.
@@ -114,7 +113,7 @@ First, let's create a matrix one for the Nanog replicates:
 
 computeMatrix reference-point --referencePoint TSS \
 -b 1000 -a 1000 \
--R ~/chipseq/reference_data/chr12_genes.bed \
+-R ~/chipseq/results/visualization/chr12_genes.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
 --skipZeros \
 -o ~/chipseq/results/visualization/matrix_TSS_chr12.gz \
@@ -130,7 +129,7 @@ Now, let's create another matrix for the Pou5f1 replicates:
 
 computeMatrix reference-point --referencePoint TSS \
 -b 1000 -a 1000 \
--R ~/chipseq/reference_data/chr12_genes.bed \
+-R ~/chipseq/results/visualization/chr12_genes.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw \
 --skipZeros -o ~/chipseq/results/visualization/matrixPou5f1_TSS_chr12.gz \
 --outFileSortedRegions ~/chipseq/results/visualization/regionsPou5f1_TSS_chr12.bed
@@ -287,6 +286,7 @@ In order to visualize our ChIP-seq enrichment we will first need to move over th
 
 
 > **NOTE:**  There is another way to do so using the command line interface. **This option is only available for Mac and Linux users! PC users can use Filezilla.**  Similar to the `cp` command to copy there is a command that allows you to securely copy files between computers. **The command is called `scp` and allows files to be copied to, from, or between different hosts.** It uses ssh for data transfer and provides the same authentication and same level of security as ssh. 
+
 
 
 Open up `FileZilla` and connect to the transfer node on O2. Navigate to the correct directory on the cluster panel and copy over the following files:
