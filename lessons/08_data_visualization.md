@@ -161,7 +161,7 @@ plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_he
 --whatToShow 'heatmap and colorbar' \
 --zMin -4 --zMax 4  
 ```
-<img src="../img/TSS_Nanog_heatmap.png", width=400>
+<img src="../img/TSS_Nanog_heatmap.png" width=400>
 
 Similarly we can do the same for **Pou5f1. Here, we find that Replicate 2 exhibits stronger signal**.
 
@@ -173,7 +173,7 @@ plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
 --refPointLabel "TSS" -T "Pou5f1 read density" -z ""
 ```
 
-<img src="../img/TSS_Pou5f1_profile.png", width=400>
+<img src="../img/TSS_Pou5f1_profile.png" width=400>
 
 ```bash
 plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
@@ -182,7 +182,7 @@ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Po
 --zMin -2 --zMax 2  
 ```
 
-<img src="../img/TSS_Pou5f1_heatmap.png", width=400>
+<img src="../img/TSS_Pou5f1_heatmap.png" width=400>
 
 
 ### Differential enrichment
