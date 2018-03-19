@@ -261,11 +261,11 @@ The `bedtools intersect` will report back the peaks that are overlapping in the 
 	
 		$ bedtools intersect -a bedtools/Pou5f1_merged.bed -b bedtools/Nanog_merged.bed -v > bedtools/Pou5f1_only_peaks.bed
 
-How many peaks are unique to Nanog?
+**How many peaks are unique to Nanog?**
 
 	$ wc -l bedtools/Nanog_only_peaks.bed
 	
-How many peaks are unique to Pou5f1?
+**How many peaks are unique to Pou5f1?**
 
 	$ wc -l bedtools/Pou5f1_only_peaks.bed
 
