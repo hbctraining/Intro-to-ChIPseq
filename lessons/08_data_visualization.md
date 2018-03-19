@@ -27,7 +27,7 @@ The first thing we want to do is take our alignment files (BAM) and convert them
 
 <img src="../img/bam_to_bigwig.png" width=500>
 
-*Image aquired from [deepTools documentation](http://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html?highlight=bigwig) pages*
+*Image acquired from [deepTools documentation](http://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html?highlight=bigwig) pages*
 
 Start an interactive session with 6 cores. *If you are already logged on to a compute node you will want to exit and start a new session*.
 
