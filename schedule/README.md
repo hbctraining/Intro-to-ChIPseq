@@ -23,14 +23,13 @@
 |9:00 - 10:00 | [Introduction to ChIP-seq]() | Meeta |
 |10:00 - 10:15 | Break | |
 |10:15 - 11:00 | [Project Organization and Best Practices in Data Management]() | Radhika |
-|11:00 - 11:30 | [ChIP-seq File Formats]() | Meeta |
-|11:30 - 12:30 | [Sequencing data QC and Alignment to Genome]() | Mary |
-|12:30 - 13:30 | Lunch | |
-|13:45 - 14:45 | [Automating generation of alignment files]() | Radhika |
-|14:45 - 15:15 | [Peak calling with MACS2]() | Meeta |
-|15:15 - 15:30 | Break | |
-|15:30 - 16:30 | [Peak calling with MACS2]() | Meeta |
-|16:30 - 17:00 | [Assessing ChIP quality using cross correlation]() | Mary |
+|11:00 - 12:00 | [Sequencing data QC and Alignment to Genome]() | Mary |
+|12:00 - 13:00 | Lunch | |
+|13:00 - 14:00 | [Automating generation of alignment files]() | Radhika |
+|14:00 - 14:30 | [ChIP-seq File Formats]() | Meeta |
+|14:30 - 14:45 | Break | |
+|14:45 - 16:15 | [Peak calling with MACS2]() | Meeta |
+|16:15 - 17:00 | [Assessing ChIP quality using cross correlation]() | Mary |
 
 ## Day 3
 
