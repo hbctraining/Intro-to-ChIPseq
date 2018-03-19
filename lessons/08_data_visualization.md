@@ -48,14 +48,14 @@ $ module load deeptools/2.5.3
 
 ```
 
-To create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input).
+To create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input) and will return a single bigWig file.
 
-Let's create a bigWig file for Nanog replicate 1 using the `bamCoverage` command. In addition to the input and output files, there are a few additional parameters we have added. 
+Let's **create a bigWig file for Nanog replicate 1** using the `bamCoverage` command. In addition to the input and output files, there are a few additional parameters we have added. 
 
-* `normalizeTo1x`: Report read coverage normalized to 1x sequencing depth (also known as Reads Per Genomic Content (RPGC)). Sequencing depth is defined as: (total number of mapped reads * fragment length) / effective genome size). So the number provided here represents the effective genome size. Some examples for commonly used organisms can be [found here](http://deeptools.readthedocs.io/en/latest/content/feature/effectiveGenomeSize.html)
+* `normalizeTo1x`: Report read coverage normalized to 1x sequencing depth (also known as Reads Per Genomic Content (RPGC)). Sequencing depth is defined as: (total number of mapped reads * fragment length) / effective genome size). So **the number provided here represents the effective genome size**. Some examples of values for commonly used organisms can be [found here](http://deeptools.readthedocs.io/en/latest/content/feature/effectiveGenomeSize.html).
 * `binSize`: size of bins in bases
 * `smoothLength`: defines a window, larger than the `binSize`, to average the number of reads over. This helps produce a more continuous plot.
-* `centerReads`: reads are centered with respect to the fragment length as specified by `extendReads`. This option is useful to get a sharper signal around enriched regions
+* `centerReads`: reads are centered with respect to the fragment length as specified by `extendReads`. This option is useful to get a sharper signal around enriched regions.
 
 ```bash
 bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
@@ -68,7 +68,7 @@ bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 -p 6 2> ../logs/Nanog_rep1_bamCoverage.log
 ```
 
-Now, if we wanted to create a bigWig file in which we normalize the ChIP against the input we would use `bamCompare`. The command is quite similar to `bamCoverage`, the only difference being you require two files as input (`b1` and `b2`).
+Now, if we wanted to **create a bigWig file in which we normalize the ChIP against the input** we would use `bamCompare`. The command is quite similar to `bamCoverage`, the only difference being you require two files as input (`b1` and `b2`).
 
 ```bash
 bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
@@ -84,7 +84,7 @@ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 
 > **NOTE:** When you are creating bigWig files for your full dataset, this will take considerably longer and you will not want to run this interactively (except for testing purposes). Instead, you might want to consider writing a job submission script with a loop that runs this command over all of your BAM files.
 
-Since we are a subset of the data, using theses bigWigs for visualization would not give us meaningful results. As such, **we have created bigWig files from the full dataset that you can copy over and use for the rest of this lesson.**
+Since we are using a toy dataset which contains only a subset of the data, using these bigWigs for visualization would not give us meaningful results. As such, **we have created bigWig files from the full dataset that you can copy over and use for the rest of this lesson.**
 
 ```bash
 cp /n/groups/hbctraining/chip-seq/full-dataset/bigWig/*.bw visualization/bigWig/
@@ -93,24 +93,22 @@ cp /n/groups/hbctraining/chip-seq/full-dataset/bigWig/*.bw visualization/bigWig/
 
 ### Profile plots and heatmaps
 
-Profile plots are useful in evaluating the read density in particular regions of interest. For example, if we expected our protein to be binding at the transcription start site (TSS) of genes we might want to validate that we do in fact see that in our data.
+Once you have bigWig files you can use them to get a global look at enrichment patterns in your data at specified regions. In our example, we will assess enrichment around the TSS and plot this separately for the Nanog and Pou5f1 samples (two replicates in each plot). 
 
-We will look at enrichment around the TSS using our data and plot this separately for the Nanog and Pou5f1 samples (two replicates in each plot). We will only look at genes on chromosome 12 in the interest of time, and so you will need to copy over the BED file to use.
+Rather than looking at the TSS for all known genes, we will only look be looking at genes on chromosome 12 in the interest of time. Copy over the BED file which contains the coordinates for all genes on chromosome 12 to the visualization folder.
 
 ```bash
 cp /n/groups/hbctraining/chip-seq/deepTools/chr12_genes.bed ~/chipseq/results/visualization/
 ```
 
-> **NOTE:** Typically, the genome regions are genes, and can be obtained from the [UCSC table browser](http://rohsdb.cmb.usc.edu/GBshape/cgi-bin/hgTables). Alternatively, you could look at other regions of interest that are not genomic feature related (i.e. binding regions from another protein of interest).
-
-We first need to prepare an intermediate file that can be used with `plotHeatmap` and `plotProfile`.
+Before we start plotting our data, we first need to prepare an intermediate file that can be used with the `plotHeatmap` and `plotProfile` commands.
 
 <img src="../img/computeMatrix_overview.png" width=500>
 
 
-`computeMatrix` accepts multiple bigWig files and multiple region files (BED format). This tool can also be used to filter and sort regions according to their score. Using a window of +/- 1000bp around the TSS of genes (`-b` and `-a`) `computeMatrix` calculates scores per window based on the read density values in the bigWig files.
+The `computeMatrix` command accepts multiple bigWig files and multiple region files (BED format) to create a count matrix which is the intermediate file. It can also be used to filter and sort regions according to their score. Our region file will be the BED file we just copied over and our bigWog files will be those generated from the full dataset that we have provided for you. Additionally, We will specify a window of +/- 1000bp around the TSS of genes (`-b` and `-a`). For each window, `computeMatrix` will calculate scores based on the read density values in the bigWig files.
 
-First we will create one for the Nanog replicates:
+First, let's create a matrix one for the Nanog replicates:
 
 ```bash
 
@@ -120,11 +118,13 @@ computeMatrix reference-point --referencePoint TSS \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
 --skipZeros \
 -o ~/chipseq/results/visualization/matrix_TSS_chr12.gz \
---outFileSortedRegions regions_TSS_chr12.bed
+--outFileSortedRegions ~/chipseq/results/visualization/regions_TSS_chr12.bed
 
 ```
 
-Create another matrix for the Pou5f1 replicates:
+> **NOTE:** Typically, the genome regions are genes, and can be obtained from the [UCSC table browser](http://rohsdb.cmb.usc.edu/GBshape/cgi-bin/hgTables). Alternatively, you could look at other regions of interest that are not genomic feature related (i.e. binding regions from another protein of interest).
+
+Now, let's create another matrix for the Pou5f1 replicates:
 
 ```bash
 
@@ -133,11 +133,11 @@ computeMatrix reference-point --referencePoint TSS \
 -R ~/chipseq/reference_data/chr12_genes.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw \
 --skipZeros -o ~/chipseq/results/visualization/matrixPou5f1_TSS_chr12.gz \
---outFileSortedRegions regionsPou5f1_TSS_chr12.bed
+--outFileSortedRegions ~/chipseq/results/visualization/regionsPou5f1_TSS_chr12.bed
 
 ```
 
-This matrix can now be used as input to visualization tools. We can create a profile plot which is essentially a density plot that evaluates read density across all transcription start sites. For Nanog, we can see 
+Using that matrix we can create a **profile plot** which is essentially a density plot that evaluates read density across all transcription start sites. For Nanog, we can see that **Replicate 2 has a particularly higher amount of signal at the TSS compared to Replicate 1**. 
 
 ```bash
 plotProfile -m visualization/matrix_TSS_chr12.gz \
@@ -151,30 +151,38 @@ plotProfile -m visualization/matrix_TSS_chr12.gz \
 
 ```
 
+<img src="../img/TSS_Nanog_profile.png" width=500>
 
-This will generate two output files for each of t
+Alternatively, we could use a **heatmap** to evaluate the same matrix of information:
 
-Compute the matrix (for TSS):
-- plot Nanog on one plot (2 replicates)
-- plot Pou5f1 one one plot (2 replicates)
+```bash
+plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_heatmap.png \
+--colorMap RdBu \
+--whatToShow 'heatmap and colorbar' \
+--zMin -4 --zMax 4  
+```
+<img src="../img/TSS_Nanog_heatmap.png", width=400>
 
+Similarly we can do the same for **Pou5f1. Here, we find that Replicate 2 exhibits stronger signal**.
 
+```bash
+plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
+-out visualization/TSS_Pou5f1_profile.png \
+--perGroup --colors green purple \
+--plotTitle "" --samplesLabel "Rep1" "Rep2" \
+--refPointLabel "TSS" -T "Pou5f1 read density" -z ""
+```
 
-- plot them separately each with a heatmap
-- 
+<img src="../img/TSS_Pou5f1_profile.png", width=400>
 
+```bash
+plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
+--colorMap RdBu \
+--whatToShow 'heatmap and colorbar' \
+--zMin -2 --zMax 2  
+```
 
-Compute matrix (for specific binding sites):
-- look at Nanog enrichment on Pou5f1 bidning sites
-- look at Pou5f1 enrichment on Nanog sites
-- 
-
-
-
-
-
-
-
+<img src="../img/TSS_Pou5f1_heatmap.png", width=400>
 
 
 ### Differential enrichment
@@ -183,7 +191,8 @@ To provide a more complex picture of biological processes in a cell, many studie
 
 
 
-
+Compute matrix (for specific binding sites) to visualize
+- look at Nanog and Pougf1 enrichment on diff bound bidning sites (oe one plot using only the string sample bigWgs
 
 
 
