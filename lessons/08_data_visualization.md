@@ -106,9 +106,9 @@ Before we start plotting our data, we first need to prepare an intermediate file
 <img src="../img/computeMatrix_overview.png" width=500>
 
 
-The `computeMatrix` command accepts multiple bigWig files and multiple region files (BED format) to create a count matrix which is the intermediate file. It can also be used to filter and sort regions according to their score. Our region file will be the BED file we just copied over and our bigWog files will be those generated from the full dataset that we have provided for you. Additionally, We will specify a window of +/- 1000bp around the TSS of genes (`-b` and `-a`). For each window, `computeMatrix` will calculate scores based on the read density values in the bigWig files.
+The `computeMatrix` command accepts multiple bigWig files and multiple region files (BED format) to create a count matrix which is the intermediate file. It can also be used to filter and sort regions according to their score. Our region file will be the BED file we just copied over and our bigWig files will be those generated from the full dataset that we have provided for you. Additionally, we will specify a window of +/- 1000bp around the TSS of genes (`-b` and `-a`). For each window, `computeMatrix` will calculate scores based on the read density values in the bigWig files.
 
-First, let's create a matrix one for the Nanog replicates:
+First, let's create a matrix for the Nanog replicates:
 
 ```bash
 
