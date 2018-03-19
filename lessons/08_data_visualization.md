@@ -198,9 +198,77 @@ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Po
 
 ### Differential enrichment
 
-To provide a more complex picture of biological processes in a cell, many studies aim to compare different datasets obtained by ChIP-seq. 
+To provide a more complex picture of biological processes in a cell, many studies aim to compare different datasets obtained by ChIP-seq. In our dataset, we have peak calls from two different transcription factors: Nanog and Pou5f1. To look at the differences in binding between the two we will use `bedtools`.
 
+You may already have the module loaded, but in case you don't you will need to load it:
 
+```bash
+$ module list # check which modules you have listed
+
+$ module load gcc/6.2.0 bedtools/2.26.0 
+```
+
+Before using bedtools to obtain the overlap, we need to combine the information from both replicates. We will do this by concatenating (`cat`) the peak calls into a single file.
+
+#### Combining the replicates
+
+<img src="../img/combine-for-merge.png" width="600">
+
+```
+$ cat macs2/Nanog-rep1_peaks.narrowPeak macs2/Nanog-rep2_peaks.narrowPeak > macs2/Nanog_combined.narrowPeak
+
+$ cat macs2/Pou5f1-rep1_peaks.narrowPeak macs2/Pou5f1-rep2_peaks.narrowPeak > macs2/Pou5f1_combined.narrowPeak	
+
+```	
+
+#### Merge peaks within a file
+
+Now for each for each of those combined peak files we need to merge regions that are overlapping. However, `bedtools merge` requires a sorted file as input. So we will sort the file and pipe (`|`) the output to `bedtools` to merge. 
+
+<img src="../img/merge-glyph.png" width="600">
+
+```
+	$ bedtools merge -h
+	
+	$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | less # take a quick peek at the sorted file
+	
+	$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | bedtools merge -i - > bedtools/Nanog_merged.bed 
+```	
+
+> **NOTE:** this command modifies your `narrowPeak` file into a simple, 3-column `bed` file.
+
+Now, we'll do the same for Pou5f1:
+
+```bash
+	$ sort -k1,1 -k2,2n macs2/Pou5f1_combined.narrowPeak | bedtools merge -i - > bedtools/Pou5f1_merged.bed 
+	
+```
+
+> **NOTE:** You could also use the IDR-optimized set of peaks we generated, instead of combining and merging. In our case, because we are looking at a small subset of the data the number of IDR peaks is very low and so this will give us more peaks as a starting point to evaluate the differences.
+> 
+> 
+> Identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.  For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. If you are interested in learning more, we have a [lesson on DiffBind](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/diffbind_differential_peaks.html) analysis using this same dataset.
+> 
+
+#### Looking for differences in enrcihment between Nanog and Pou5f1
+
+The `bedtools intersect` will report back the peaks that are overlapping in the file defined in `b` with respect to the file defined as `a` in the command. However, if we add the modifier `-v`, this will report only those entries in A that have _no overlaps_ with B. 
+
+<img src="../img/bedtools_intersect.png" width="600">
+
+	$ bedtools intersect -h
+	
+	$ bedtools intersect -a bedtools/Nanog_merged.bed -b bedtools/Pou5f1_merged.bed -v > bedtools/Nanog_only_peaks.bed
+	
+		$ bedtools intersect -a bedtools/Pou5f1_merged.bed -b bedtools/Nanog_merged.bed -v > bedtools/Pou5f1_only_peaks.bed
+
+How many peaks are unique to Nanog?
+
+	$ wc -l bedtools/Nanog_only_peaks.bed
+	
+How many peaks are unique to Pou5f1?
+
+	$ wc -l bedtools/Pou5f1_only_peaks.bed
 
 
 Compute matrix (for specific binding sites) to visualize
