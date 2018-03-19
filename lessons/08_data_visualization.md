@@ -163,7 +163,7 @@ plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_he
 ```
 <img src="../img/TSS_Nanog_heatmap.png" width=400>
 
-Similarly we can do the same for **Pou5f1. Here, we find that Replicate 2 exhibits stronger signal**.
+Similarly we can do the same for **Pou5f1. Here, we find that Replicate 1 exhibits stronger signal**.
 
 ```bash
 plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
