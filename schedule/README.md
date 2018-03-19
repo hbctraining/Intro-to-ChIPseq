@@ -26,7 +26,7 @@
 |11:00 - 12:00 | [Sequencing data QC and Alignment to Genome]() | Mary |
 |12:00 - 13:00 | Lunch | |
 |13:00 - 14:00 | [Automating generation of alignment files]() | Radhika |
-|14:00 - 14:30 | [ChIP-seq File Formats]() | Meeta |
+|14:00 - 14:30 | [ChIP-seq File Formats]() | Radhika |
 |14:30 - 14:45 | Break | |
 |14:45 - 16:15 | [Peak calling with MACS2]() | Meeta |
 |16:15 - 17:00 | [Assessing ChIP quality using cross correlation]() | Mary |
