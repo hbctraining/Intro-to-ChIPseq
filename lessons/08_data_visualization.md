@@ -163,6 +163,7 @@ plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_he
 ```
 <img src="../img/TSS_Nanog_heatmap.png" width=400>
 
+
 Similarly we can do the same for **Pou5f1. Here, we find that Replicate 1 exhibits stronger signal**.
 
 ```bash
@@ -184,8 +185,19 @@ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Po
 
 <img src="../img/TSS_Pou5f1_heatmap.png" width=400>
 
+If we wanted **both images in one single plot**, we can do that with `plotHeatmap` and just removing the `--whatToShow` parameter.
+
+```bash
+plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
+--colorMap RdBu \
+--zMin -2 --zMax 2  
+```
+
+<img src="../img/TSS_Pou5f1_heatmap_and_profile.png" width=400>
+
 
 ### Differential enrichment
+
 To provide a more complex picture of biological processes in a cell, many studies aim to compare different datasets obtained by ChIP-seq. 
 
 
