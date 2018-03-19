@@ -210,10 +210,33 @@ Compute matrix (for specific binding sites) to visualize
 
 ### IGV: Viewing files in a genome browser
 
+Another method for assessing the quality of your alignment is to visualize the alignment using a genome browser. For this workshop we will be using the [Integrative Genomics Viewer (IGV)](https://www.broadinstitute.org/igv/) from the Broad Institute. *You should already have this downloaded on your laptop.* IGV is an interactive tool which allows exploration of large, integrated genomic datasets. It supports a wide variety of data types, including array-based and next-generation sequence data, and genomic annotations, which facilitates invaluable comparisons.
+
+
+#### Transfer files
+
+In order to visualize our ChIP-seq enrichment we will first need to move over the bigWig files. We previously used `FileZilla` to transfer files from O2 to your laptop and so we will do the same for these files.
+
+
+> **NOTE:**  There is another way to do so using the command line interface. **This option is only available for Mac and Linux users! PC users can use Filezilla.**  Similar to the `cp` command to copy there is a command that allows you to securely copy files between computers. **The command is called `scp` and allows files to be copied to, from, or between different hosts.** It uses ssh for data transfer and provides the same authentication and same level of security as ssh. 
+
+
+Open up `FileZilla` and connect to the transfer node on O2. Navigate to the correct directory on the cluster panel and copy over the following files:
+
 * Copy over the bigWig files to your laptop using filezilla or scp. 
 * Copy over the BEDtools overlap/intersect files to your computer.
 
-* Start IGV and load the 2 rep1 files, and the overlap BED files. You will notice that there are positive and negative values on the track, what do you think this denotes in the context of normalization?
+
+Start [IGV](https://www.broadinstitute.org/software/igv/download) _You should have this previously installed on your laptop._
+
+* Load the Human genome (hg19) into IGV using the dropdown menu at the top left of your screen. _Note: there is also an option to "Load Genomes from File..." under the "Genomes" pull-down menu - this is useful when working with non-model organisms_
+* Load the bigWig file using the **"Load from File..."** option under the **"File"** pull-down menu. 
+* Load in BED files
+
+
+ADD SCREENSHOT
+
+You will notice that there are positive and negative values on the track, what do you think this denotes in the context of normalization?
 
 > You can generate a simple, non-normalized bigWig with `bamCoverage` and you won't see any negative values. 
 
