@@ -160,12 +160,15 @@ $ Rscript run_chipQC.R 2> ../logs/ChIPQC.Rout ##DO NOT RUN THIS
 
 When the script is finished running you can check the `results/chip_qc/ChlPQC` directory to make sure you have the **`.RData` file and an additional folder which contains the HTML report and all associated images**.
 
+----
+
 > ### Interested in runnnig this script on your own? 
 > 
 > **If you wanted to run this script on your own time,** we have some instructions on how to set yourself up. 
 > 
 > 1. First, you will need X11 capabilities (contact HMSRC about this if you need help) 
 > 2. Create a copy of the script to run, and make sure the paths reflect your directory structure.
+> 
 > `$ cp  /n/groups/hbctraining/chip-seq/ChIPQC/run_chipQC.R ~/chipseq/scripts`
 > 
 > 3. Use pre-existing R libraries. Since installing packages can sometimes be problematic on the cluster, you may just want to use the libraries we have created. To do so, follow the instructions below.
@@ -187,6 +190,7 @@ When the script is finished running you can check the `results/chip_qc/ChlPQC` d
 > 4. Run the script from the command line.
 > 
 
+----
 
 ### `ChIPQC` report
 
