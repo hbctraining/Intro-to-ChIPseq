@@ -22,25 +22,25 @@
 |:------------------------:|:----------:|:--------:|
 |9:00 - 10:00 | [Introduction to ChIP-seq]() | Meeta |
 |10:00 - 10:15 | Break | |
-|10:15 - 11:00 | [Project Organization and Best Practices in Data Management]() | Radhika |
-|11:00 - 12:00 | [Sequencing data QC and Alignment to Genome]() | Mary |
+|10:15 - 11:00 | [Project Organization and Best Practices in Data Management](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/01_Intro_chipseq_data_organization.html) | Radhika |
+|11:00 - 12:00 | [Sequencing data QC and Alignment to Genome](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_and_alignment.html) | Mary |
 |12:00 - 13:00 | Lunch | |
-|13:00 - 14:00 | [Automating generation of alignment files]() | Radhika |
+|13:00 - 14:00 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_automation.html) | Radhika |
 |14:00 - 14:30 | [ChIP-seq File Formats]() | Radhika |
 |14:30 - 14:45 | Break | |
-|14:45 - 16:15 | [Peak calling with MACS2]() | Meeta |
-|16:15 - 17:00 | [Assessing ChIP quality using cross correlation]() | Mary |
+|14:45 - 16:15 | [Peak calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_peak_calling_macs.html) | Meeta |
+|16:15 - 17:00 | [Assessing ChIP quality using cross correlation](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_QC_cross_correlation.html) | Mary |
 
 ## Day 3
 
 | Time            |  Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-|9:00 - 10:00 | [Assessing ChIP quality using cross correlation (contd.)]() | Mary |
+|9:00 - 10:00 | [Assessing ChIP quality using cross correlation (contd.)](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_QC_cross_correlation.html) | Mary |
 |10:00 - 10:15 | Break | |
-|10:15 - 11:45| [Assessing Peak calls and ChIP quality using ChIPQC]() | Meeta |
+|10:15 - 11:45| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_QC_quality_metrics.html) | Meeta |
 |11:45 - 12:45 | Lunch | |
-|12:45 - 14:00 | [Handling Replicates]() | Radhika |
+|12:45 - 14:00 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_handling-replicates.html) | Radhika |
 |14:00 - 14:15 | Break | |
-|14:00 - 15:30 | [Visualization and exploration of ChIP-seq data]() | Meeta |
-|15:30 - 16:30 | [Functional analysis]() | Mary |
+|14:00 - 15:30 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_data_visualization.html) | Meeta |
+|15:30 - 16:30 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_functional_analysis.html) | Mary |
 |16:30 - 17:00 | [Wrap-up and Survey]() | Radhika |
