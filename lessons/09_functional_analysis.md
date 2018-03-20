@@ -30,7 +30,7 @@ Since the motif and functional enrichment analyses are unlikely to give reliable
 Start an interactive session:
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash	
+$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash	
 ```
 
 Extract the first three columns of the IDR peak calls for the whole genome of Nanog:
