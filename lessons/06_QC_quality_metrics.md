@@ -162,7 +162,7 @@ When the script is finished running you can check the `results/chip_qc/ChlPQC` d
 
 ----
 
-> ### Interested in runnnig this script on your own? 
+> ### Interested in running this script on your own? 
 > 
 > **If you wanted to run this script on your own time,** we have some instructions on how to set yourself up. 
 > 
@@ -194,19 +194,19 @@ When the script is finished running you can check the `results/chip_qc/ChlPQC` d
 
 ### `ChIPQC` report
 
-Since we were unable to create a report in-class, **take a look at the report we generated using the full dataset instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=0). Uncompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
+The report generated using our toy dataset will not give us meaningful plots or metrics and so **we have generated a report using the full dataset for you to look at instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=0). Decompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
 
 Let's start with the **QC summary table**:
 
 <img src="../img/QCsummary.png">
 
-Here, we see the metrics mentioned above (SSD, RiP and RiBL). A higher SSD is more indicative of better enrichment. SSD scores are dependent on the degree of total genome wide signal pile-up and so are sensitive to regions of high signal found with Blacklisted regions as well as genuine ChIP enrichment. The RiBL percentages are not incredibly high (also shown in the plot in the  next section) and FriP percentages are around 5% or higher, except for Pou5f1-rep2. 
+Here, we see the metrics mentioned above (SSD, RiP and RiBL). A higher SSD is more indicative of better enrichment. SSD scores are dependent on the degree of total genome wide signal pile-up and so are sensitive to regions of high signal found with Blacklisted regions as well as genuine ChIP enrichment. The RiBL percentages are not incredibly high (also shown in the plot in the next section) and RiP percentages are around 5% or higher, except for Pou5f1-rep2. 
 
-Additionally, we see other statistics related to the strand cross-correlation (FragLength and RelCC which is similar to the RSC). With RelCC values larger than one for all ChIP samples suggest good enrichment.
+Additionally, we see other statistics related to the strand cross-correlation (FragLength and RelCC which is similar to the RSC values we discussed earlier). The RelCC values are larger than 1 for all ChIP samples which suggests good enrichment.
 
-The next table contains **the mapping quality and duplication rate,** however since we already filtered our BAM files we find the numbers do not report much for us.
+The next table contains **the mapping quality and duplication rate,** however since we already filtered our BAM files these numbers do not give us any relevant information. Next is a plot showing the effect of blacklisting (not present here), which indicates that a large proportion of reads in our data do not overlap with blacklisted regions. 
 
-Next is a plot showing the effect of blacklisting, with the proportion of reads that do and do not overlap with blacklisted regions. The final plot in this section uses the genomic annotation to show **where reads map in terms of genomic features**. This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. We find that there is the most enrichment in promotor regions. This plot is useful when you expect enrichment of specific genomic regions.  
+The final plot in this section uses the genomic annotation to show **where reads map in terms of genomic features**. This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. We find that there is the most enrichment in promotor regions. This plot is useful when you expect enrichment of specific genomic regions.  
  
 <img src="../img/GenomicFeatureEnrichment.png" width="500">
 
@@ -223,25 +223,25 @@ The final set of plots, **Peak Profile and ChIP Enrichment**, are based on the m
 
 The **shape of these profiles can vary depending on what type of mark is being studied** – transcription factor, histone mark, or other DNA-binding protein such as a polymerase – but similar marks usually have a distinctive profile in successful ChIPs. 
 
-Next we have two plots that summarize the number of **Reads in Peaks**. ChIP samples with good enrichment will have a higher proportion of their reads overlapping called peaks. Although RiP is higher in Nanog, the boxplot for the Nanog samples shows quite different distributions between the replicates compared to Pou5f1.
+Next we have two plots that summarize the number of **Reads in Peaks**. ChIP samples with good enrichment will have a higher proportion of their reads overlapping called peaks. In our data we see that within each group there is one replicate which presents as having stronger signal (i.e. more reads in peaks). A direct comparison of the strongest replicate for Nanog and Pou5f1 in the barplot suggests that Nanog has better enrichment. The boxplot gives us a better overview of the distribution of values across all peaks, and we can see that for Pou5f1 the counts are low and it is the outlier peaks that are driving the percentages higher.
 
 <img src="../img/Rip.png" width="500">
 
 <img src="../img/Rap.png" width="500">
 
 
-Finally, there are plots to show **how the samples are clustered**. The correlation heatmap is based on correlation values for all the peak scores for each sample. The other plot shows the first two principal component values for each sample. In our dataset, the replicates do cluster by replicate for Pou5f1, which is a positive sign. For Nanog we see that Replicate 1 appears to correlate slightly better with Pou5f1 than with Replicate 2. The PCA also demonstrates distance between the Nanog replicates.
+Finally, the report also contains plots to show **how the samples are clustered**. The **correlation heatmap** is based on correlation values for all the peak scores for each sample. The **PCA plot** showcases the first two principal component values for each sample. In our dataset, the replicates for Pou5f1 cluster together but we do not see the same for Nanog.
 
 <img src="../img/PeakCorHeatmap.png" width="500">
 
 <img src="../img/PeakPCA.png" width="500">
 
 
-In general, our data look good. There is some discordance apparent between the Nanog replicates and this combined with lower SSD scores might indicate that while there are many peaks identified it is mainly due to noise. 
+In general, this is not the best dataset. There is some discordance apparent between the Nanog replicates and there are plots that suggest that the signal is much stronger in Nanog than in Pou5f1. Keeping this in mind we can move forward, and revisit some of these issues when we get to data visualization.
 
 ## Experimental biases: sources of low quality ChIP-seq data
 
-Once you have identified low quality samples, th next logical step is to troubleshoot what might be causing it.
+Once you have identified low quality samples, the next logical step is to troubleshoot what might be causing it.
 
 * **Strength/efficiency and specificity of the immunoprecipitation** 
 
@@ -261,11 +261,6 @@ The way in which sonication is carried out can result in different fragment size
 *PCR amplification:* Biases arise because DNA sequence content and length determine the kinetics of annealing and denaturing in each cycle of PCR. The combination of temperature profile, polymerase and buffer used during PCR can therefore lead to differential efficiencies in amplification between different sequences, which could be exacerbated with increasing PCR cycles. This is often manifest as a bias towards GC rich fragments [[2]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4473780/). **Limited use of PCR amplification is recommended because bias increases with every PCR cycle.**
 
 
-
-
-***
-
-> **NOTE:** Many of the plots that were generated in the ChIPQC report can also be generated using [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), a suite of python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. 
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
