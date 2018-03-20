@@ -6,12 +6,13 @@ date: "June 12, 2017"
 
 Contributors: Mary Piper and Meeta Mistry
 
-Approximate time: 1.5 hours
+Approximate time: 1 hour
 
 ## Learning Objectives
 
 * Discuss other quality metrics for evaluating ChIP-Seq data
-* Generate a report containing quality metrics using the R Bioonductor package `ChIPQC`
+* Understand the steps required to generate a QC report using the R Bioonductor package `ChIPQC`
+* Interpretation of a report containing quality metrics and associated figures
 * Learn to run R scripts from the command-line
 * Identify sources of low quality data
 
@@ -63,17 +64,19 @@ experiment quality report**.
 > 
 
 
-Before running `ChIPQC`, you will need to **create a samplesheet**. This is the most time consuming part, as it means collecting quite a bit of information about the samples and files which are required to be in a very specific format. We have created a samplesheet for you, let's copy it over and take a quick look at it:
+Before running `ChIPQC`, you will need to **create a samplesheet**. This is the most time consuming part, as it means collecting quite a bit of information about the samples and files and assembling that into a very specific format. We have created a samplesheet for you, let's copy it over and take a quick look at it:
 
 ```bash
-$ $ mkdir ~/chipseq/results/chip_qc/ChIPQC
+$ mkdir ~/chipseq/results/chip_qc/ChIPQC
 
-$ $ cp /n/groups/hbctraining/chip-seq/ChIPQC/samplesheet.csv ~/chipseq/results/chip_qc/ChIPQC
+$ cp /n/groups/hbctraining/chip-seq/ChIPQC/samplesheet.csv ~/chipseq/results/chip_qc/ChIPQC
 
-$ $ less ~/chipseq/results/chip_qc/ChIPQC/samplesheet.csv
+$ less ~/chipseq/results/chip_qc/ChIPQC/samplesheet.csv
 ```
 
-The **sample sheet** contains metadata information for our dataset.Each row represents a peak set (which in most cases is every ChIP sample) and several columns of required information, which allows us to easily load the associated data in one single command. _NOTE: The column headers have specific names that are expected by ChIPQC!!_. 
+The **sample sheet** contains metadata information for our dataset. Each row represents a peak set (which in most cases is every ChIP sample) and several columns of required information, which allows us to easily load the associated data in one single command. 
+
+> _NOTE: The column headers have specific names that are expected by ChIPQC!!_. 
 
 * **SampleID**: Identifier string for sample
 * **Tissue, Factor, Condition**: Identifier strings for up to three different factors (You will need to have all columns listed. If you don't have infomation, then set values to NA)
@@ -86,9 +89,9 @@ The **sample sheet** contains metadata information for our dataset.Each row repr
  
 ### R script
 
-We are going to **walk through an R script which contains the lines of code required to generate the report.** There are very few lines of code and so we will briefly explain what each line is doing, so the script is not a complete black box.
+We are going to **walk through an R script which contains the lines of code required to generate the report.** There are very few lines of code and so we will briefly explain what each line is doing, so the script is not a complete black box. 
 
-Let's start with a shebang line. Note that this is different from that which we used for our bash shell scripts. 
+Let's start with a **shebang line**. Note that this is different from that which we used for our bash shell scripts. 
 
 ```
 #!/usr/bin/env Rscript
@@ -147,7 +150,7 @@ save(chipObj, file="~/chipseq/results/chip_qc/ChIPQC/chipObj.RData")
 ChIPQCreport(chipObj, reportName="Nanog_and_Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
 ```
 
-You can run the script interactively using the `Rscript` command in the terminal. It will take 2-3 minutes to run to completion and you will see a bunch of text written to the screen as each line of code is run. When completed you can check the `results/chip_qc/ChlPQC` directory to make sure you have the `.RData` file and an additional folder which contains the HTML report and all associated images.
+You can run the script interactively using the `Rscript` command in the terminal. It will take 2-3 minutes to run to completion and you will see a bunch of text written to the screen as each line of code is run. 
 
 ```bash
 $ Rscript run_chipQC.R 2> ../logs/ChIPQC.Rout ##DO NOT RUN THIS
@@ -155,9 +158,17 @@ $ Rscript run_chipQC.R 2> ../logs/ChIPQC.Rout ##DO NOT RUN THIS
 
 >**NOTE:** Sometimes the information printed to screen is useful log information. If you wanted to capture all of the verbosity into a file you can run the script using `2>` and specify a file name. 
 
-> ### Setting up 
+When the script is finished running you can check the `results/chip_qc/ChlPQC` directory to make sure you have the **`.RData` file and an additional folder which contains the HTML report and all associated images**.
+
+> ### Interested in runnnig this script on your own? 
 > 
-> **If you wanted to run this script on your own time,** we have some instructions on how to set yourself up. First, you will need X11 capabilities. Once you have that setup with HMS-RC, you can create a copy of the script to run. Since installing packages can sometimes be problematic on the cluster, you may just want to use the libraries we have created. 
+> **If you wanted to run this script on your own time,** we have some instructions on how to set yourself up. 
+> 
+> 1. First, you will need X11 capabilities (contact HMSRC about this if you need help) 
+> 2. Create a copy of the script to run, and make sure the paths reflect your directory structure.
+> `$ cp  /n/groups/hbctraining/chip-seq/ChIPQC/run_chipQC.R ~/chipseq/scripts`
+> 
+> 3. Use pre-existing R libraries. Since installing packages can sometimes be problematic on the cluster, you may just want to use the libraries we have created. To do so, follow the instructions below.
 > 
 > ```bash
 > # check if the variable is already set 
@@ -172,7 +183,9 @@ $ Rscript run_chipQC.R 2> ../logs/ChIPQC.Rout ##DO NOT RUN THIS
 >
 > # if R/3.4.1 is not listed in the output of the above command, then load it 
 > $ module load gcc/6.2.0 R/3.4.1
-```
+> ```
+> 4. Run the script from the command line.
+> 
 
 
 ### `ChIPQC` report
