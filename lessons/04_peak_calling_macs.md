@@ -190,23 +190,16 @@ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -c bowtie2/H1hesc_Inp
 ### File formats
 Before we start exploring the output of MACS2, we'll briefly talk about the new file formats you will encounter.
 
-**BED:**
-The BED format consists of one line per feature, each containing 3-12 columns of data (whitespace-delimited or tab-delimited), plus optional track definition lines. This is a zero-based format.
-
-The number of columns per line must be consistent throughout any single set of data in an annotation track. The first lines of of the file can consist of header lines. Header lines start with a hash (#) character, the word "browser," or the word "track."
-
-The first three **required BED fields** are:
-
-1. chrom - The name of the chromosome (e.g. chr3) or scaffold (e.g. scaffold10671)
-2. chromStart - The starting position of the feature in the chromosome or scaffold. The first base in a chromosome is numbered 0.
-3. chromEnd - The ending position of the feature in the chromosome or scaffold. 
-
-[Nine additional fields](http://useast.ensembl.org/info/website/upload/bed.html?redirect=no#optional) are optional.
-
 **narrowPeak:**
 
-A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichment based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means the first 6 columns of a BED file with 4 additional fields:
+A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichment based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means **the first 6 columns of a standard BED file  with 4 additional fields**:
 
+1. chromosome
+2. start coordinate
+3. end coordinate
+4. name
+5. score
+6. strand
 7. signalValue - Measurement of overall enrichment for the region
 8. pValue - Statistical significance (-log10)
 9. qValue - Statistical significance using false discovery rate (-log10)
