@@ -198,6 +198,10 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_
 
 ### Differential enrichment
 
+> **NOTE:** Identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.  For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. If you are interested in learning more, we have a [lesson on DiffBind](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/diffbind_differential_peaks.html) analysis using this same dataset.
+> 
+
+
 To provide a more complex picture of biological processes in a cell, many studies aim to compare different datasets obtained by ChIP-seq. In our dataset, we have peak calls from two different transcription factors: Nanog and Pou5f1. To look at the differences in binding between the two we will use `bedtools`.
 
 You may already have the module loaded, but in case you don't you will need to load it:
@@ -246,10 +250,7 @@ $ sort -k1,1 -k2,2n macs2/Pou5f1_combined.narrowPeak | bedtools merge -i - > bed
 ```
 
 > **NOTE:** You could also use the IDR-optimized set of peaks we generated, instead of combining and merging. In our case, because we are looking at a small subset of the data the number of IDR peaks is very low and so this will give us more peaks as a starting point to evaluate the differences.
-> 
-> 
-> Identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.  For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. If you are interested in learning more, we have a [lesson on DiffBind](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/diffbind_differential_peaks.html) analysis using this same dataset.
-> 
+
 
 #### Looking for differences in enrichment between Nanog and Pou5f1
 
