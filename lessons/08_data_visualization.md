@@ -102,7 +102,7 @@ $ cp /n/groups/hbctraining/chip-seq/deepTools/chr12_genes.bed ~/chipseq/results/
 
 Before we start plotting our data, we first need to prepare an intermediate file that can be used with the `plotHeatmap` and `plotProfile` commands.
 
-<img src="../img/computeMatrix_overview.png" width=500>
+<img src="../img/computeMatrix_overview.png" width="500">
 
 
 The `computeMatrix` command accepts multiple bigWig files and multiple region files (BED format) to create a count matrix which is the intermediate file. It can also be used to filter and sort regions according to their score. Our region file will be the BED file we just copied over and our bigWog files will be those generated from the full dataset that we have provided for you. Additionally, We will specify a window of +/- 1000bp around the TSS of genes (`-b` and `-a`). For each window, `computeMatrix` will calculate scores based on the read density values in the bigWig files.
@@ -150,7 +150,7 @@ $ plotProfile -m visualization/matrix_TSS_chr12.gz \
 
 ```
 
-<img src="../img/TSS_Nanog_profile.png" width=500>
+<img src="../img/TSS_Nanog_profile.png" width="500">
 
 Alternatively, we could use a **heatmap** to evaluate the same matrix of information:
 
@@ -160,7 +160,7 @@ $ plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_
 --whatToShow 'heatmap and colorbar' \
 --zMin -4 --zMax 4  
 ```
-<img src="../img/TSS_Nanog_heatmap.png" width=400>
+<img src="../img/TSS_Nanog_heatmap.png" width="400">
 
 
 Similarly we can do the same for **Pou5f1. Here, we find that Replicate 1 exhibits stronger signal**.
@@ -173,7 +173,7 @@ $ plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
 --refPointLabel "TSS" -T "Pou5f1 read density" -z ""
 ```
 
-<img src="../img/TSS_Pou5f1_profile.png" width=400>
+<img src="../img/TSS_Pou5f1_profile.png" width="400">
 
 ```bash
 $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
@@ -182,7 +182,7 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_
 --zMin -2 --zMax 2  
 ```
 
-<img src="../img/TSS_Pou5f1_heatmap.png" width=400>
+<img src="../img/TSS_Pou5f1_heatmap.png" width="400">
 
 If we wanted **both images in one single plot**, we can do that with `plotHeatmap` and just removing the `--whatToShow` parameter.
 
@@ -192,7 +192,7 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_
 --zMin -2 --zMax 2  
 ```
 
-<img src="../img/TSS_Pou5f1_heatmap_and_profile.png" width=400>
+<img src="../img/TSS_Pou5f1_heatmap_and_profile.png" width="400">
 
 > **NOTE:** Both `plotProfile` and `plotHeatmap` have many options, including the ability to change the type of lines plotted and to plot by group rather than sample. Explore the documentation to find out more detail.
 
@@ -295,7 +295,7 @@ $ plotProfile -m visualization/matrixAll_Nanog_binding_sites.gz \
 --colors red red darkblue darkblue
 ```
 
-<img src="../img/Allsamples_NanogSites_profile.png" width="600">
+<img src="../img/Allsamples_NanogSites_profile.png" width="500">
 
 ```bash
 
@@ -316,7 +316,7 @@ $ plotProfile -m visualization/matrixAll_Pou5f1_binding_sites.gz \
 --colors red red darkblue darkblue
 ```
 
-<img src="../img/Allsamples_Pou5f1Sites_profile.png" width="600">
+<img src="../img/Allsamples_Pou5f1Sites_profile.png" width="500">
 
 
 
