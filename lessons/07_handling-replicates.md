@@ -49,7 +49,7 @@ As the name implies, this suite of tools works with **Bed** files, but it also w
 Let's start an interactive session and change directories and set up a space for the resulting overlaps. 
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash	
+$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash	
 
 $ cd ~/chipseq/results/
 
