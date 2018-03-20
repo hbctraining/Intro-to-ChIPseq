@@ -48,6 +48,9 @@ DiffBind is an R package that is used for identifying sites that are differentia
 
 ### Setting up
 
+> **NOTE:** In order for you to follow this lesson you will need to have all of the required input files. The instructions for this can be found in the "Setting up" section of the [ChIPQC using R lesson](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/QC_quality_metrics_R.html). **Please run through this before proceeding.**
+
+
 1. Open up RStudio and open up the `chipseq-project` that we created previously.
 2. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as `diffbind.R`
 
