@@ -94,7 +94,7 @@ The [`phantompeakqualtools`](https://code.google.com/archive/p/phantompeakqualto
 The `phantompeakqualtools` package is written as an R script, that uses `samtools` as a dependency. The package has various options that need to be specified when running from the command line. To get set up, we will need to start an interactive session, load the necessary modules and set up the directory structure:
 
 ```
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash	
+$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash	
 
 $ module load gcc/6.2.0 R/3.4.1 samtools/1.3.1
 
