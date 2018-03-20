@@ -194,6 +194,7 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_
 
 <img src="../img/TSS_Pou5f1_heatmap_and_profile.png" width=400>
 
+> **NOTE:** Both `plotProfile` and `plotHeatmap` have many options, including the ability to change the type of lines plotted and to plot by group rather than sample. Explore the documentation to find out more detail.
 
 ### Differential enrichment
 
