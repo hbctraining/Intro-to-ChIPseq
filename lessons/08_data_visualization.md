@@ -32,7 +32,7 @@ The first thing we want to do is take our alignment files (BAM) and convert them
 Start an interactive session with 6 cores. *If you are already logged on to a compute node you will want to exit and start a new session*.
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G -n 6 --reservation=HSPH bash
+$ srun --pty -p short -t 0-12:00 --mem 8G -n 6 --reservation=HBC bash
 ```
 
 We will begin by creating a directory for the visualization output and loading the required modules to run `deepTools`.
