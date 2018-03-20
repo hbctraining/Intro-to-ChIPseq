@@ -101,7 +101,7 @@ We will be using the newest version of this tool, MACS2. The underlying algorith
 To run MACS2, we will first start an interactive session using 1 core (do this only if you don't already have one):
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HSPH bash	 
+$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash	 
 ```
 
 We will also need to create a directory for the output generated from MACS2:
