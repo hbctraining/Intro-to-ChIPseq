@@ -66,7 +66,7 @@ ssh username@o2.hms.harvard.edu
 Next we will start an interactive session on O2 with 2 cores (add the `-n 2`):
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HSPH bash
+$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HBC bash
 ```
 
 Make sure that your command prompt is now preceded by a character string that contains the word "compute".
