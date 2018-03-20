@@ -57,7 +57,7 @@ Let's **create a bigWig file for Nanog replicate 1** using the `bamCoverage` com
 * `centerReads`: reads are centered with respect to the fragment length as specified by `extendReads`. This option is useful to get a sharper signal around enriched regions.
 
 ```bash
-bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
+$ bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 -o visualization/bigWig/H1hesc_Nanog_Rep1_chr12.bw \
 --binSize 20 \
 --normalizeTo1x 130000000 \
@@ -70,7 +70,7 @@ bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 Now, if we wanted to **create a bigWig file in which we normalize the ChIP against the input** we would use `bamCompare`. The command is quite similar to `bamCoverage`, the only difference being you require two files as input (`b1` and `b2`).
 
 ```bash
-bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
+$ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam \
 -o visualization/bigWig/H1hesc_Nanog_Rep1_chr12_bgNorm.bw \
 --binSize 20 \
@@ -86,7 +86,7 @@ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 Since we are using a toy dataset which contains only a subset of the data, using these bigWigs for visualization would not give us meaningful results. As such, **we have created bigWig files from the full dataset that you can copy over and use for the rest of this lesson.**
 
 ```bash
-cp /n/groups/hbctraining/chip-seq/full-dataset/bigWig/*.bw visualization/bigWig/
+$ cp /n/groups/hbctraining/chip-seq/full-dataset/bigWig/*.bw visualization/bigWig/
 
 ```
 
@@ -97,7 +97,7 @@ Once you have bigWig files you can use them to get a global look at enrichment p
 Rather than looking at the TSS for all known genes, we will only look be looking at genes on chromosome 12 in the interest of time. Copy over the BED file which contains the coordinates for all genes on chromosome 12 to the visualization folder.
 
 ```bash
-cp /n/groups/hbctraining/chip-seq/deepTools/chr12_genes.bed ~/chipseq/results/visualization/
+$ cp /n/groups/hbctraining/chip-seq/deepTools/chr12_genes.bed ~/chipseq/results/visualization/
 ```
 
 Before we start plotting our data, we first need to prepare an intermediate file that can be used with the `plotHeatmap` and `plotProfile` commands.
@@ -111,7 +111,7 @@ First, let's create a matrix one for the Nanog replicates:
 
 ```bash
 
-computeMatrix reference-point --referencePoint TSS \
+$ computeMatrix reference-point --referencePoint TSS \
 -b 1000 -a 1000 \
 -R ~/chipseq/results/visualization/chr12_genes.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
@@ -127,7 +127,7 @@ Now, let's create another matrix for the Pou5f1 replicates:
 
 ```bash
 
-computeMatrix reference-point --referencePoint TSS \
+$ computeMatrix reference-point --referencePoint TSS \
 -b 1000 -a 1000 \
 -R ~/chipseq/results/visualization/chr12_genes.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw \
@@ -139,7 +139,7 @@ computeMatrix reference-point --referencePoint TSS \
 Using that matrix we can create a **profile plot** which is essentially a density plot that evaluates read density across all transcription start sites. For Nanog, we can see that **Replicate 2 has a particularly higher amount of signal at the TSS compared to Replicate 1**. 
 
 ```bash
-plotProfile -m visualization/matrix_TSS_chr12.gz \
+$ plotProfile -m visualization/matrix_TSS_chr12.gz \
 -out visualization/TSS_Nanog_profile.png \
 --perGroup \
 --colors green purple \
@@ -155,7 +155,7 @@ plotProfile -m visualization/matrix_TSS_chr12.gz \
 Alternatively, we could use a **heatmap** to evaluate the same matrix of information:
 
 ```bash
-plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_heatmap.png \
+$ plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_heatmap.png \
 --colorMap RdBu \
 --whatToShow 'heatmap and colorbar' \
 --zMin -4 --zMax 4  
@@ -166,7 +166,7 @@ plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_he
 Similarly we can do the same for **Pou5f1. Here, we find that Replicate 1 exhibits stronger signal**.
 
 ```bash
-plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
+$ plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
 -out visualization/TSS_Pou5f1_profile.png \
 --perGroup --colors green purple \
 --plotTitle "" --samplesLabel "Rep1" "Rep2" \
@@ -176,7 +176,7 @@ plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
 <img src="../img/TSS_Pou5f1_profile.png" width=400>
 
 ```bash
-plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
+$ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
 --colorMap RdBu \
 --whatToShow 'heatmap and colorbar' \
 --zMin -2 --zMax 2  
@@ -187,7 +187,7 @@ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Po
 If we wanted **both images in one single plot**, we can do that with `plotHeatmap` and just removing the `--whatToShow` parameter.
 
 ```bash
-plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
+$ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
 --colorMap RdBu \
 --zMin -2 --zMax 2  
 ```
@@ -213,7 +213,7 @@ Before using bedtools to obtain the overlap, we need to combine the information 
 
 <img src="../img/combine-for-merge.png" width="600">
 
-```
+```bash
 $ cat macs2/Nanog-rep1_peaks.narrowPeak macs2/Nanog-rep2_peaks.narrowPeak > macs2/Nanog_combined.narrowPeak
 
 $ cat macs2/Pou5f1-rep1_peaks.narrowPeak macs2/Pou5f1-rep2_peaks.narrowPeak > macs2/Pou5f1_combined.narrowPeak	
@@ -226,12 +226,13 @@ Now for each for each of those combined peak files we need to merge regions that
 
 <img src="../img/merge-glyph.png" width="600">
 
-```
-	$ bedtools merge -h
+```bash
+
+$ bedtools merge -h
 	
-	$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | less # take a quick peek at the sorted file
+$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | less # take a quick peek at the sorted file
 	
-	$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | bedtools merge -i - > bedtools/Nanog_merged.bed 
+$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | bedtools merge -i - > bedtools/Nanog_merged.bed 
 ```	
 
 > **NOTE:** this command modifies your `narrowPeak` file into a simple, 3-column `bed` file.
@@ -239,7 +240,7 @@ Now for each for each of those combined peak files we need to merge regions that
 Now, we'll do the same for Pou5f1:
 
 ```bash
-	$ sort -k1,1 -k2,2n macs2/Pou5f1_combined.narrowPeak | bedtools merge -i - > bedtools/Pou5f1_merged.bed 
+$ sort -k1,1 -k2,2n macs2/Pou5f1_combined.narrowPeak | bedtools merge -i - > bedtools/Pou5f1_merged.bed 
 	
 ```
 
@@ -249,9 +250,9 @@ Now, we'll do the same for Pou5f1:
 > Identifying differential binding sites across multiple conditions has become of practical importance in biological and medical research and more tools have become available for this type of analysis.  For each group **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. If you are interested in learning more, we have a [lesson on DiffBind](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/diffbind_differential_peaks.html) analysis using this same dataset.
 > 
 
-#### Looking for differences in enrcihment between Nanog and Pou5f1
+#### Looking for differences in enrichment between Nanog and Pou5f1
 
-The `bedtools intersect` will report back the peaks that are overlapping in the file defined in `b` with respect to the file defined as `a` in the command. However, if we add the modifier `-v`, this will report only those entries in A that have _no overlaps_ with B. 
+The `bedtools intersect` will report back the peaks that are overlapping in the file defined in `b` with respect to the file defined as `a` in the command. However, if we add the modifier `-v`, this will report only those entries in A that have _no overlaps_ with B. In this first example, we will obtain peaks that are only present in Nanog samples.
 
 <img src="../img/bedtools_intersect.png" width="600">
 
@@ -259,7 +260,10 @@ The `bedtools intersect` will report back the peaks that are overlapping in the 
 	
 	$ bedtools intersect -a bedtools/Nanog_merged.bed -b bedtools/Pou5f1_merged.bed -v > bedtools/Nanog_only_peaks.bed
 	
-		$ bedtools intersect -a bedtools/Pou5f1_merged.bed -b bedtools/Nanog_merged.bed -v > bedtools/Pou5f1_only_peaks.bed
+If we reverse the files listed for `-a` and `-b`, this will now give us peaks that are only present in Pou5f1:
+	
+	$ bedtools intersect -a bedtools/Pou5f1_merged.bed -b bedtools/Pou5f1_merged.bed -v > bedtools/Pou5f1_only_peaks.bed
+
 
 **How many peaks are unique to Nanog?**
 
@@ -269,9 +273,49 @@ The `bedtools intersect` will report back the peaks that are overlapping in the 
 
 	$ wc -l bedtools/Pou5f1_only_peaks.bed
 
+We could **visualize read density at these sites by using some of the `deepTools` commands we had explored previously.**
 
-Compute matrix (for specific binding sites) to visualize
-- look at Nanog and Pougf1 enrichment on diff bound bidning sites (oe one plot using only the string sample bigWgs
+```bash
+
+ $ computeMatrix scale-regions \
+-R ~/chipseq/results/bedtools/Nanog_only_peaks.bed \
+-S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
+--skipZeros -p 6 \
+-a 500 -b 500 \
+-o ~/chipseq/results/visualization/matrixAll_Nanog_binding_sites.gz
+
+
+$ plotProfile -m visualization/matrixAll_Nanog_binding_sites.gz \
+-out visualization/Allsamples_NanogSites_profile.png \
+--perGroup  --plotTitle "" \
+--samplesLabel "Pou5f1-Rep1" "Pou5f1-Rep2" "Nanog-Rep1" "Nanog-Rep2" \
+-T "Nanog only binding sites"  -z "" \
+--startLabel "" --endLabel "" \
+--colors red red darkblue darkblue
+```
+
+<img src="../img/Allsamples_NanogSites_profile.png" width="600">
+
+```bash
+
+ $ computeMatrix scale-regions \
+-R ~/chipseq/results/bedtools/Pou5f1_only_peaks.bed \
+-S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
+--skipZeros -p 6 \
+-a 500 -b 500 \
+-o ~/chipseq/results/visualization/matrixAll_Pou5f1_binding_sites.gz 
+
+
+$ plotProfile -m visualization/matrixAll_Pou5f1_binding_sites.gz \
+-out visualization/Allsamples_Pou5f1Sites_profile.png \
+--perGroup  --plotTitle "" \
+--samplesLabel "Pou5f1-Rep1" "Pou5f1-Rep2" "Nanog-Rep1" "Nanog-Rep2" \
+-T "Pou5f1 only binding sites"  -z "" \
+--startLabel "" --endLabel "" \
+--colors red red darkblue darkblue
+```
+
+<img src="../img/Allsamples_Pou5f1Sites_profile.png" width="600">
 
 
 
@@ -291,22 +335,26 @@ In order to visualize our ChIP-seq enrichment we will first need to move over th
 
 Open up `FileZilla` and connect to the transfer node on O2. Navigate to the correct directory on the cluster panel and copy over the following files:
 
-* Copy over the bigWig files to your laptop using filezilla or scp. 
-* Copy over the BEDtools overlap/intersect files to your computer.
+* Nanog-Rep2: `/n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog-rep2.bw`
+* Pou5f1-Rep1: `/n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1-rep1.bw`
+* Nanog-only BED: `~/chipseq/results/bedtools/Nanog_only_peaks.bed`
+* Pou5f1-only BED: `~/chipseq/results/bedtools/Pou5f1_only_peaks.bed`
+
+
+> **NOTE:** We are copying over only a single sample bigWig from each group. Since we observed that in each case there was a stronger replicate (high read density) that is what we used to make our selection.
 
 
 Start [IGV](https://www.broadinstitute.org/software/igv/download) _You should have this previously installed on your laptop._
 
 * Load the Human genome (hg19) into IGV using the dropdown menu at the top left of your screen. _Note: there is also an option to "Load Genomes from File..." under the "Genomes" pull-down menu - this is useful when working with non-model organisms_
-* Load the bigWig file using the **"Load from File..."** option under the **"File"** pull-down menu. 
-* Load in BED files
+* Load the bigWig files and BED files using the **"Load from File..."** option under the **"File"** pull-down menu. 
 
+Your IGV interface should now look something like this:
 
-ADD SCREENSHOT
+**ADD SCREENSHOT**
 
 You will notice that there are positive and negative values on the track, what do you think this denotes in the context of normalization?
 
-> You can generate a simple, non-normalized bigWig with `bamCoverage` and you won't see any negative values. 
 
 * Now load the `Nanog_vs_Pou5f1_edgeR_sig.bed` and `Nanog_vs_Pou5f1_deseq2_sig.bed` (output of DiffBind, in your chipseq R project) into IGV.
 
