@@ -16,34 +16,8 @@ This repository has teaching materials for a 3-day Introduction to ChIP-sequenci
 1.	Understand the necessity for, and use of, the command line interface (bash) and HPC for analyzing high-throughput sequencing data.
 2.	Understand best practices for designing a ChIP-seq experiment and analysis the resulting data.
 
-
-### Contents
-
-| Lessons            | Estimated Duration |
-|:------------------------|:----------|
-|[Introduction to the shell](https://hbctraining.github.io/Intro-to-Shell/lessons/01_the_filesystem.html) | 70 min |
-|[Searching and redirection in shell](https://hbctraining.github.io/Intro-to-Shell/lessons/02_searching_files.html) | 45 min |
-|[Introduction to the Vim text editor ](https://hbctraining.github.io/Intro-to-Shell/lessons/03_vim.html) | 30 min |
-|[Shell scripts and `for` loops](https://hbctraining.github.io/Intro-to-Shell/lessons/04_loops_and_scripts.html) | 75 min |
-|[Permissions and environment variables](https://hbctraining.github.io/Intro-to-Shell/lessons/05_permissions_and_environment_variables.html) | 50 min |
-|[Introduction to ChIP-seq (lecture)](https://hbctraining.github.io/Intro-to-ChIPseq/) | 60 min |
-|[Project setup and data organization](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/01_Intro_chipseq_data_organization.html) | 40 min |
-|[Introduction to High-Performance Computing for HMS-RC's O2 cluster](https://hbctraining.github.io/Intro-to-rnaseq-hpc-O2/lectures/HPC_intro_O2.pdf) | 45 min |
-|[Quality control and Alignment](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_and_alignment.html) | 60 min |
-|[Automating alignment and filtering]() | 60 min |
-|[File formats for ChIP-seq analysis]() | 20 min |
-|[Peak Calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_peak_calling_macs.html) | 90 min |
-|[ChIP quality assessment using cross-correlation](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_QC_cross_correlation.html) | 90 min |
-|[ChIP quality assessment using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_QC_quality_metrics.html) | 90 min |
-|[Handling replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_handling-replicates.html) | 75 min |
-|[Visualization of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_QC_visualization.html) | 45 min |
-|[Differential enrichment of peaks](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_differential_peaks.html) | 90 min |
-|[Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_functional_analysis.html) | 60 min 
-
-
-
-### Dataset
-
+### Lessons
+[Click here for the suggested schedule and link to lessons](https://hbctraining.github.io/Intro-to-ChIPseq/schedule/)
 
 ***
 *These materials have been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
