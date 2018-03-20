@@ -25,7 +25,7 @@ The first thing we want to do is take our alignment files (BAM) and convert them
 [`deepTools`](http://deeptools.readthedocs.org/en/latest/content/list_of_tools.html), is a suite of Python tools developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq. `deepTools` has a wide variety of commands that go beyond those that are covered in this lesson. We encourage you to look through the docuementation and explore on your own time. 
 
 
-<img src="../img/bam_to_bigwig.png" width=500>
+<img src="../img/bam_to_bigwig.png" width="500">
 
 *Image acquired from [deepTools documentation](http://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html?highlight=bigwig) pages*
 
