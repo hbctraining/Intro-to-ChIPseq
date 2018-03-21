@@ -26,7 +26,7 @@
 |11:00 - 12:00 | [Sequencing data QC and Alignment to Genome](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_and_alignment.html) | Mary |
 |12:00 - 13:00 | Lunch | |
 |13:00 - 14:00 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_automation.html) | Radhika |
-|14:00 - 14:30 | [ChIP-seq File Formats](https://github.com/hbctraining/Intro-to-ChIPseq/raw/master/lectures/Workflows_and_fileformats.pdf) | Radhika |
+|14:00 - 14:30 | [ChIP-seq File Formats](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Workflows_and_fileformats.pdf) | Radhika |
 |14:30 - 14:45 | Break | |
 |14:45 - 16:15 | [Peak calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_peak_calling_macs.html) | Meeta |
 |16:15 - 17:00 | [Assessing ChIP quality using cross correlation](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_QC_cross_correlation.html) | Mary |
