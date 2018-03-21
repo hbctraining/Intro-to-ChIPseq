@@ -53,7 +53,7 @@ These regions tend to have a very high ratio of multi-mapping to unique mapping 
 
 
 
-## `ChIPQC`: quality metrics report
+## `ChIPQC`: Quality metrics report
 
 `ChIPQC` is a Bioconductor package that takes as input BAM files and peak calls to automatically **compute a number of quality metrics and generates a ChIPseq
 experiment quality report**. 
@@ -149,7 +149,7 @@ save(chipObj, file="~/chipseq/results/chip_qc/ChIPQC/chipObj.RData")
 ## Create ChIPQC report
 ChIPQCreport(chipObj, reportName="Nanog_and_Pou5f1", reportFolder="~/chipseq/results/chip_qc/ChIPQC/ChIPQCreport")
 ```
-
+Before you run this scriot you will **need to make sure each of your BAM files has an index (`.bai ` file)**. Since we are not running this script, it is not neccessary for us to create the indices. However, we will show you how to do this later in the [visualization lesson](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_data_visualization.html).
 You can run the script interactively using the `Rscript` command in the terminal. It will take 2-3 minutes to run to completion and you will see a bunch of text written to the screen as each line of code is run. 
 
 ```bash
