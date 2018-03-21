@@ -19,7 +19,7 @@ Once you have optimized tools and parameters using a single sample (using an int
 
 Writing a reusable shell script ensures that every sample is run with the exact same parameters, and helps to keep track of all the tools and their versions. The shell script is like a lab notebook; in the future, you (or your colleagues) can go back and check the workflow for methods and versions, which goes a long way to making your work more efficient and reproducible.
 
-Before we start with the script, let's check how many cores our interactive session has by using `squeue`. 
+Before we start with the script, let's check how many cores our interactive session has by using `sacct`. 
 
 ```bash
 $ sacct
