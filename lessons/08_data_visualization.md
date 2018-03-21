@@ -72,7 +72,7 @@ done
 > `$ for file in ~/chipseq/results/bowtie2/*aln.bam; do samtools index $file; done`
 >
 
-Now, o create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input) and will return a single bigWig file.
+Now, to create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input) and will return a single bigWig file.
 
 Let's **create a bigWig file for Nanog replicate 1** using the `bamCoverage` command. In addition to the input and output files, there are a few additional parameters we have added. 
 
