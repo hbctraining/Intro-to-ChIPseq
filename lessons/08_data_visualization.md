@@ -47,7 +47,32 @@ $ module load gcc/6.2.0  python/2.7.12
 $ module load deeptools/2.5.3 
 ```
 
-To create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input) and will return a single bigWig file.
+One last thing we need to do is create an index file for each one of our BAM files. To perform some functions on the BAM file, many tools require an index. Think of an index located at the back of a textbook. When you are interested in a particular subject area you look for the keyword in the index and identify the pages that contain the relevant information. Similarily, indexing the BAM file aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignment file. 
+
+In order to index a BAM file, we will use [SAMtools](http://samtools.sourceforge.net/), a tool suite that provides alot of functionality in dealing with alignment files. There is a command called `index`, which is what we will use. Since we need an index for each of our BAM files, we will put this in a `for` loop to avoid having to run the same command multiple times.
+
+First, let's load the module:
+
+```bash
+$ module load samtools/1.3.1
+```
+
+Now, at the command prompt start the `for` loop:
+
+```bash
+
+for file in ~/chipseq/results/bowtie2/*aln.bam
+do
+samtools index $file
+done
+```
+
+> **NOTE:** The above is assuming that you are pressing return after each line of code. If you wanted you could also run this command as a single line:
+>
+> `$ for file in ~/chipseq/results/bowtie2/*aln.bam; do samtools index $file; done`
+>
+
+Now, o create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input) and will return a single bigWig file.
 
 Let's **create a bigWig file for Nanog replicate 1** using the `bamCoverage` command. In addition to the input and output files, there are a few additional parameters we have added. 
 
