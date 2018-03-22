@@ -103,7 +103,7 @@ To run MACS2, we will first start an interactive session using 1 core (do this o
 ```bash
 $ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash
 
-module load gcc/6.2.0  python/2.7.12 macs2/2.1.1.20160309
+$ module load gcc/6.2.0  python/2.7.12 macs2/2.1.1.20160309
 ```
 
 We will also need to create a directory for the output generated from MACS2:
