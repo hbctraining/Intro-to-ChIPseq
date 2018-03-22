@@ -85,7 +85,7 @@ To ensure that all the output files from the workflow are properly named with sa
 
 ```
 # grab base of filename for naming outputs
-base=`basename $fq .fastq`
+base=`basename $fq _chr12.fastq`
 echo "Sample name is $base"           
 ```
 
