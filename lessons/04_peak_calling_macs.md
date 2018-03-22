@@ -98,10 +98,12 @@ We will be using the newest version of this tool, MACS2. The underlying algorith
 
 ### Setting up
 
-To run MACS2, we will first start an interactive session using 1 core (do this only if you don't already have one):
+To run MACS2, we will first start an interactive session using 1 core (do this only if you don't already have one) and load the macs2 library:
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash	 
+$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash
+
+module load gcc/6.2.0  python/2.7.12 macs2/2.1.1.20160309
 ```
 
 We will also need to create a directory for the output generated from MACS2:
