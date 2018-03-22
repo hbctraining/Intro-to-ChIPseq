@@ -283,7 +283,15 @@ An important issue with ChIP-seq data concerns the inclusion of multiple mapped 
 
 ### 1. Changing file format from SAM to BAM
 
-While the SAM alignment file output by Bowtie2 is human readable, we need a BAM alignment file for downstream tools. Therefore, we will use [Samtools](http://samtools.github.io) to convert the file formats. The command we will use is `samtools view` with the following parameters:
+While the SAM alignment file output by Bowtie2 is human readable, we need a BAM alignment file for downstream tools. Therefore, we will use [Samtools](http://samtools.github.io) to convert the file formats.
+
+To use `samtools` we will need to load the module:
+
+```bash
+module load samtools/1.3.1
+```
+
+The command we will use is `samtools view` with the following parameters:
 
 * `-h`: include header in output
 * `-S`: input is in SAM format
@@ -312,6 +320,12 @@ $ sambamba sort -t 2 \
 -o H1hesc_Input_Rep1_chr12_aln_sorted.bam \
 H1hesc_Input_Rep1_chr12_aln_unsorted.bam 
 ```
+
+> **NOTE: This tool is not available as a module on O2.** You will only be able to use this as part of the tools available in the `bcbio` pipeline. In a previous lesson, you had added this to your $PATH by modifying your `.bashrc` file. **If the command above does not work for you, run this line below:**
+> 
+> `export PATH=/n/app/bcbio/tools/bin:$PATH`
+
+
 We could have also used `samtools` to perform the above sort, however using `sambamba` gives us dual functionality. List the contents of the directory -- what do you see? The advantage to using `sambamba` is that along with the newly sorted file, an index file is generated. If we used `samtools` this would have been a two-step process.
 
 ### 3. Filtering uniquely mapping reads
