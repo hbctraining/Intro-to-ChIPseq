@@ -374,6 +374,13 @@ Start [IGV](https://www.broadinstitute.org/software/igv/download) _You should ha
 
 * Load the Human genome (hg19) into IGV using the dropdown menu at the top left of your screen. _Note: there is also an option to "Load Genomes from File..." under the "Genomes" pull-down menu - this is useful when working with non-model organisms_
 * Load the bigWig files and BED files using the **"Load from File..."** option under the **"File"** pull-down menu. 
+* Autoscale
+* Pull down chr12
+* Genes: Erc1 (Pou5f1 only peak)
+
+the interaction between POU5F1, SOX2, and NANOG is supported by immunoprecipitation, functional analysis, and co-localization of binding sites, we explored the relationships between their target genes. is essential for pluripotency maintenance and self-renewal of embryonic stem (ES) cells
+
+There would be very few peaks that would be unique to each/hard to find
 
 Your IGV interface should now look something like this:
 
