@@ -177,7 +177,7 @@ sambamba sort -t 6 -o $align_sorted $align_bam
 sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
 
 # Move intermediate files out of the bowtie2 directory
-mv $bowtie_results/*sorted* $intermediate_bams
+mv $bowtie_results/${base}*sorted* $intermediate_bams
 ```
 
 ### Last addition to the script
@@ -186,7 +186,7 @@ It is best practice to have the script **usage** specified at the top any script
 
 ```
 # This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by read name and has duplicate reads removed using sambamba.
-# USAGE: sh chipseq_analysis_on_input_file.sh <name of fastq file>
+# USAGE: sh chipseq_analysis_on_input_file.sh <path to the fastq file>
 ```
 
 It is okay to specify this after everything else is set up, since you will have most clarity about the script only once it is fully done.
@@ -197,7 +197,7 @@ Your script should now look like this:
 #!/bin/bash/
 
 # This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by read name and has duplicate reads removed using sambamba.
-# USAGE: sh chipseq_analysis_on_input_file.sh <name of fastq file>
+# USAGE: sh chipseq_analysis_on_input_file.sh <path to the fastq file>
 
 # initialize a variable with an intuitive name to store the name of the input fastq file
 fq=$1
@@ -254,7 +254,7 @@ sambamba sort -t 6 -o $align_sorted $align_bam
 sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
 
 # Move intermediate files out of the bowtie2 directory
-mv $bowtie_results/*sorted* $intermediate_bams
+mv $bowtie_results/${base}*sorted* $intermediate_bams
 ```
 
 ### Saving and running script
