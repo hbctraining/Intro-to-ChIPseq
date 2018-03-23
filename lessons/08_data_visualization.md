@@ -393,9 +393,9 @@ Your IGV interface should now look something like the screenshot below. By defau
 
 <img src="../img/igv-1.png">
 
-Before we start looking at specific genes you will want to **Autoscale** each track.
-
-* Right click on the left-hand side panel. You should see many options available to you. If "Autoscale" is not checked go ahead and do this. You can do the same for both bigWig tracks.
+> Before we start looking at specific genes you will want to **Autoscale** each track.
+> 
+> * Right click on the left-hand side panel. You should see many options available to you. If "Autoscale" is not checked go ahead and do this. You can do the same for both bigWig tracks.
 
 The interaction between Pou5f1, and Nanog is supported by immunoprecipitation, functional analysis, and co-localization of binding sites, and so it is not surprising that they share the **same target genes**. While our BED files congtain peaks that are non-overlapping, the target genes that harbor these peaks can still be overlapping.
 
