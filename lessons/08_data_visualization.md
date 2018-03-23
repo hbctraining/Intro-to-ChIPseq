@@ -151,7 +151,7 @@ $ computeMatrix reference-point --referencePoint TSS \
 -R ~/chipseq/results/visualization/chr12_genes.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
 --skipZeros \
--o ~/chipseq/results/visualization/matrix_TSS_chr12.gz \
+-o ~/chipseq/results/visualization/matrixNanog_TSS_chr12.gz \
 --outFileSortedRegions ~/chipseq/results/visualization/regions_TSS_chr12.bed
 
 ```
@@ -174,8 +174,8 @@ $ computeMatrix reference-point --referencePoint TSS \
 Using that matrix we can create a **profile plot** which is essentially a density plot that evaluates read density across all transcription start sites. For Nanog, we can see that **Replicate 2 has a particularly higher amount of signal at the TSS compared to Replicate 1**. 
 
 ```bash
-$ plotProfile -m visualization/matrix_TSS_chr12.gz \
--out visualization/TSS_Nanog_profile.png \
+$ plotProfile -m visualization/matrixNanog_TSS_chr12.gz \
+-out visualization/figures/TSS_Nanog_profile.png \
 --perGroup \
 --colors green purple \
 --plotTitle "" --samplesLabel "Rep1" "Rep2" \
@@ -190,7 +190,8 @@ $ plotProfile -m visualization/matrix_TSS_chr12.gz \
 Alternatively, we could use a **heatmap** to evaluate the same matrix of information:
 
 ```bash
-$ plotHeatmap -m visualization/matrix_TSS_chr12.gz -out visualization/TSS_Nanog_heatmap.png \
+$ plotHeatmap -m visualization/matrixNanog_TSS_chr12.gz \
+-out visualization/figures/TSS_Nanog_heatmap.png \
 --colorMap RdBu \
 --whatToShow 'heatmap and colorbar' \
 --zMin -4 --zMax 4  
@@ -202,7 +203,7 @@ Similarly we can do the same for **Pou5f1. Here, we find that Replicate 1 exhibi
 
 ```bash
 $ plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
--out visualization/TSS_Pou5f1_profile.png \
+-out visualization/figures/TSS_Pou5f1_profile.png \
 --perGroup --colors green purple \
 --plotTitle "" --samplesLabel "Rep1" "Rep2" \
 --refPointLabel "TSS" -T "Pou5f1 read density" -z ""
@@ -211,7 +212,8 @@ $ plotProfile -m visualization/matrixPou5f1_TSS_chr12.gz \
 <img src="../img/TSS_Pou5f1_profile.png" width="400">
 
 ```bash
-$ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
+$ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz \
+-out visualization/figures/TSS_Pou5f1_heatmap.png \
 --colorMap RdBu \
 --whatToShow 'heatmap and colorbar' \
 --zMin -2 --zMax 2  
@@ -222,7 +224,8 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_
 If we wanted **both images in one single plot**, we can do that with `plotHeatmap` and just removing the `--whatToShow` parameter.
 
 ```bash
-$ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz -out visualization/TSS_Pou5f1_heatmap.png \
+$ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz \
+-out visualization/figures/TSS_Pou5f1_heatmap.png \
 --colorMap RdBu \
 --zMin -2 --zMax 2  
 ```
@@ -323,7 +326,7 @@ We could **visualize read density at these sites by using some of the `deepTools
 
 
 $ plotProfile -m visualization/matrixAll_Nanog_binding_sites.gz \
--out visualization/Allsamples_NanogSites_profile.png \
+-out visualization/figures/Allsamples_NanogSites_profile.png \
 --perGroup  --plotTitle "" \
 --samplesLabel "Pou5f1-Rep1" "Pou5f1-Rep2" "Nanog-Rep1" "Nanog-Rep2" \
 -T "Nanog only binding sites"  -z "" \
@@ -344,7 +347,7 @@ $ plotProfile -m visualization/matrixAll_Nanog_binding_sites.gz \
 
 
 $ plotProfile -m visualization/matrixAll_Pou5f1_binding_sites.gz \
--out visualization/Allsamples_Pou5f1Sites_profile.png \
+-out visualization/figures/Allsamples_Pou5f1Sites_profile.png \
 --perGroup  --plotTitle "" \
 --samplesLabel "Pou5f1-Rep1" "Pou5f1-Rep2" "Nanog-Rep1" "Nanog-Rep2" \
 -T "Pou5f1 only binding sites"  -z "" \
@@ -366,7 +369,9 @@ Another method for assessing the quality of your alignment is to visualize the a
 In order to visualize our ChIP-seq enrichment we will first need to move over the bigWig files. We previously used `FileZilla` to transfer files from O2 to your laptop and so we will do the same for these files.
 
 
-> **NOTE:**  There is another way to do so using the command line interface. **This option is only available for Mac and Linux users! PC users can use Filezilla.**  Similar to the `cp` command to copy there is a command that allows you to securely copy files between computers. **The command is called `scp` and allows files to be copied to, from, or between different hosts.** It uses ssh for data transfer and provides the same authentication and same level of security as ssh. 
+> **NOTE:**  There is another way to do so using the command line interface. Similar to the `cp` command to copy there is a command that allows you to securely copy files between computers. **The command is called `scp` and allows files to be copied to, from, or between different hosts.** It uses ssh for data transfer and provides the same authentication and same level of security as ssh. The first argument is the location on the remote server and the second argument is the destination on your local machine. 
+>
+> `$ scp username@transfer.rc.hms.harvard.edu:/path/to/file_on_O2 Path/to/directory/local_machine`
 
 Open up `FileZilla` and connect to the transfer node on O2. Navigate to the correct directory on the cluster panel and copy over the following files:
 
