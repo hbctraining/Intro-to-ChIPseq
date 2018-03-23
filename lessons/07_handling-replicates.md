@@ -107,6 +107,8 @@ Note that we are working with subsetted data and so our list of peaks for each r
 
 <img src="../img/idr_figure.png"> 
 
+*"The basic idea is that if two replicates measure the same underlying biology, the most significant peaks, which are likely to be genuine signals, are expected to have high consistency between replicates, whereas peaks with low significance, which are more likely to be noise, are expected to have low consistency. If the consistency between a pair of rank lists (peaks) that contains both significant and insignificant findings is plotted, a transition in consistency is expected (Fig. 1C). This consistency transition provides an internal indicator of the change from signal to noise and suggests how many peaks have been reliably detected."* [https://ccg.vital-it.ch/var/sib_april15/cases/landt12/idr.html]()
+
 It is extensively used by the ENCODE and modENCODE projects and is part of their [ChIP-seq guidelines and standards](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/). It has been established for submission of ChIP-seq data sets and have been constructed based on the historical experiences of ENCODE ChIP-seq data production groups.
 
 ### Why IDR?
@@ -114,7 +116,6 @@ It is extensively used by the ENCODE and modENCODE projects and is part of their
 * IDR avoids choices of initial cutoffs, which are not comparable for different callers 
 * IDR does not depend on arbitrary thresholds and so all regions/peaks are considered. 
 * It is based on ranks, so does not require the input signals to be calibrated or with a specific fixed scale (only order matters).
-
 
 ### Components of IDR
 
