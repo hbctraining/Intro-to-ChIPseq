@@ -185,7 +185,7 @@ $ module load idr/2.0.2
 Now let's move into the `chipseq/results` directory and create a new directory for the results of our IDR analysis.
 
 ```bash
-$ cd chipseq/results
+$ cd ~/chipseq/results
 $ mkdir IDR
 ```
 
