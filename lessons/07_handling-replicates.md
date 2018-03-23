@@ -241,13 +241,16 @@ $ idr --samples Pou5f1_Rep1_sorted_peaks.narrowPeak Pou5f1_Rep2_sorted_peaks.nar
 
 The output file format mimics the input file type, with some additional fields. Note that the **first 10 columns are a standard narrowPeak file**, pertaining to the merged peak across the two replicates. 
 
-**Column 5 contains the scaled IDR value, `min(int(log2(-125IDR), 1000)`** For example, peaks with an IDR of 0 have a score of 1000, peaks with an IDR of 0.05 have a score of int(-125log2(0.05)) = 540, and IDR of 1.0 has a score of 0. **Columns 11 and 12 correspond to the local and global IDR value, respectively.** The global IDR is the value used to calculate the scaled IDR number in column 5, it _is analogous to a multiple hypothesis correction on a p-value to compute an FDR_. The local IDR is akin to the posterior probability of a peak belonging to the irreproducible noise component. You can read [this paper](http://projecteuclid.org/euclid.aoas/1318514284
+**Column 5 contains the scaled IDR value, `min(int(log2(-125IDR), 1000)`** For example, peaks with an IDR of 0 have a score of 1000, peaks with an IDR of 0.05 have a score of int(-125log2(0.05)) = 540, and IDR of 1.0 has a score of 0.
+
+**Columns 11 and 12 correspond to the local and global IDR value, respectively.** 
+* The **global IDR** is the value used to calculate the scaled IDR number in column 5, it _is analogous to a multiple hypothesis correction on a p-value to compute an FDR_. 
+* The **local IDR** is akin to the posterior probability of a peak belonging to the irreproducible noise component. You can read [this paper](http://projecteuclid.org/euclid.aoas/1318514284
 ) for more details. 
 
-The next four columns correspond to Replicate 1 peak data and the following four columns with Replicate 2 peak data.
+**Columns 13 and 16 correspond to Replicate 1 peak data** and **Columns 17 and 20 correspond to Replicate 2 peak data.**
 
 More detail on the output can be [found in the user manual](https://github.com/nboley/idr#output-file-format). Also, if you have any unanswered questions check out posts in the [Google groups forum](https://groups.google.com/forum/#!forum/idr-discuss). 
-
 
 Let's take a look at our output files. _How many common peaks are considered for each TF?_
 
@@ -261,12 +264,12 @@ To find out how may of those shared regions have an IDR < 0.05, we can take a lo
 $ awk '{if($5 >= 540) print $0}' Nanog-idr | wc -l
 $ awk '{if($5 >= 540) print $0}' Pou5f1-idr | wc -l
 ```	
-_Which of the two TFs show better reproducibility between replicates? How does this compare to the  `bedtools` overlaps?_
+_Which of the two TFs show better reproducibility between replicates? How does this compare to the `bedtools` overlaps?_
 
 
 #### Output plots
 
-There is a single image file output for each IDR analyses (`.png` files). Within each image you should see four plots. **Since we are working with such a small subset of data, the plots are not as meaningful. Therefore, below we have provided the images  generated for Pou5f1 full dataset below**.
+There is a single image file output for each IDR analyses (`.png` files). Within each image you should see four plots. **Since we are working with such a small subset of data, the plots are not as meaningful. Below we have provided the images generated for the full dataset for Pou5f1.**
 
 <img src="../img/Pou5f1-idr.png" width="500"> 
 
@@ -277,7 +280,6 @@ The plot for each quadrant is described below:
 **Upper Right**: Replicate 1 log10 peak scores versus Replicate 2 log10 peak scores - peaks that do not pass the specified idr threshold are colored red.
 
 **Bottom Row**: Peak rank versus IDR scores are plotted in black. The overlayed boxplots display the distribution of idr values in each 5% quantile. The IDR values are thresholded at the optimization precision - 1e-6 by default.
-
 
 ### Peak consistency between pooled pseudoreplicates
 
@@ -291,7 +293,9 @@ _We will not run this analysis, but have provided a bash script below if you wan
 * Be sure to also ask for enough memory in your `bsub` command.
 * Change the paths for output to the directories that are relevant to you
 
-> _NOTE: For the paths and directories we are using `/n/scratch2`. This script generates fairly large intermediate files which can quickly fill up your home directory. To avoid this please make use of the scratch space and once the analysis is complete move over only the relevant files._
+> NOTE 1: For the paths and directories we are using `/n/scratch2`. This script generates fairly large intermediate files which can quickly fill up your home directory. To avoid this please make use of the scratch space and once the analysis is complete move over only the relevant files.
+
+> NOTE 2: To run the script below you will have to replace every instance of `mm573` with your account name.
 
 ```bash
 #!/bin/sh
