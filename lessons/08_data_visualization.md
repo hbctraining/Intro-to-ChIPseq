@@ -81,8 +81,8 @@ Let's **create a bigWig file for Nanog replicate 1** using the `bamCoverage` com
 * `centerReads`: reads are centered with respect to the fragment length as specified by `extendReads`. This option is useful to get a sharper signal around enriched regions.
 
 ```bash
-$ bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
--o visualization/bigWig/H1hesc_Nanog_Rep1_chr12.bw \
+$ bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_aln.bam \
+-o visualization/bigWig/H1hesc_Nanog_Rep1.bw \
 --binSize 20 \
 --normalizeTo1x 130000000 \
 --smoothLength 60 \
@@ -94,9 +94,9 @@ $ bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 Now, if we wanted to **create a bigWig file in which we normalize the ChIP against the input** we would use `bamCompare`. The command is quite similar to `bamCoverage`, the only difference being you require two files as input (`b1` and `b2`).
 
 ```bash
-$ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
+$ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_aln.bam \
 -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam \
--o visualization/bigWig/H1hesc_Nanog_Rep1_chr12_bgNorm.bw \
+-o visualization/bigWig/H1hesc_Nanog_Rep1_bgNorm.bw \
 --binSize 20 \
 --normalizeTo1x 130000000 \
 --smoothLength 60 \
@@ -374,15 +374,21 @@ Start [IGV](https://www.broadinstitute.org/software/igv/download) _You should ha
 
 * Load the Human genome (hg19) into IGV using the dropdown menu at the top left of your screen. _Note: there is also an option to "Load Genomes from File..." under the "Genomes" pull-down menu - this is useful when working with non-model organisms_
 * Load the bigWig files and BED files using the **"Load from File..."** option under the **"File"** pull-down menu. 
-* Autoscale
-* Pull down chr12
+
+Your IGV interface should now look something like the screenshot below. Ny default, you will be in teh zoomed out view. You will notice that in both bigWig tracks there appears to be a dense blue chunk at the beginning of chromosome 12, which makes sense conisdering the toy dataset we are working with. **Use the pulldown menu to zoom into chromosome 12.**
+
+<img src="../img/igv-1.png">
+
+
+* Autoscale: Right click on the left-hand side panel. You should see many options available to you. If "Autoscale' is not checked go ahead and do this. You can do the same for th OU 
+
 * Genes: Erc1 (Pou5f1 only peak)
 
 the interaction between POU5F1, SOX2, and NANOG is supported by immunoprecipitation, functional analysis, and co-localization of binding sites, we explored the relationships between their target genes. is essential for pluripotency maintenance and self-renewal of embryonic stem (ES) cells
 
 There would be very few peaks that would be unique to each/hard to find
 
-Your IGV interface should now look something like this:
+
 
 **ADD SCREENSHOT**
 
