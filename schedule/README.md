@@ -43,4 +43,4 @@
 |14:00 - 14:15 | Break | |
 |14:00 - 15:30 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_data_visualization.html) | Meeta |
 |15:30 - 16:30 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_functional_analysis.html) | Mary |
-|16:30 - 17:00 | [Wrap-up and Survey]() | Radhika |
+|16:30 - 17:00 | [Wrap-up and Survey](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Wrap-up.pdf) | Radhika |
