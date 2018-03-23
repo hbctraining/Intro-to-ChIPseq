@@ -73,7 +73,7 @@ done
 
 Now, to create our bigWig files there are two tools that can be useful: `bamCoverage` and `bamCompare`. The former will take in a single BAM file and return to you a bigWig file. The latter allows you to normalize two files to each other (i.e. ChIP sample relative to input) and will return a single bigWig file.
 
-Let's **create a bigWig file for Nanog replicate 1** using the `bamCoverage` command. In addition to the input and output files, there are a few additional parameters we have added. 
+Let's **create a bigWig file for Nanog replicate 2** using the `bamCoverage` command. In addition to the input and output files, there are a few additional parameters we have added. 
 
 * `normalizeTo1x`: Report read coverage normalized to 1x sequencing depth (also known as Reads Per Genomic Content (RPGC)). Sequencing depth is defined as: (total number of mapped reads * fragment length) / effective genome size). So **the number provided here represents the effective genome size**. Some examples of values for commonly used organisms can be [found here](http://deeptools.readthedocs.io/en/latest/content/feature/effectiveGenomeSize.html).
 * `binSize`: size of bins in bases
@@ -81,28 +81,43 @@ Let's **create a bigWig file for Nanog replicate 1** using the `bamCoverage` com
 * `centerReads`: reads are centered with respect to the fragment length as specified by `extendReads`. This option is useful to get a sharper signal around enriched regions.
 
 ```bash
-$ bamCoverage -b bowtie2/H1hesc_Nanog_Rep1_aln.bam \
--o visualization/bigWig/H1hesc_Nanog_Rep1.bw \
+$ bamCoverage -b bowtie2/H1hesc_Nanog_Rep2_aln.bam \
+-o visualization/bigWig/H1hesc_Nanog_Rep2.bw \
 --binSize 20 \
 --normalizeTo1x 130000000 \
 --smoothLength 60 \
 --extendReads 150 \
 --centerReads \
--p 6 2> ../logs/Nanog_rep1_bamCoverage.log
+-p 6 2> ../logs/Nanog_rep2_bamCoverage.log
 ```
+We can do the same for the **Pou5f1 replicate 1**:
+
+```bash
+$ bamCoverage -b bowtie2/H1hesc_Pou5f1_Rep1_aln.bam \
+-o visualization/bigWig/H1hesc_Pou5f1_Rep1.bw \
+--binSize 20 \
+--normalizeTo1x 130000000 \
+--smoothLength 60 \
+--extendReads 150 \
+--centerReads \
+-p 6 2> ../logs/Pou5f1_rep1_bamCoverage.log
+```
+>**NOTE:** There is a reason we chose the specific replicates for the above commands, and it will become more obvious as we get to the end of this lesson!
 
 Now, if we wanted to **create a bigWig file in which we normalize the ChIP against the input** we would use `bamCompare`. The command is quite similar to `bamCoverage`, the only difference being you require two files as input (`b1` and `b2`).
 
 ```bash
-$ bamCompare -b1 bowtie2/H1hesc_Nanog_Rep1_aln.bam \
+## DO NOT RUN THIS
+
+$ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_aln.bam \
 -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam \
--o visualization/bigWig/H1hesc_Nanog_Rep1_bgNorm.bw \
+-o visualization/bigWig/H1hesc_Pou5f1_Rep1_bgNorm.bw \
 --binSize 20 \
 --normalizeTo1x 130000000 \
 --smoothLength 60 \
 --extendReads 150 \
 --centerReads \
--p 6 2> ../logs/Nanog_rep1_bamCompare.log
+-p 6 2> ../logs/Pou5f1_rep1_bamCompare.log
 ```
 
 > **NOTE:** When you are creating bigWig files for your full dataset, this will take considerably longer and you will not want to run this interactively (except for testing purposes). Instead, you might want to consider writing a job submission script with a loop that runs this command over all of your BAM files.
@@ -359,8 +374,8 @@ In order to visualize our ChIP-seq enrichment we will first need to move over th
 
 Open up `FileZilla` and connect to the transfer node on O2. Navigate to the correct directory on the cluster panel and copy over the following files:
 
-* Nanog-Rep2: `~/chipseq/results/visualization/bigWig/`
-* Pou5f1-Rep1: `~/chipseq/results/visualization/bigWig/`
+* Nanog-Rep2: `~/chipseq/results/visualization/bigWig/H1hesc_Nanog_Rep2.bw`
+* Pou5f1-Rep1: `~/chipseq/results/visualization/bigWig/H1hesc_Pou5f1_Rep1.bw `
 * Nanog-only BED: `~/chipseq/results/bedtools/Nanog_only_peaks.bed`
 * Pou5f1-only BED: `~/chipseq/results/bedtools/Pou5f1_only_peaks.bed`
 
