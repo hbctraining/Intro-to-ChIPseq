@@ -248,7 +248,7 @@ The output file format mimics the input file type, with some additional fields. 
 * The **local IDR** is akin to the posterior probability of a peak belonging to the irreproducible noise component. You can read [this paper](http://projecteuclid.org/euclid.aoas/1318514284
 ) for more details. 
 
-**Columns 13 and 16 correspond to Replicate 1 peak data** and **Columns 17 and 20 correspond to Replicate 2 peak data.**
+**Columns 13 through 16 correspond to Replicate 1 peak data** and **Columns 17 through 20 correspond to Replicate 2 peak data.**
 
 More detail on the output can be [found in the user manual](https://github.com/nboley/idr#output-file-format). Also, if you have any unanswered questions check out posts in the [Google groups forum](https://groups.google.com/forum/#!forum/idr-discuss). 
 
@@ -290,7 +290,7 @@ Once you have IDR values for true replicates, you want to see how this compares 
 _We will not run this analysis, but have provided a bash script below if you wanted to take a stab at it._ To run this script you will need to:
 
 * Provide BAM files and run it for each TF separately. These are located at `/groups/hbctraining/ngs-data-analysis-longcourse/chipseq/bowtie2`. Or you can point to the BAM files generated from Bowtie2 in the home directory.
-* Be sure to also ask for enough memory in your `bsub` command.
+* Be sure to also ask for enough memory in your `sbatch` command.
 * Change the paths for output to the directories that are relevant to you
 
 > NOTE 1: For the paths and directories we are using `/n/scratch2`. This script generates fairly large intermediate files which can quickly fill up your home directory. To avoid this please make use of the scratch space and once the analysis is complete move over only the relevant files.
