@@ -122,12 +122,8 @@ $ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_aln.bam \
 
 > **NOTE:** When you are creating bigWig files for your full dataset, this will take considerably longer and you will not want to run this interactively (except for testing purposes). Instead, you might want to consider writing a job submission script with a loop that runs this command over all of your BAM files.
 
-Since we are using a toy dataset which contains only a subset of the data, using these bigWigs for visualization would not give us meaningful results. As such, **we have created bigWig files from the full dataset that you can copy over and use for the rest of this lesson.**
+Since we are using a toy dataset which contains only a subset of the data, using these bigWigs for visualization would not give us meaningful results. As such, **we have created bigWig files from the full dataset that you can use for the rest of this lesson.**
 
-```bash
-$ cp /n/groups/hbctraining/chip-seq/full-dataset/bigWig/*.bw visualization/bigWig/
-
-```
 
 ### Profile plots and heatmaps
 
