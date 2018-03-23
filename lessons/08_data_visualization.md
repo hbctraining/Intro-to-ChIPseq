@@ -303,7 +303,7 @@ The `bedtools intersect` will report back the peaks that are overlapping in the 
 	
 If we reverse the files listed for `-a` and `-b`, this will now give us peaks that are only present in Pou5f1:
 	
-	$ bedtools intersect -a bedtools/Pou5f1_merged.bed -b bedtools/Pou5f1_merged.bed -v > bedtools/Pou5f1_only_peaks.bed
+	$ bedtools intersect -a bedtools/Pou5f1_merged.bed -b bedtools/Nanog_merged.bed -v > bedtools/Pou5f1_only_peaks.bed
 
 
 **How many peaks are unique to Nanog?**
