@@ -44,8 +44,9 @@
 |11:35 - 12:00 | [Handling Replicates with Bedtools](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_handling-replicates.html) | Radhika |
 |12:00 - 13:00 | Lunch | |
 |13:00 - 13:50 | [Handling Replicates with IDR](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_handling-replicates.html) | Radhika |
-|13:50 - 14:05 | Break | |
-|14:05 - 15:25 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_data_visualization.html) | Meeta |
+|13:50 - 14:30 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_data_visualization.html) | Meeta |
+|14:30 - 14:45 | Break | |
+|14:45 - 15:25 | [Visualization and exploration of ChIP-seq data (contd.)](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_data_visualization.html) | Meeta |
 |15:25 - 15:50 | [Qualitative assessment using IGV](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_qualitative_assessment_IGV.html) | Meeta |
 |15:50 - 16:20 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/11_functional_analysis.html) | Mary |
 |16:20 - 16:40 | [Overview of ChIP-seq workflow]() | Meeta |
