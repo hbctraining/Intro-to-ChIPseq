@@ -6,7 +6,7 @@ date: "March 20th, 2018"
 
 Contributors: Meeta Mistry, Radhika Khetani
 
-Approximate time: 60 minutes
+Approximate time: 80 minutes
 
 ## Learning Objectives
 

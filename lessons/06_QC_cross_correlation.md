@@ -4,7 +4,7 @@ authors: "Mary Piper and Meeta Mistry"
 date: "March 17, 2018"
 ---
 
-Approximate time: 1.5 hours
+Approximate time: 60 minutes
 
 ## Learning Objectives
 

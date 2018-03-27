@@ -6,7 +6,7 @@ date: "March 14th, 2018"
 
 Contributors: Mary Piper, Radhika Khetani, Meeta Mistry
 
-Approximate time: 60 minutes
+Approximate time: 45 minutes
 
 ## Learning Objectives
 
