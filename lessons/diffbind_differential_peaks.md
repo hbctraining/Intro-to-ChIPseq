@@ -68,7 +68,7 @@ library(DiffBind)
 The first step is to **read in a set of peaksets and associated metadata**. This is done using the sample sheet. Once the peaksets are read in, a merging function finds all overlapping peaks and derives a single set of unique genomic intervals covering all the supplied peaks (a consensus peakset for the experiment). *A region is considered for the **consensus set** if it appears in more than two of the samples.* This consensus set represents the overall set of candidate binding sites to be used in further analysis.
 
 ```
-samples <- read.csv('diffBind/samples_chr12_DiffBind.csv')
+samples <- read.csv('meta/samplesheet_chr12.csv')
 dbObj <- dba(sampleSheet=samples)
 
 ```
