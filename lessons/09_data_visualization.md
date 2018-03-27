@@ -265,13 +265,21 @@ $ cat macs2/Pou5f1-rep1_peaks.narrowPeak macs2/Pou5f1-rep2_peaks.narrowPeak > ma
 
 #### Merge peaks within a file
 
-Now for each for each of those combined peak files we need to merge regions that are overlapping. However, `bedtools merge` requires a sorted file as input. So we will sort the file and pipe (`|`) the output to `bedtools` to merge. 
+Now for each for each of those combined peak files we need to merge regions that are overlapping. However, `bedtools merge` requires a sorted file as input as specified in the help documentation. 
 
 <img src="../img/merge-glyph.png" width="600">
 
 ```bash
 
 $ bedtools merge -h
+
+```
+
+The `sort` command allows you to sort lines of text in a file. However, when you have multiple columns that you are sorting on (and not on the entire line) you need to specify where sort keys start and where they end. In our case we have two columns of numeric values that we want to sort on, the chromosome and the start coordinates (column 1 and 2). The `-k1,1` indicates first sort on the first column, and the `-k2,2n` is to specify sort next on the second column and that this column is numeric (`n`).
+
+We will sort the file and pipe (`|`) the output to `bedtools` to merge. 
+
+```bash
 	
 $ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | less # take a quick peek at the sorted file
 	
