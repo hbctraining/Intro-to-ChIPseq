@@ -170,7 +170,7 @@ bowtie2 -p 6 -q --local -x $genome -U $fq -S $align_out
 # Create BAM from SAM
 samtools view -h -S -b -@ 6 -o $align_bam $align_out
 
-# Sort BAM file by read name
+# Sort BAM file by genomic coordinates
 sambamba sort -t 6 -o $align_sorted $align_bam
 
 # Filter out duplicates
@@ -247,7 +247,7 @@ bowtie2 -p 6 -q --local -x $genome -U $fq -S $align_out
 # Create BAM from SAM
 samtools view -h -S -b -@ 6 -o $align_bam $align_out
 
-# Sort BAM file by read name
+# Sort BAM file by genomic coordinates
 sambamba sort -t 6 -o $align_sorted $align_bam
 
 # Filter out duplicates
