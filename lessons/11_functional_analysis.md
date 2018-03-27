@@ -4,7 +4,7 @@ author: "Mary Piper, Radhika Khetani"
 date: "Thursday, June 29th, 2017"
 ---
 
-Approximate time: 1 hour
+Approximate time: 40 minutes
 
 ## Learning Objectives
 
