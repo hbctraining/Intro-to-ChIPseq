@@ -196,7 +196,7 @@ Your script should now look like this:
 ```
 #!/bin/bash/
 
-# This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by read name and has duplicate reads removed using sambamba.
+# This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
 # USAGE: sh chipseq_analysis_on_input_file.sh <path to the fastq file>
 
 # initialize a variable with an intuitive name to store the name of the input fastq file
