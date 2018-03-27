@@ -87,7 +87,7 @@ Now let's move over the appropriate files from Orchestra to our laptop. You can 
 
 2. Move over the **narrowPeak files (`.narrowPeak`)** `~/chipseq/results/macs2` to your laptop. You will want to copy these files into your chipseq-project **into the `data/peakcalls` folder.**
 
-3. Download the sample data sheet available from [this link](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/may2017/sessionV/samplesheet_chr12.csv). Move the samplesheet into the `meta` folder.
+3. Download the sample data sheet available from [this link](https://github.com/hbctraining/Intro-to-ChIPseq/raw/master/samplesheet_chr12.csv). Move the samplesheet into the `meta` folder.
 
 
 ### Running `ChIPQC` 
