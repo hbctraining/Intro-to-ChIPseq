@@ -33,10 +33,10 @@ However, if you needed to create a genome index yourself, you would use the foll
 bowtie2-build <path_to_reference_genome.fa> <prefix_to_name_indexes>
 ```
 
-> A quick note on shared databases for human and other commonly used model organisms. The O2 cluster has a designated directory at `/n/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databases, such as NCBI and PDB. So when using a tool that requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
+> A quick note on shared databases for human and other commonly used model organisms. Biocluster has a designated directory at `/home/mirrors/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databases, such as NCBI and PDB. So when using a tool that requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you.
 
 >```bash
->$ ls -l /n/groups/shared_databases/igenome/
+>$ ls -l /home/mirrors/igenome/
 >```
 
 ### Aligning reads to the genome with Bowtie2
@@ -47,15 +47,16 @@ Since we have our indices already created, we can get started with read alignmen
 $ cd ~/chipseq/results/bowtie2
 ```
 
-Now let's load the module. We can find out more on the module on O2:
+Now let's load the module. We can find out more on the module on Biocluster:
 
 ```bash
 $ module spider bowtie2
 ```
-You will notice that before we load this module we also need to load the gcc compiler (as will be the case for many of the NGS analysis tools on O2. Always check `module spider` first.)
+
+You'll now get a list of available Bowtie2 modules.  Let's grab the latest:
 
 ```bash
-$ module load gcc/6.2.0 bowtie2/2.2.9
+$ module load Bowtie2/2.3.2-IGB-gcc-4.9.4
 ```
 
 We will perform alignment on our single raw FASTQ file, `H1hesc_Input_Rep1_chr12.fastq`. Details on Bowtie2 and its functionality can be found in the [user manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml); we encourage you to peruse through to get familiar with all available options.
@@ -70,7 +71,7 @@ The basic options for aligning reads to the genome using Bowtie2 are:
 * `-S`: /path/to/output/SAM_file
 
 ```bash
-$ bowtie2 -p 2 -q --local \
+$ bowtie2 -p $SLURM_NPROCS -q --local \
 -x ~/chipseq/reference_data/chr12 \
 -U ~/chipseq/raw_data/H1hesc_Input_Rep1_chr12.fastq \
 -S ~/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
@@ -97,13 +98,13 @@ PN: program name
 VN: program version
 ```
 
-Following the header is the **alignment section**. Each line that follows corresponds to alignment information for a single read. Each alignment line has **11 mandatory fields for essential mapping information** and a variable number of other fields for aligner specific information. 
+Following the header is the **alignment section**. Each line that follows corresponds to alignment information for a single read. Each alignment line has **11 mandatory fields for essential mapping information** and a variable number of other fields for aligner specific information.
 
 ![SAM1](../img/sam_bam.png)
 
-An example read mapping is displayed above. *Note that the example above spans two lines, but in the file it is a single line.* Let's go through the fields one at a time. First, you have the read name (`QNAME`), followed by a `FLAG` 
+An example read mapping is displayed above. *Note that the example above spans two lines, but in the file it is a single line.* Let's go through the fields one at a time. First, you have the read name (`QNAME`), followed by a `FLAG`
 
-The `FLAG` value that is displayed can be translated into information about the mapping. 
+The `FLAG` value that is displayed can be translated into information about the mapping.
 
 | Flag | Description |
 | ------:|:----------------------:|
@@ -119,13 +120,13 @@ The `FLAG` value that is displayed can be translated into information about the 
 | 512 | read fails platform/vendor quality checks |
 | 1024| read is PCR or optical duplicate |
 
-* For a given alignment, each of these flags are either **on or off** indicating the condition is **true or false**. 
-* The `FLAG` is a combination of all of the individual flags (from the table above) that are true for the alignment 
+* For a given alignment, each of these flags are either **on or off** indicating the condition is **true or false**.
+* The `FLAG` is a combination of all of the individual flags (from the table above) that are true for the alignment
 * The beauty of the flag values is that **any combination of flags can only result in one sum**.
 
 **There are tools that help you translate the bitwise flag, for example [this one from Picard](https://broadinstitute.github.io/picard/explain-flags.html)**
 
-Moving along the fields of the SAM file, we then have `RNAME` which is the reference sequence name. The example read is from chromosome 1 which explains why we see 'chr1'. `POS` refers to the 1-based leftmost position of the alignment. `MAPQ` is giving us the alignment quality, the scale of which will depend on the aligner being used. 
+Moving along the fields of the SAM file, we then have `RNAME` which is the reference sequence name. The example read is from chromosome 1 which explains why we see 'chr1'. `POS` refers to the 1-based leftmost position of the alignment. `MAPQ` is giving us the alignment quality, the scale of which will depend on the aligner being used.
 
 `CIGAR` is a sequence of letters and numbers that represent the *edits or operations* required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e. match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths for each 'operation'.
 
@@ -168,7 +169,7 @@ While the SAM alignment file output by Bowtie2 is human readable, we need a BAM 
 To use `samtools` we will need to load the module:
 
 ```bash
-module load samtools/1.3.1
+$ module load SAMtools/1.7-IGB-gcc-4.9.4
 ```
 
 The command we will use is `samtools view` with the following parameters:
@@ -195,16 +196,19 @@ The command we will use is `sambamba sort` with the following parameters:
 * `-t`: number of threads / cores
 * `-o`: /path/to/output/file
 
+Let's load in `sambamba`:
+
 ```bash
-$ sambamba sort -t 2 \
--o H1hesc_Input_Rep1_chr12_aln_sorted.bam \
-H1hesc_Input_Rep1_chr12_aln_unsorted.bam 
+$ module load sambamba/0.6.6
 ```
 
-> **NOTE: This tool is not available as a module on O2.** You will only be able to use this as part of the tools available in the `bcbio` pipeline. In a previous lesson, you had added this to your $PATH by modifying your `.bashrc` file. **If the command above does not work for you, run this line below:**
-> 
-> `export PATH=/n/app/bcbio/tools/bin:$PATH`
+And now we can sort the BAM file:
 
+```bash
+$ sambamba sort -t $SLURM_NPROCS \
+-o H1hesc_Input_Rep1_chr12_aln_sorted.bam \
+H1hesc_Input_Rep1_chr12_aln_unsorted.bam
+```
 
 We could have also used `samtools` to perform the above sort, however using `sambamba` gives us dual functionality. List the contents of the directory -- what do you see? The advantage to using `sambamba` is that along with the newly sorted file, an index file is generated. If we used `samtools` this would have been a two-step process.
 
@@ -230,4 +234,3 @@ Now that the alignment files contain only uniquely mapping reads, we are ready t
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
-

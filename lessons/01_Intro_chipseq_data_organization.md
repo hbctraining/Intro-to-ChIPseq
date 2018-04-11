@@ -55,18 +55,14 @@ The same starting material should be divided to be used for both the protein-spe
 
 ## Setting up
 
-Since we are going to be working with this data on our remote server, **O2**, we first need to log onto the server.
+Since we are going to be working with this data on our remote server, **Biocluster**, we first need to log onto the server.
 
-Type in the following command with your username to login:
+Log into Biocluster using your user name assigned to you.
 
-```bash
-ssh username@o2.hms.harvard.edu
-```
-
-Next we will start an interactive session on O2 with 2 cores (add the `-n 2`):
+Next we will start an interactive session with 2 cores (add the `-n 2`):
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HBC bash
+$ srun --pty -p classroom --mem 8G -n 2 bash
 ```
 
 Make sure that your command prompt is now preceded by a character string that contains the word "compute".
@@ -143,9 +139,9 @@ $ tree     # this will show you the directory structure you just created
 Now that we have the directory structure created, let's copy over the data to perform our quality control and alignment, including our FASTQ files and reference data files:
 
 ```bash
-$ cp /n/groups/hbctraining/chip-seq/raw_fastq/*fastq raw_data/
+$ cp /home/classroom/hpcbio/chip-seq/raw_data/*.fastq raw_data/
 
-$ cp /n/groups/hbctraining/chip-seq/reference_data/chr12* reference_data/
+$ cp /home/classroom/hpcbio/chip-seq/reference/* reference_data/
 ```
 
 Now we are all set up for our analysis!
