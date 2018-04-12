@@ -100,7 +100,11 @@ The main functions of FastQC are:
 
 ### Run FastQC  
 
-Let's run FastQC on all of our files.
+Let's run FastQC on all of our files.  At this point you should already be in an interactive session, if not make sure you start one:
+
+```bash
+$ srun --pty -p classroom --mem 8G -n 2 bash
+```
 
 Change directories to the `raw_data` folder and check the contents
 
