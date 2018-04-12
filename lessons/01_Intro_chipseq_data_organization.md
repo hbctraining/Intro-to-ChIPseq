@@ -57,7 +57,8 @@ The same starting material should be divided to be used for both the protein-spe
 
 Since we are going to be working with this data on our remote server, **Biocluster**, we first need to log onto the server.
 
-Log into Biocluster using your user name assigned to you.
+Log into Biocluster using your user name assigned to you via PuTTY or MobaXTerm.
+
 
 Next we will start an interactive session with 2 cores (add the `-n 2`):
 
