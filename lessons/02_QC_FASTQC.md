@@ -127,7 +127,7 @@ $ echo $PATH
 To find the FastQC module to load we need to search the versions available:
 
 ```bash
-$ module avail fastqc
+$ module spider fastqc
 ```
 
 Then we can load the FastQC module:
