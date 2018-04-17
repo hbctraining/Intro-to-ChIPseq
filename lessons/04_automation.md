@@ -284,7 +284,7 @@ To run the above script **"in serial"** for all of the files on a worker node vi
 
 Below is what this second script (`chipseq_analysis_on_allfiles.slurm`) would look like **\[DO NOT RUN THIS\]**:
 
-```
+```bash
 # **\[DO NOT RUN THIS\]**
 
 #!/bin/bash
