@@ -47,7 +47,7 @@ For example, we can refer to the components of the following command as numbered
 
 ```bash
 # * DO NOT RUN *
-sh  run_analysis.sh  input.fastq  input.gtf  12
+bash run_analysis.sh  input.fastq  input.gtf  12
 ```
 
 `$0` => run_analysis.sh
@@ -270,7 +270,7 @@ mv $bowtie_results/${base}*sorted* $intermediate_bams
 We should all have an interactive session with 6 cores, so we can run the script as follows:
 
 ```bash
-$ sh chipseq_analysis_on_input_file.sh ~/chipseq/raw_data/H1hesc_Nanog_Rep1_chr12.fastq
+$ bash chipseq_analysis_on_input_file.sh ~/chipseq/raw_data/H1hesc_Nanog_Rep1_chr12.fastq
 ```
 
 ## Submitting jobs **in serial** to the SLURM scheduler
@@ -318,7 +318,7 @@ Parallelization will save you a lot of time with real (large) datasets. To paral
 Use `vi` to start a new shell script called `chipseq_analysis_on_allfiles-for_slurm.sh`:
 
 ```bash
-$ vi chipseq_analysis_on_allfiles_for-slurm.sh
+$ cp /home/classroom/hpcbio/chip-seq/scripts/chipseq_analysis_on_allfiles_for-slurm.sh .
 ```
 
 This script loops through the same files as in the previous (demo) script, but the command being submitted within the `for` loop is `sbatch` with SLURM directives specified on the same line:
@@ -335,6 +335,12 @@ sleep 1	    # wait 1 second between each job submission
 done
 ```
 > Please note that after the `sbatch` directives the command `sh ~/chipseq/scripts/chipseq_analysis_on_input_file.sh $fq` is in quotes.
+
+Now run the script (this will also rerun your previous analysis):
+
+```bash
+$ bash chipseq_analysis_on_allfiles_for-slurm.sh
+```
 
 What you should see on the output of your screen would be the jobIDs that are returned from the scheduler for each of the jobs that your script submitted.
 
