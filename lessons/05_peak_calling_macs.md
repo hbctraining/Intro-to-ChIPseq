@@ -48,7 +48,7 @@ Reads with the same start position are considered duplicates. These duplicates c
 >
 > **The take-home:** Consider your enrichment efficiency and sequencing depth. But, because we cannot distinguish between the good and the bad, best practice is to remove duplicates prior to peak calling.  Retain duplicates for differential binding analysis. Also, if you are expecting binding in repetitive regions keep duplicates and multiple mappers.
 
-### Modeling the shift size
+## Step 1: Modeling the shift size
 
 The tag density around a true binding site should show a **bimodal enrichment pattern** (or paired peaks). MACS takes advantage of this bimodal pattern to empirically model the shifting size to better locate the precise binding sites.
 
@@ -72,7 +72,7 @@ The mappability or uniqueness influences the average mapped depth (i.e if the ef
 
 <img src="../img/map_table.png" width="500">
 
-### Peak detection
+## Step 2: Peak detection
 
 For ChIP-Seq experiments, tag distribution along the genome can be modeled by a Poisson distribution. After MACS shifts every tag, it then slides 2d windows across the genome to find candidate peaks with a significant tag enrichment (default is p < 10e-5). This is a Poisson distribution p-value based on λ. The Poisson is a one parameter model, where the parameter **λ is the expected number of reads in that window**.
 
@@ -252,7 +252,7 @@ $ module load R/3.4.2-IGB-gcc-4.9.4
 $ Rscript Nanog-rep1_model.r
 ```
 
-> **NOTE:** We need to load the `gcc/6.2.0` before loading R. You can find out which modules need to be loaded first by using module spider R/3.4.1`
+> **NOTE:** We need to load the `gcc/6.2.0` before loading R. You can find out which modules need to be loaded first by using module spider R/3.4.2`
 
 Now you should see a pdf file in your current directory by the same name. Create the plots for each of the samples and move them over to your laptop using `Cyberduck`.
 
