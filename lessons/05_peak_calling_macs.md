@@ -120,7 +120,7 @@ $ cd ~/chipseq/results/
 
 > **NOTE:** If your automation script was successful, you should have alignment information for **all 6 files**. However, if you do not have these BAM files then you can copy them over using the command below:
 >
->`$ cp /n/groups/hbctraining/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/`
+>`$ cp /home/classroom/hpcbio/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/`
 
 ### MACS2 parameters
 
