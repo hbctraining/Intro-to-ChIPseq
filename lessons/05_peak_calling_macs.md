@@ -16,7 +16,7 @@ Approximate time: 80 minutes
 
 # Peak Calling
 
-Peak calling, the next step in our workflow, is a computational method used to identify areas in the genome that have been enriched with aligned reads as a consequence of performing a ChIP-sequencing experiment. 
+Peak calling, the next step in our workflow, is a computational method used to identify areas in the genome that have been enriched with aligned reads as a consequence of performing a ChIP-sequencing experiment.
 
 <img src="../img/chip_workflow_june2017_step2.png" width="700">
 
@@ -52,7 +52,7 @@ Reads with the same start position are considered duplicates. These duplicates c
 
 The tag density around a true binding site should show a **bimodal enrichment pattern** (or paired peaks). MACS takes advantage of this bimodal pattern to empirically model the shifting size to better locate the precise binding sites.
 
-To find paired peaks to **build the model**, MACS first scans the whole dataset searching for highly significant enriched regions. *This is done only using the ChIP sample!* Given a sonication size (`bandwidth`) and a high-confidence fold-enrichment (`mfold`), MACS slides two `bandwidth` windows across the genome to find regions with **tags more than `mfold` enriched relative to a random tag genome distribution**. 
+To find paired peaks to **build the model**, MACS first scans the whole dataset searching for highly significant enriched regions. *This is done only using the ChIP sample!* Given a sonication size (`bandwidth`) and a high-confidence fold-enrichment (`mfold`), MACS slides two `bandwidth` windows across the genome to find regions with **tags more than `mfold` enriched relative to a random tag genome distribution**.
 
 <img src="../img/model_shift.png" width="500">
 
@@ -78,9 +78,9 @@ For ChIP-Seq experiments, tag distribution along the genome can be modeled by a 
 
 <img src="../img/peak_detection.png" width="300">
 
-Instead of using a uniform λ estimated from the whole genome, MACS uses a dynamic parameter, λlocal, defined for each candidate peak. The lambda parameter is estimated from the control sample and is deduced by **taking the maximum value across various window sizes:** 
+Instead of using a uniform λ estimated from the whole genome, MACS uses a dynamic parameter, λlocal, defined for each candidate peak. The lambda parameter is estimated from the control sample and is deduced by **taking the maximum value across various window sizes:**
 
-**λlocal = max(λBG, λ1k, λ5k, λ10k).** 
+**λlocal = max(λBG, λ1k, λ5k, λ10k).**
 
 In this way lambda captures the influence of local biases, and is **robust against occasional low tag counts at small local regions**. Possible sources for these biases include local chromatin structure, DNA amplification and sequencing bias, and genome copy number variation.
 
@@ -94,16 +94,16 @@ Each peak is considered an independent test and thus, when we encounter thousand
 
 ## Running MACS2
 
-We will be using the newest version of this tool, MACS2. The underlying algorithm for peak calling remains the same as before, but it comes with some enhancements in functionality. 
+We will be using the newest version of this tool, MACS2. The underlying algorithm for peak calling remains the same as before, but it comes with some enhancements in functionality.
 
 ### Setting up
 
 To run MACS2, we will first start an interactive session using 1 core (do this only if you don't already have one) and load the macs2 library:
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash
+$ srun --pty -p classroom --mem 8G bash
 
-$ module load gcc/6.2.0  python/2.7.12 macs2/2.1.1.20160309
+$ module load MACS2/2.1.1.20160309-IGB-gcc-4.9.4-Python-2.7.13
 ```
 
 We will also need to create a directory for the output generated from MACS2:
@@ -119,14 +119,14 @@ $ cd ~/chipseq/results/
 ```
 
 > **NOTE:** If your automation script was successful, you should have alignment information for **all 6 files**. However, if you do not have these BAM files then you can copy them over using the command below:
-> 
+>
 >`$ cp /n/groups/hbctraining/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/`
 
 ### MACS2 parameters
 
 There are seven [major functions](https://github.com/taoliu/MACS#usage-of-macs2) available in MACS2 serving as sub-commands. We will only cover `callpeak` in this lesson, but you can use `macs2 COMMAND -h` to find out more, if you are interested.
 
-`callpeak` is the main function in MACS2 and can be invoked by typing `macs2 callpeak`. If you type this command without parameters, you will see a full description of commandline options. Here is a shorter list of the commonly used ones: 
+`callpeak` is the main function in MACS2 and can be invoked by typing `macs2 callpeak`. If you type this command without parameters, you will see a full description of commandline options. Here is a shorter list of the commonly used ones:
 
 **Input file options**
 
@@ -179,11 +179,11 @@ $ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_aln.bam \
 Ok, now let's do the same peak calling for the rest of our samples:
 
 ```bash
-macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep2_aln.bam -c bowtie2/H1hesc_Input_Rep2_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Nanog-rep2 2> macs2/Nanog-rep2-macs2.log
-	 
-macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep1_aln.bam -c bowtie2/H1hesc_Input_Rep1_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Pou5f1-rep1 2> macs2/Pou5f1-rep1-macs2.log
-	 
-macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep2_aln.bam -c bowtie2/H1hesc_Input_Rep2_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Pou5f1-rep2 2> macs2/Pou5f1-rep2-macs2.log
+$ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep2_aln.bam -c bowtie2/H1hesc_Input_Rep2_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Nanog-rep2 2> macs2/Nanog-rep2-macs2.log
+
+$ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep1_aln.bam -c bowtie2/H1hesc_Input_Rep1_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Pou5f1-rep1 2> macs2/Pou5f1-rep1-macs2.log
+
+$ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep2_aln.bam -c bowtie2/H1hesc_Input_Rep2_aln.bam -f BAM -g 1.3e+8 --outdir macs2 -n Pou5f1-rep2 2> macs2/Pou5f1-rep2-macs2.log
 
 ```
 
@@ -217,14 +217,18 @@ The BedGraph format also allows display of continuous-valued data in track forma
 
 ### MACS2 output files
 
-	$ cd macs2/
-	
-	$ ls -lh
-	
+```bash
+$ cd macs2/
+
+$ ls -lh
+```
+
 Let's first move the log files to the `log` directory:
 
-	$ mv *.log ../../logs/
-	
+```
+$ mv *.log ../../logs/
+```
+
 Now, there should be 6 files output to the results directory for each of the 4 samples, so a total of 24 files:
 
 * `_peaks.narrowPeak`: BED6+4 format file which contains the peak locations together with peak summit, pvalue and qvalue
@@ -236,20 +240,23 @@ Now, there should be 6 files output to the results directory for each of the 4 s
 
 Let's first obtain a summary of how many peaks were called in each sample. We can do this by counting the lines in the `.narrowPeak` files:
 
-	$ wc -l *.narrowPeak
+```bash
+$ wc -l *.narrowPeak
+```
 
 We can also generate plots using the R script file that was output by MACS2. There is a `_model.R` script in the directory. Let's load the R module and run the R script in the command line using the `Rscript` command as demonstrated below:
 
+```bash
+$ module load R/3.4.2-IGB-gcc-4.9.4
 
-	$ module load gcc/6.2.0 R/3.4.1
-	
-	$ Rscript Nanog-rep1_model.r
-	
-> **NOTE:** We need to load the `gcc/6.2.0` before loading R. You can find out which modules need to be loaded first by using module spider R/3.4.1` 
-	
-Now you should see a pdf file in your current directory by the same name. Create the plots for each of the samples and move them over to your laptop using `Filezilla`. 
+$ Rscript Nanog-rep1_model.r
+```
 
-Open up the pdf file for Nanog-rep1. The first plot illustrates **the distance between the modes from which the shift size was determined**. 
+> **NOTE:** We need to load the `gcc/6.2.0` before loading R. You can find out which modules need to be loaded first by using module spider R/3.4.1`
+
+Now you should see a pdf file in your current directory by the same name. Create the plots for each of the samples and move them over to your laptop using `Cyberduck`.
+
+Open up the pdf file for Nanog-rep1. The first plot illustrates **the distance between the modes from which the shift size was determined**.
 
 <img src="../img/model-macs.png" width="400">
 
