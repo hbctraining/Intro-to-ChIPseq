@@ -10,22 +10,9 @@ Approximate time: 55 minutes
 
 ## Learning Objectives
 
-* Become familiar with data analysis best practices
-* Understanding hwo to use modules in the cluster environment
+* Become familiar with the Illumina sequencing technology
+* Understanding how to use modules in the cluster environment
 * Evaluate the quality of your sequencing data using FastQC
-
-
-## Best practices for NGS Analysis 
-
-Ok so now you are all set up and have begun your analysis. You have followed best practices to set up your analysis directory structure in a way such that someone unfamiliar with your project should be able to look at it and understand what you did and why (reproducibility). But there is more...
-
-1. **Use appropriate software.** Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions, and keeping track of the version number! If you run out-of-date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
-
-2. **Keep up with the literature.** Bioinformatics is a fast-moving field and it's always good to stay in the know about recent developments. This will help you determine what is appropriate and what is not.  
-
-3. **Do not re-invent the wheel.** If you run into problems, more often than not someone has already encountered that same problem. A solution is either already available or someone is working on it -- so find it! Ask colleagues or search/ask online forums such as [BioStars](https://www.biostars.org/).
-
-4. **Testing is essential.** If you are using a tool for the first time, test it out on a single sample or a subset of the data before running your entire dataset through. This will allow you to debug quicker and give you a chance to also get a feel for the tool and the different parameters.
 
 ## Quality control of sequence reads
 
@@ -35,7 +22,11 @@ Now that we have our files and directory structure, we are ready to begin our Ch
 
 ### Understanding the Illumina sequencing technology
 
-Before we can assess the quality of our reads, it would be helpful to know a little bit about how these reads were generated. Since our data was sequenced on an Illumina sequencer we will introduce you to their Sequencng by Synthesis methodology, however keep in mind there are other technologies and the way reads are generated will vary (as will the associated biases observed in your data). An **animation of the Sequencing by Synthesis is most helpful** (rather than reading through lines of text), and so we would like you to take five minutes and watch [this YouTube video](https://www.youtube.com/watch?v=fCd6B5HRaZ8&t=3s) from Illumina.
+Before we can assess the quality of our reads, it would be helpful to know a little bit about how these reads were generated. Since our data was sequenced on an Illumina sequencer we will introduce you to their Sequencng by Synthesis methodology, however keep in mind there are other technologies and the way reads are generated will vary (as will the associated biases observed in your data). 
+
+<img src="../img/sbs_illumina.png" width="700">
+
+An **animation of the Sequencing by Synthesis is most helpful** (rather than reading through lines of text), and so we would like you to take five minutes and watch [this YouTube video](https://www.youtube.com/watch?v=fCd6B5HRaZ8&t=3s) from Illumina.
 
 ### Unmapped read data (FASTQ)
 
