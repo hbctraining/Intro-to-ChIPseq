@@ -265,7 +265,7 @@ $ cat macs2/Pou5f1-rep1_peaks.narrowPeak macs2/Pou5f1-rep2_peaks.narrowPeak > ma
 
 #### Merge peaks within a file
 
-Now for each for each of those combined peak files we need to merge regions that are overlapping. However, `bedtools merge` requires a sorted file as input as specified in the help documentation. 
+Now for each for each of those combined peak files we need to merge regions that are overlapping. However, `bedtools merge` **requires a sorted file** as input as specified in the help documentation. 
 
 <img src="../img/merge-glyph.png" width="600">
 
@@ -275,16 +275,25 @@ $ bedtools merge -h
 
 ```
 
-The `sort` command allows you to sort lines of text in a file. However, when you have multiple columns that you are sorting on (and not on the entire line) you need to specify where sort keys start and where they end. In our case we have two columns of numeric values that we want to sort on, the chromosome and the start coordinates (column 1 and 2). The `-k1,1` indicates first sort on the first column, and the `-k2,2n` is to specify sort next on the second column and that this column is numeric (`n`).
+#### Sort peaks based on coordinates
 
-We will sort the file and pipe (`|`) the output to `bedtools` to merge. 
+The `sort` command allows you to sort lines of text in a file. However, **when you have multiple columns that you are sorting on (and not on the entire line) you need to specify where sort keys start and where they end**. In our case we have two columns of numeric values that we want to sort on, the chromosome and the start coordinates (column 1 and 2). The `-k1,1` indicates first sort on the first column, and the `-k2,2n` is to specify sort next on the second column and that this column is numeric (`n`).
+
+We will sort the file and pipe (`|`) the output to `less` to take a quick peek at the sorted file.
 
 ```bash
 	
-$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | less # take a quick peek at the sorted file
+$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | less 
 	
-$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | bedtools merge -i - > bedtools/Nanog_merged.bed 
 ```	
+
+#### Sort peaks and then merge
+
+Let's  start with the Nanog replicates:
+
+```bash
+$ sort -k1,1 -k2,2n macs2/Nanog_combined.narrowPeak | bedtools merge -i - > bedtools/Nanog_merged.bed 
+```
 
 > **NOTE:** this command modifies your `narrowPeak` file into a simple, 3-column `bed` file.
 
