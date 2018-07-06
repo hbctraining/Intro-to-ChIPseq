@@ -185,7 +185,7 @@ mv $bowtie_results/${base}*sorted* $intermediate_bams
 It is best practice to have the script **usage** specified at the top any script. This should have information such that when your future self, or a co-worker, uses the script they know what it will do and what input(s) are needed. For our script, we should have the following lines of comments right at the top after `#!/bin/bash/`:
 
 ```
-# This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
+# This script takes a fastq file of ChIP-seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
 # USAGE: sh chipseq_analysis_on_input_file.sh <path to the fastq file>
 ```
 
@@ -196,7 +196,7 @@ Your script should now look like this:
 ```
 #!/bin/bash/
 
-# This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
+# This script takes a fastq file of ChIP-seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
 # USAGE: sh chipseq_analysis_on_input_file.sh <path to the fastq file>
 
 # initialize a variable with an intuitive name to store the name of the input fastq file

@@ -13,7 +13,7 @@ Approximate time: 75 minutes
 * Combining replicates using simple overlap with Bedtools
 * Combining replicates to only get the highly reproducible peaks using the IDR method
 
-## Handling replicates in ChIP-Seq
+## Handling replicates in ChIP-seq
  
 As with any high-throughput experiment, a single assay is often subject to a substantial amount of variability. Thus, it is highly recommended to setup your experimental design with a minimum of 2-3 biological replicates. Presumably, two replicates measuring the same underlying biology should have high consistency but that is not always the case. In order to evaluate consistency between replicates **we require metrics that objectively assess the reproducibility of high-throughput assays**.
 
@@ -143,7 +143,7 @@ There are three main steps to the IDR pipeline:
 
 <img src="../img/idr_pipeline.png"> 
 
-> This figure is taken from the [ENCODE ChIP-Seq Guidelines](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/#box3).
+> This figure is taken from the [ENCODE ChIP-seq Guidelines](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/#box3).
 
 _We will only be running Step 1 in this lesson, but will discuss steps 2 and 3 in a bit more detail._
 

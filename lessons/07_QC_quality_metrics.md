@@ -1,5 +1,5 @@
 ---
-title: "ChIP-Seq Quality Assessment"
+title: "ChIP-seq Quality Assessment"
 author: "Mary Piper, Meeta Mistry"
 date: "June 12, 2017"
 ---
@@ -10,7 +10,7 @@ Approximate time: 60 minutes
 
 ## Learning Objectives
 
-* Discuss other quality metrics for evaluating ChIP-Seq data
+* Discuss other quality metrics for evaluating ChIP-seq data
 * Understand the steps required to generate a QC report using the R Bioonductor package `ChIPQC`
 * Interpretation of a report containing quality metrics and associated figures
 * Learn to run R scripts from the command-line

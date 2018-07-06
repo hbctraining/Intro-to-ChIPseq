@@ -11,12 +11,12 @@ Approximate time: 45 minutes
 - Describe the best practices for designing a ChIP-seq experiment
 - Recognize the need for data management and project organization
 
-## Introduction to ChIP-Seq
+## Introduction to ChIP-seq
 Chromatin immunoprecipitation (ChIP) experiments are performed to identify DNA bound to specific (chromatin) proteins of interest. The first step involves isolating the chromatin and immunoprecipitating (IP) fragements with an antibody against the protein of interest. In ChIP-seq, the immunoprecipitated DNA fragments are then sequenced, followed by identification of enriched regions of DNA or peaks. These peak calls can then be used to make biological inferences by determining the associated genomic features and/or over-represented sequence motifs. 
 
 ![chipseq_overview](../img/chipseq_overall.png)
 
-During this session we will be performing a complete workflow for ChIP-Seq analysis, starting with experimental design and generation of the raw sequencing reads and ending with functional enrichment analyses and motif discovery.
+During this session we will be performing a complete workflow for ChIP-seq analysis, starting with experimental design and generation of the raw sequencing reads and ending with functional enrichment analyses and motif discovery.
 
 ![chipseq_workflow_general](../img/chipseq_workflow_general.png)
 
@@ -35,13 +35,13 @@ Several steps are involved in the library preparation of protein-bound DNA fragm
 
 Within the DNA fragments enriched for the regions binding to a protein of interest, only a fraction correspond to actual signal. The proportion of DNA fragments containing the actual binding site of the protein depends on the **number of active binding sites, the number of starting genomes, and the efficiency of the IP**. 
 
-In addition, when performing ChIP-Seq, some sequences may appear enriched due to the following:
+In addition, when performing ChIP-seq, some sequences may appear enriched due to the following:
 
 - Open chromatin regions are fragmented more easily than closed regions
 - Repetitive sequences might seem to be enriched (copy number inaccuracies in genome assembly)
 - Uneven distribution of sequence reads across the genome
 
-Therefore, proper controls are essential. A ChIP-Seq peak should be compared with the same region of the genome in a matched control.
+Therefore, proper controls are essential. A ChIP-seq peak should be compared with the same region of the genome in a matched control.
 
 ![peaks](../img/chipseq_exp_peaks.png)
 

@@ -30,7 +30,7 @@ There are various tools that are available for peak calling. One of the more com
 
 ## MACS2
 
-A commonly used tool for identifying transcription factor binding sites is named [Model-based Analysis of ChIP-Seq (MACS)](https://github.com/taoliu/MACS). The [MACS algorithm](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137) captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. Although it was developed for the detection of transcription factor binding sites it is also suited for larger regions.
+A commonly used tool for identifying transcription factor binding sites is named [Model-based Analysis of ChIP-seq (MACS)](https://github.com/taoliu/MACS). The [MACS algorithm](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137) captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. Although it was developed for the detection of transcription factor binding sites it is also suited for larger regions.
 
 MACS improves the spatial resolution of binding sites through **combining the information of both sequencing tag position and orientation.** MACS can be easily used either for the ChIP sample alone, or along with a control sample which increases specificity of the peak calls. The MACS workflow is depicted below. In this lesson, we will describe the steps in more detail.
 
@@ -74,7 +74,7 @@ The mappability or uniqueness influences the average mapped depth (i.e if the ef
 
 ### Peak detection
 
-For ChIP-Seq experiments, tag distribution along the genome can be modeled by a Poisson distribution. After MACS shifts every tag, it then slides 2d windows across the genome to find candidate peaks with a significant tag enrichment (default is p < 10e-5). This is a Poisson distribution p-value based on λ. The Poisson is a one parameter model, where the parameter **λ is the expected number of reads in that window**.
+For ChIP-seq experiments, tag distribution along the genome can be modeled by a Poisson distribution. After MACS shifts every tag, it then slides 2d windows across the genome to find candidate peaks with a significant tag enrichment (default is p < 10e-5). This is a Poisson distribution p-value based on λ. The Poisson is a one parameter model, where the parameter **λ is the expected number of reads in that window**.
 
 <img src="../img/peak_detection.png" width="300">
 
@@ -86,7 +86,7 @@ In this way lambda captures the influence of local biases, and is **robust again
 
 <img src="../img/lambda.png" width="300">
 
-Overlapping enriched peaks are merged, and each tag position is extended 'd' bases from its center. The location with the highest fragment pileup, hereafter referred to as the summit, is predicted as the precise binding location. The ratio between the ChIP-Seq tag count and λlocal is reported as the fold enrichment.
+Overlapping enriched peaks are merged, and each tag position is extended 'd' bases from its center. The location with the highest fragment pileup, hereafter referred to as the summit, is predicted as the precise binding location. The ratio between the ChIP-seq tag count and λlocal is reported as the fold enrichment.
 
 ### Estimation of false discovery rate
 

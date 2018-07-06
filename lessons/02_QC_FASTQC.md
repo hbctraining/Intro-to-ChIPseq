@@ -18,7 +18,7 @@ Approximate time: 55 minutes
 
 <img src="../img/chip_workflow_march2018_step1.png" width="700">
 
-Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. For any NGS analysis method, our first step in the workflow is to explore the quality of our reads prior to aligning them to the reference genome and proceeding with downstream analyses. 
+Now that we have our files and directory structure, we are ready to begin our ChIP-seq analysis. For any NGS analysis method, our first step in the workflow is to explore the quality of our reads prior to aligning them to the reference genome and proceeding with downstream analyses. 
 
 ### Understanding the Illumina sequencing technology
 
@@ -198,7 +198,7 @@ Within the 'Site Manager' window, do the following:
 
 <img src="../img/Filezilla_step2.png" width="500">	
 	
-The **"Per base sequence quality"** plot is the most important analysis module in FastQC for ChIP-Seq; it provides the distribution of quality scores across all bases at each position in the reads. This information can help determine whether there were any problems at the sequencing facility during the sequencing of your data. Generally, we expect a decrease in quality towards the ends of the reads, but we shouldn't see any quality drops at the beginning or in the middle of the reads.
+The **"Per base sequence quality"** plot is the most important analysis module in FastQC for ChIP-seq; it provides the distribution of quality scores across all bases at each position in the reads. This information can help determine whether there were any problems at the sequencing facility during the sequencing of your data. Generally, we expect a decrease in quality towards the ends of the reads, but we shouldn't see any quality drops at the beginning or in the middle of the reads.
 
 ![FastQC_seq_qual](../img/FastQC_seq_qual.png)
 

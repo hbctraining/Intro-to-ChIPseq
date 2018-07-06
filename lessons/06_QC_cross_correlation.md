@@ -1,5 +1,5 @@
 ---
-title: "ChIP-Seq Quality Assessment: Cross-correlation"
+title: "ChIP-seq Quality Assessment: Cross-correlation"
 authors: "Mary Piper and Meeta Mistry"
 date: "March 17, 2018"
 ---
@@ -13,9 +13,9 @@ Approximate time: 60 minutes
 * Use `phantompeakqualtools` to compute cross-correlation and associated QC metrics
 * Evaluate and interpret QC metrics and the cross-correlation plot
 
-## ChIP-Seq quality assessment
+## ChIP-seq quality assessment
 
-Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-Seq data. What we are looking for is good	quality	ChIP-seq enrichment over background.
+Prior to performing any downstream analyses with the results from a peak caller, it is best practice to assess the quality of your ChIP-seq data. What we are looking for is good	quality	ChIP-seq enrichment over background.
 
 <img src="../img/chip_workflow_june2017_step3.png" width="700">
 
@@ -74,7 +74,7 @@ A failed experiment will resemble a cross-correlation plot using **input only**,
 
 ### Cross-correlation quality metrics
 
-Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment** and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-Seq data. These metrics are described in more detail below:
+Using the cross-correlation plot we can **compute metrics for assessing signal-to-noise ratios in a ChIP-seq experiment** and to ensure the fragment length is accurate based on the experimental design. Poor signal-to-noise and inaccurate fragment lengths can indicate problems with the ChIP-seq data. These metrics are described in more detail below:
 
 #### Normalized strand cross-correlation coefficent (NSC):
 
@@ -87,7 +87,7 @@ The ratio of the fragment-length cross-correlation value minus the background cr
 
 ## `phantompeakqualtools` 
 
-The [`phantompeakqualtools`](https://code.google.com/archive/p/phantompeakqualtools/) package is a tool used to compute enrichment and quality measures for ChIP-Seq data [[1](http://www.g3journal.org/content/4/2/209.full)]. We will be using the package to compute the predominant insert-size (fragment length) based on strand cross-correlation peak and data quality measures based on relative phantom peak.
+The [`phantompeakqualtools`](https://code.google.com/archive/p/phantompeakqualtools/) package is a tool used to compute enrichment and quality measures for ChIP-seq data [[1](http://www.g3journal.org/content/4/2/209.full)]. We will be using the package to compute the predominant insert-size (fragment length) based on strand cross-correlation peak and data quality measures based on relative phantom peak.
 
 ### Set up
 
