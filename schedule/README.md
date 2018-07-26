@@ -46,7 +46,7 @@
 |13:00 - 13:50 | [Handling Replicates with IDR](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_handling-replicates.html) | Radhika |
 |13:50 - 15:10 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_data_visualization.html) | Meeta |
 |15:10 - 15:25 | Break | |
-|15:25 - 15:50 | [Qualitative assessment using IGV](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_qualitative_assessment_IGV.html) | Meeta |
+|15:25 - 15:50 | [Qualitative assessment using IGV](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_qualitative_assessment_IGV.html) | Radhika |
 |15:50 - 16:20 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/11_functional_analysis.html) | Kayleigh |
 |16:20 - 16:40 | [Overview of ChIP-seq workflow]() | Meeta |
 |16:30 - 17:00 | [Wrap-up and Survey](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Wrap-up.pdf) | Radhika |
