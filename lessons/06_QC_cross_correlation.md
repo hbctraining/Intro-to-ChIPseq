@@ -86,7 +86,7 @@ The ratio of the maximal cross-correlation value divided by the background cross
 
 maximal cross-correlation value / minimum value of cross-correlation (background)
 
-\frac{n!}{k!(n-k)!}
+\frac{maximum CC value}{minimum CC value}
 
 - higher values indicate more enrichment (better signal:noise)
 - low NSC scores: < 1.1
