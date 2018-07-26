@@ -38,7 +38,7 @@
 | Time            |  Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
 |9:00 - 9:20 | [Peak calling with MACS2 (contd.)](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
-|9:20 - 10:20 | [Assessing ChIP quality using cross correlation](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_QC_cross_correlation.html) | Mary |
+|9:20 - 10:20 | [Assessing ChIP quality using cross correlation](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_QC_cross_correlation.html) | Kayleigh |
 |10:20 - 10:35 | Break | |
 |10:35 - 11:35| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_QC_quality_metrics.html) | Meeta |
 |11:35 - 12:00 | [Handling Replicates with Bedtools](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_handling-replicates.html) | Radhika |
@@ -47,6 +47,6 @@
 |13:50 - 15:10 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_data_visualization.html) | Meeta |
 |15:10 - 15:25 | Break | |
 |15:25 - 15:50 | [Qualitative assessment using IGV](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_qualitative_assessment_IGV.html) | Meeta |
-|15:50 - 16:20 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/11_functional_analysis.html) | Mary |
+|15:50 - 16:20 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/11_functional_analysis.html) | Kayleigh |
 |16:20 - 16:40 | [Overview of ChIP-seq workflow]() | Meeta |
 |16:30 - 17:00 | [Wrap-up and Survey](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Wrap-up.pdf) | Radhika |
