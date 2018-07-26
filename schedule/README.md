@@ -29,7 +29,7 @@
 |13:15 - 14:00 | [Alignment and filtering of reads](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_align_and_filtering.html) | Mary |
 |14:00 - 15:20 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
 |15:20 - 15:35 | Break | |
-|15:35 - 15:5 | [ChIP-seq File Formats](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Workflows_and_fileformats.pdf) | Radhika |
+|15:35 - 15:55 | [ChIP-seq File Formats](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Workflows_and_fileformats.pdf) | Radhika |
 |15:55 - 17:00 | [Peak calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
 
 
