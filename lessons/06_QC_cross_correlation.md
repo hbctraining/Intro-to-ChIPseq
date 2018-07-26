@@ -84,8 +84,6 @@ Using the cross-correlation plot we can **compute metrics for assessing signal-t
 
 The ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). 
 
-maximal cross-correlation value / minimum value of cross-correlation (background)
-
 <img src="https://latex.codecogs.com/gif.latex?\frac{max(CC&space;values)}{min(CCvalues)}" title="\frac{max(CC values)}{min(CCvalues)}" />
 
 - higher values indicate more enrichment (better signal:noise)
@@ -98,7 +96,7 @@ Datasets with NSC values much less than 1.05 tend to have low signal to noise or
 
 The ratio of the fragment-length cross-correlation value minus the background cross-correlation value, divided by the phantom-peak cross-correlation value minus the background cross-correlation value. 
 
-(max cross-correlation value - background) / (phantom - background)
+<img src="https://latex.codecogs.com/gif.latex?\frac{max(CCvalues)&space;-&space;background}{phantomCCvalue&space;-&space;background}" title="\frac{max(CCvalues) - background}{phantomCCvalue - background}" />
 
 **The minimum possible value is 0 (no signal), highly enriched experiments have values greater than 1, and values much less than 1 may indicate low quality.** RSC values significantly low (< 0.8) tend to have low signal to noise and can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Like the NSC, datasets with few binding sites (< 200) which are biologically justifiable also show low RSC scores.
 
