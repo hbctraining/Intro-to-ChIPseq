@@ -85,6 +85,7 @@ Using the cross-correlation plot we can **compute metrics for assessing signal-t
 The ratio of the maximal cross-correlation value divided by the background cross-correlation (minimum cross-correlation value over all possible strand shifts). 
 
 maximal cross-correlation value / minimum value of cross-correlation (background)
+
 \frac{n!}{k!(n-k)!}
 
 - higher values indicate more enrichment (better signal:noise)
