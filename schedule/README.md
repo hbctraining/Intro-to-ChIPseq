@@ -20,7 +20,7 @@
 
 | Time            |   Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-|9:00 - 10:00 | [Introduction to ChIP-seq](https://github.com/hbctraining/Intro-to-ChIPseq/raw/master/lectures/Introduction_to_ChIP-seq.pdf) | Meeta |
+|9:00 - 10:00 | [Introduction to ChIP-seq](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/Introduction_to_ChIP-seq.pdf) | Meeta |
 |10:00 - 10:15 | Break | |
 |10:15 - 11:00 | [Project Organization and Best Practices in Data Management](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/01_Intro_chipseq_data_organization.html) | Radhika |
 |11:00 - 11:50 | [Sequencing data QC using FastQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_FASTQC.html) | Mary |
