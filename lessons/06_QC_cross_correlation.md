@@ -86,7 +86,7 @@ The ratio of the maximal cross-correlation value divided by the background cross
 
 maximal cross-correlation value / minimum value of cross-correlation (background)
 
-\frac{maximum CC value}{minimum CC value}
+<img src="https://latex.codecogs.com/gif.latex?\frac{max(CC&space;values)}{min(CCvalues)}" title="\frac{max(CC values)}{min(CCvalues)}" />
 
 - higher values indicate more enrichment (better signal:noise)
 - low NSC scores: < 1.1
