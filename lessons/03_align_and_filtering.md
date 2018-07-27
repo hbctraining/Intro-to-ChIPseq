@@ -231,6 +231,13 @@ Now that the alignment files contain only uniquely mapping reads, we are ready t
 
 > _**NOTE:** After performing read alignment, it's useful to generate QC metrics for the alignment using tools such as [MultiQC](http://multiqc.info) prior to moving on to the next steps of the analysis._
 
+> ### Filtering out Blacklisted Regions
+> Although we will not perform this step, it is common practice to apply an additional level of filtering to our BAM files. That is, we remove alignments that occur with defined Blacklisted Regions.
+> 
+> Blacklisted regions represent artifact regions that tend to show artificially high signal (excessive unstructured anomalous reads mapping). These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats and typically appear uniquely mappable so simple mappability filters applied above do not remove them. The ENCODE and modENCODE consortia have compiled blacklists for various species and genome versions including human, mouse, worm and fly. These blacklisted regions (coordinate files) can be filtered out from our alignment files before proceeding to peak calling.
+> 
+> We will revisit this in more detail when we [discuss QC metrics](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_QC_quality_metrics.html) in a later lesson.
+
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
