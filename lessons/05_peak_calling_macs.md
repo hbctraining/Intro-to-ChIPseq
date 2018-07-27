@@ -194,7 +194,7 @@ Before we start exploring the output of MACS2, we'll briefly talk about the new 
 
 **narrowPeak:**
 
-A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichment based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means **the first 6 columns of a standard BED file  with 4 additional fields**:
+A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichment based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means the first 6 columns of a standard BED file  with **4 additional fields**:
 
 1. chromosome
 2. start coordinate
@@ -202,10 +202,10 @@ A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called 
 4. name
 5. score
 6. strand
-7. signalValue - Measurement of overall enrichment for the region
-8. pValue - Statistical significance (-log10)
-9. qValue - Statistical significance using false discovery rate (-log10)
-10. peak - Point-source called for this peak; 0-based offset from chromStart
+7. **signalValue - Measurement of overall enrichment for the region**
+8. **pValue - Statistical significance (-log10)**
+9. **qValue - Statistical significance using false discovery rate (-log10)**
+10. **peak - Point-source called for this peak; 0-based offset from chromStart**
 
 **WIG format:**
 
