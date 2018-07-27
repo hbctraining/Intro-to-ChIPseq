@@ -87,7 +87,7 @@ The ratio of the maximal cross-correlation value divided by the background cross
 <img src="https://latex.codecogs.com/gif.latex?\frac{max(CC&space;values)}{min(CCvalues)}" title="\frac{max(CC values)}{min(CCvalues)}" />
 
 - higher NSC values indicate more enrichment (better signal:noise)
-- low signal: NSC values < 1.1
+- low signal-to-noise: NSC values < 1.1
 - minimum possible NSC value: 1 (no enrichment) 
 
 #### Relative strand cross-correlation coefficient (RSC):
@@ -97,8 +97,9 @@ The ratio of the fragment-length cross-correlation value minus the background cr
 <img src="https://latex.codecogs.com/gif.latex?\frac{max(CCvalues)&space;-&space;background}{phantomCCvalue&space;-&space;background}" title="\frac{max(CCvalues) - background}{phantomCCvalue - background}" />
 
 - high enrichment: RSC values > 1
-- minimum value: 0
 - low signal-to-noise: RSC values < 0.8
+- minimum possible RSC value: 0 (no enrichment)
+
 
 > **NOTE:** Low NSC and RSC values can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Datasets with few binding sites (< 200) could be due to biological reasons, such as a factor that truly binds only a few sites in a particular tissue type, which would output low NSC and RSC scores.
 
@@ -248,7 +249,7 @@ The qual files are tab-delimited with the columns containing the following infor
 
 ### Cross-correlation plots
 
-The cross-correlation plots show the best estimate for strand shift and the cross-correlation values. This file can be viewed by transferring it to your local machine using FileZilla. Copy `H1hesc_Nanog_Rep1_chr12_aln.pdf` to your machine to view the strand shift. The cross correlation peak shows the highest cross-correlation at fragment length 115. **How does this compare to the one we generated using MACS?**
+The cross-correlation plots show the best estimate for strand shift and the cross-correlation values. This file can be viewed by transferring it to your local machine using FileZilla. Copy `H1hesc_Nanog_Rep1_chr12_aln.pdf` to your machine to view the strand shift. The cross correlation peak shows the highest cross-correlation at fragment length 115.
 
 <img src="../img/H1hesc_Nanog_Rep1_chr12_aln.png" width="400">
 
