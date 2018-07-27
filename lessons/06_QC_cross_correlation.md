@@ -86,11 +86,9 @@ The ratio of the maximal cross-correlation value divided by the background cross
 
 <img src="https://latex.codecogs.com/gif.latex?\frac{max(CC&space;values)}{min(CCvalues)}" title="\frac{max(CC values)}{min(CCvalues)}" />
 
-- higher values indicate more enrichment (better signal:noise)
-- low NSC scores: < 1.1
-- minimum possible value: 1 (no enrichment) 
-
-Datasets with NSC values much less than 1.05 tend to have low signal to noise or few peaks (this could be biological, such as a factor that truly binds only a few sites in a particular tissue type or it could be due to poor quality).
+- higher NSC values indicate more enrichment (better signal:noise)
+- low signal: NSC values < 1.1
+- minimum possible NSC value: 1 (no enrichment) 
 
 #### Relative strand cross-correlation coefficient (RSC):
 
@@ -98,7 +96,11 @@ The ratio of the fragment-length cross-correlation value minus the background cr
 
 <img src="https://latex.codecogs.com/gif.latex?\frac{max(CCvalues)&space;-&space;background}{phantomCCvalue&space;-&space;background}" title="\frac{max(CCvalues) - background}{phantomCCvalue - background}" />
 
-**The minimum possible value is 0 (no signal), highly enriched experiments have values greater than 1, and values much less than 1 may indicate low quality.** RSC values significantly low (< 0.8) tend to have low signal to noise and can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Like the NSC, datasets with few binding sites (< 200) which are biologically justifiable also show low RSC scores.
+- high enrichment: RSC values > 1
+- minimum value: 0
+- low signal-to-noise: RSC values < 0.8
+
+> **NOTE:** Low NSC and RSC values can be due to failed and poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Datasets with few binding sites (< 200) could be due to biological reasons, such as a factor that truly binds only a few sites in a particular tissue type, which would output low NSC and RSC scores.
 
 
 ## `phantompeakqualtools` 
