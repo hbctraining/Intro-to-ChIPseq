@@ -12,7 +12,7 @@ Approximate time: 75 minutes
 
 * Combining replicates to only get the highly reproducible peaks using the IDR method
 
-## Irreproducibility Discovery Rate (IDR)
+## Handling replicates using the Irreproducibility Discovery Rate (IDR) framework
 
 Another way to assess concordance of peak calls between replicates is to implement a statistical procedure. A popular method is the [IDR framework](https://sites.google.com/site/anshulkundaje/projects/idr) developed by Qunhua Li and Peter Bickel's group. It **compares a pair of ranked lists of regions/peaks and assigns values that reflect its reproducibility.** 
 
