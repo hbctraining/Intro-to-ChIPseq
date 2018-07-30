@@ -21,6 +21,8 @@ Now that we have assessed the quality of our sequence data, we are ready to alig
 
 > _**NOTE:** Our reads are only 36 bp, so technically we should explore alignment with [bwa](http://bio-bwa.sourceforge.net/) or Bowtie1 to see if it is better. However, since it is rare that you will have sequencing reads with less than 50 bp, we will show you how to perform alignment using Bowtie2._
 
+<img src="../img/chip_workflow_june2017_step1_align.png" width="400">
+
 > #### How do other aligners compare?
 > In this workshop we are using Bowtie2 to align our reads, but there are a number of other options. We have explored the use of [bwa](http://bio-bwa.sourceforge.net/) for ChIP-seq analysis and found some differences. For **bwa**, the mapping rates are higher (~ 2%), with an equally similar increase in the number of duplicate mappings identified. Post-filtering this translates to a significantly higher number of mapped reads and results in a much larger number of peaks being called (30% increase). When we compare the peak calls generated from the different aligners, the **bwa** peak calls are a superset of those called from the Bowtie2 aligments. Whether or not these additional peaks are true positives, is something that is yet to be determined. 
 
