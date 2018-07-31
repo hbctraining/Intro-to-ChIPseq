@@ -138,7 +138,6 @@ In this folder there should be a `README.txt` which contains all the commands, o
 ```
 $ less /n/groups/hbctraining/chip-seq/phantompeakqualtools/README.md
 ```
-Note that there are two R scripts that are described in the README file. Both will compute the fragment length, and data quality characteristics based on cross-correlation analysis, but one is for use in situations where the duplicates have been removed (`run_spp_nodups.R`). **This is the script we will be using.**
 
 ### Using R libraries
 
@@ -185,7 +184,7 @@ Type 'q()' to quit R.
 
 ### Running `phantompeakqualtools`
 
-To obtain quality measures based on cross-correlation plots, we will be running the `run_spp_nodups.R` script from the command line which is a package built on SPP. This modified SPP package allows for determination of the cross-correlation peak and predominant fragment length in addition to peak calling. We will be using this package solely for obtaining these quality measures (no peak calling). 
+To obtain quality measures based on cross-correlation plots, we will be running the `run_spp.R` script from the command line which is a package built on SPP. This modified SPP package allows for determination of the cross-correlation peak and predominant fragment length in addition to peak calling. We will be using this package solely for obtaining these quality measures (no peak calling). 
 
 The options that we will be using include:
 
