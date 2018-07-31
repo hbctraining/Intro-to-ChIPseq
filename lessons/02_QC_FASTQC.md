@@ -196,7 +196,7 @@ Within the 'Site Manager' window, do the following:
 6. Password: password for training_account
 7. Click 'Connect'
 
-<img src="../img/Filezilla_step2.png" width="500">	
+<img src="../img/filezilla_login.png" width="500">	
 	
 The **"Per base sequence quality"** plot is the most important analysis module in FastQC for ChIP-seq; it provides the distribution of quality scores across all bases at each position in the reads. This information can help determine whether there were any problems at the sequencing facility during the sequencing of your data. Generally, we expect a decrease in quality towards the ends of the reads, but we shouldn't see any quality drops at the beginning or in the middle of the reads.
 
