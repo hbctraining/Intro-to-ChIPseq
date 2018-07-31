@@ -51,4 +51,4 @@
 |16:20 - 16:40 | [Overview of ChIP-seq workflow]() | Meeta |
 |16:30 - 17:00 | [Wrap-up and Survey](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Wrap-up.pdf) | Radhika |
 
-**Dataset:**
+[Introduction to shell dataset](https://www.dropbox.com/s/3lua2h1oo18gbug/unix_lesson.tar.gz?dl=1)
