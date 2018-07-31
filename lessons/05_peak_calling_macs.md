@@ -68,9 +68,6 @@ To calculate λBG from tag count, MAC2 requires the **effective genome size** or
 
 <img src="../img/mappable.png" width="300">
 
-The mappability or uniqueness influences the average mapped depth (i.e if the effective genome length is small, the proportion of reads that map will be small). As shown in the table below **mappability improves with increased read length**. When low-mappable regions (e.g. a ratio  <  0.25) are of interest, it might be better to include multiple mapped reads or use paired-end reads.
-
-<img src="../img/map_table.png" width="500">
 
 ### Peak detection
 
