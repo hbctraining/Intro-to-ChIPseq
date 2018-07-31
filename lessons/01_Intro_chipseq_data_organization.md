@@ -71,10 +71,10 @@ $ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HBC bash
 
 Make sure that your command prompt is now preceded by a character string that contains the word "compute".
 
->**NOTE:** We are using the `--reservation` argument during class since we have a dedicated set of computers reserved so that commands run quickly. When starting an interactive session outside of class you will need to leave out this argument:
+>**NOTE:** We are using the `--reservation` argument and the `short` partition during class since we have a dedicated set of computers reserved so that commands run quickly. When starting an interactive session outside of class you will need to leave out this argument and use the `interactive` partition:
 >
 >```bash
->$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 bash
+>$ srun --pty -p interactive -t 0-12:00 --mem 8G -n 2 bash
 >```
 
 
