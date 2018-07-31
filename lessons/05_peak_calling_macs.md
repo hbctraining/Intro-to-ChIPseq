@@ -24,7 +24,7 @@ For ChIP-seq experiments, what we observe from the alignment files is a **strand
 
 <img src="../img/chip-fragments.png" width="300" align="middle"></div>
 
-There are various tools that are available for peak calling. One of the more commonly used pack callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
+There are various tools that are available for peak calling. One of the more commonly used peak callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
 
 > **NOTE:** Our dataset is investigating two transcription factors and so our focus is on identifying short degenerate sequences that present as punctate binding sites. ChIP-seq analysis algorithms are specialized in identifying one of **two types of enrichment** (or have specific methods for each): **broad peaks** or broad domains (i.e. histone modifications that cover entire gene bodies) or **narrow peaks** (i.e. a transcription factor binding). Narrow peaks are easier to detect as we are looking for regions that have higher amplitude and are easier to distinguish from the background, compared to broad or dispersed marks. There are also 'mixed' binding profiles which can be hard for algorithms to discern. An example of this is the binding properties of PolII, which binds at promotor and across the length of the gene resulting in mixed signals (narrow and broad).
 
