@@ -71,6 +71,13 @@ $ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HBC bash
 
 Make sure that your command prompt is now preceded by a character string that contains the word "compute".
 
+>**NOTE:** We are using the `--reservation` argument during class since we have a dedicated set of computers reserved so that commands run quickly. When starting an interactive session outside of class you will need to leave out this argument:
+>
+>```bash
+>$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 bash
+>```
+
+
 ## Data Management
 
 One of the most important parts of research that involves large amounts of data, is how best to manage it. We tend to prioritize the analysis, but there are many other important aspects that are  often overlooked in the excitement to get a first look at new data. 
