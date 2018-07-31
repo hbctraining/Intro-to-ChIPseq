@@ -122,7 +122,7 @@ You will be shown a status page describing the inputs and the selected parameter
 
 ![results_page](../img/dreme_processing.png)
 
-This may take some time depending on the server load and the size of the file. While you wait, take a look at the [expected results](http://meme-suite.org/info/status?service=DREME&id=appDREME_4.12.015217291184881905688999).
+This may take some time depending on the server load and the size of the file. While you wait, take a look at the [expected results](http://alternate.meme-suite.org/info/status?service=DREME&id=appDREME_5.0.11533044946184-922565931).
 
 ![dreme_output](../img/dreme_output.png)
 

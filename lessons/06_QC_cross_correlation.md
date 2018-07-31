@@ -39,19 +39,13 @@ Due to the sequencing of the 5' ends of the fragments, this results in an enrich
 
 ### Cross-correlation metric
 
-The cross-correlation metric is computed as the **Pearson's linear correlation between the minus strand and the plus strand, after shifting plus strand by k base pairs.** Using a small genomic window as an example, let's walk through the details of the cross-correlation below.
+The cross-correlation metric is computed as the **Pearson's linear correlation between the minus strand and the plus strand, after shifting minus strand by k base pairs.** Using a small genomic window as an example, let's walk through the details of the cross-correlation below.
 
-**At strand shift of zero, the Pearson correlation between the two vectors is 0.539.**
+<img src="../img/cc1.png" width ="500">
 
-<img src="../img/cross-corr-1.png" width ="500">
+<img src="../img/cc2.png" width ="500">
 
-**At strand shift of 5bp, the Pearson correlation between the two vectors is 0.931**
-
-<img src="../img/cross-corr-2.png" width ="500">
-
-**Keep shifting the vectors and for each strand shift compute a correlation value.** 
-
-<img src="../img/cross-corr-3.png" width ="500">
+<img src="../img/cc3.png" width ="500">
 
 In the end, we will have a table of values mapping each base pair shift to a Pearson correlation value. 
 
@@ -77,7 +71,7 @@ An example of **weaker signal** is demonstrated below with a **Pol2** data. Here
 
 **No signal**
 
-A failed experiment will resemble a cross-correlation plot using **input only**, in which we observe little or no peak for fragment length. Note in the example below the **strongest peak is the blue line (read length)** and there is basically no other significant peak in the profile. The absence of a peak is expected since there should be no significant clustering of fragments around specific target sites (except potentially weak biases in open chromatin regions depending on the protocol used). The read-length peak occurs due to unique mappability properties of the mapped reads.
+A failed experiment will resemble a cross-correlation plot using **input only**, in which we observe little or no peak for fragment length. Note in the example below the **strongest peak is the blue line (read length)** and there is basically no other significant peak in the profile. The absence of a peak is expected since there should be no significant clustering of fragments around specific target sites (except potentially weak biases in open chromatin regions depending on the protocol used).
 
 <img src="../img/input.png" width="300"> 
 
