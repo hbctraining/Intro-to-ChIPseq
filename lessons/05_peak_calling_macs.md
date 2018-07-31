@@ -71,7 +71,7 @@ To calculate λBG from tag count, MAC2 requires the **effective genome size** or
 
 ### Peak detection
 
-For ChIP-seq experiments, tag distribution along the genome can be modeled by a Poisson distribution. After MACS shifts every tag, it then slides 2d windows across the genome to find candidate peaks with a significant tag enrichment (default is p < 10e-5). This is a Poisson distribution p-value based on λ. The Poisson is a one parameter model, where the parameter **λ is the expected number of reads in that window**.
+After MACS shifts every tag by *d/2*, it then slides across the genome using a window size of *2d* to find candidate peaks. The tag distribution along the genome can be modeled by a Poisson distribution. The Poisson is a one parameter model, where the parameter **λ is the expected number of reads in that window**.
 
 <img src="../img/peak_detection.png" width="300">
 
@@ -83,7 +83,9 @@ In this way lambda captures the influence of local biases, and is **robust again
 
 <img src="../img/lambda.png" width="300">
 
-Overlapping enriched peaks are merged, and each tag position is extended 'd' bases from its center. The location with the highest fragment pileup, hereafter referred to as the summit, is predicted as the precise binding location. The ratio between the ChIP-seq tag count and λlocal is reported as the fold enrichment.
+A region is considered to have a significant tag enrichment if the p-value  < 10e-5 (this can be changed from the default). This is a Poisson distribution p-value based on λ.
+
+Overlapping enriched peaks are merged, and each tag position is extended 'd' bases from its center. The location in the peak with the highest fragment pileup, hereafter referred to as the summit, is predicted as the precise binding location. The ratio between the ChIP-seq tag count and λlocal is reported as the fold enrichment.
 
 ### Estimation of false discovery rate
 
