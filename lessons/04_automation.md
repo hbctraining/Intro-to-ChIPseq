@@ -319,7 +319,9 @@ This script loops through the same files as in the previous (demo) script, but t
 for fq in ~/chipseq/raw_data/*.fastq
 do
 
-sbatch -p short -t 0-2:00 -n 6 --job-name chipseq-analysis --wrap="sh ~/chipseq/scripts/chipseq_analysis_on_input_file.sh $fq"
+sbatch -p short -t 0-2:00 -n 6 --job-name chipseq-analysis -o %j.out -e %j.err \
+--wrap="sh ~/chipseq/scripts/chipseq_analysis_on_input_file.sh $fq"
+
 sleep 1	    # wait 1 second between each job submission
   
 done
