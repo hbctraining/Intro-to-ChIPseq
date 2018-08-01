@@ -196,7 +196,7 @@ When the script is finished running you can check the `results/chip_qc/ChlPQC` d
 
 ### `ChIPQC` report
 
-The report generated using our toy dataset will not give us meaningful plots or metrics and so **we have generated a report using the full dataset for you to look at instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=0). Decompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
+The report generated using our toy dataset will not give us meaningful plots or metrics and so **we have generated a report using the full dataset for you to look at instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=1). Decompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
 
 Let's start with the **QC summary table**:
 
