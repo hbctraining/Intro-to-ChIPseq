@@ -59,14 +59,12 @@ $ mkdir bedtools
 Load the modules for `bedtools` and `samtools`:
 	
 ```bash
-
 $ module load gcc/6.2.0 bedtools/2.26.0 samtools/1.3.1
-
-```	
+```
 	
 ### Finding overlapping peaks between replicates
 
-The `[bedtools intersect](https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html)` command within bedtools is the one we want to use, since it is able to report back the peaks that are overlapping with respect to a given file (the file designated as "a").
+The [`bedtools intersect`](https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html) command within bedtools is the one we want to use, since it is able to report back the peaks that are overlapping with respect to a given file (the file designated as "a").
 
 <img src="../img/bedtools_intersect.png" width="600">
 
