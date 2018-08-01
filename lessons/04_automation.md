@@ -171,8 +171,8 @@ samtools view -h -S -b -@ 6 -o $align_bam $align_out
 # Sort BAM file by genomic coordinates
 sambamba sort -t 6 -o $align_sorted $align_bam
 
-# Filter out duplicates
-sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
+# Filter out multi-mappers and duplicates
+sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped and not duplicate" $align_sorted > $align_filtered
 
 # Move intermediate files out of the bowtie2 directory
 mv $bowtie_results/${base}*sorted* $intermediate_bams
@@ -194,7 +194,7 @@ Your script should now look like this:
 ```
 #!/bin/bash/
 
-# This script takes a fastq file of ChIP-seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
+# This script takes a fastq file of ChIP-seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has multi-mappers and duplicate reads removed using sambamba.
 # USAGE: sh chipseq_analysis_on_input_file.sh <path to the fastq file>
 
 # initialize a variable with an intuitive name to store the name of the input fastq file
