@@ -94,13 +94,6 @@ echo "Sample name is $base"
 > 1. the `basename` command: this command takes a path or a name and trims away all the information before the last `\` and if you specify the string to clear away at the end, it will do that as well. In this case, if the variable `$fq` contains the path *"~/chipseq/raw_data/H1hesc_Nanog_Rep1_chr12.fastq"*, `basename $fq _chr12.fastq` will output "H1hesc_Nanog_Rep1".
 > 2. to assign the value of the `basename` command to the `base` variable, we encapsulate the `basename...` command in backticks. This syntax is necessary for assigning the output of a command to a variable.
 
-Next we want to specify how many cores the script should use to run the analysis. This provides us with an easy way to modify the script to run with more or fewer cores without have to replace the number within all commands where cores are specified.
-
-```
-# directory with bowtie genome index
-genome=~/chipseq/reference_data/chr12
-```
-
 We'll create output directories, but with the `-p` option. This will make sure that `mkdir` will create the directory only if it does not exist, and it won't throw an error if it does exist.
 
 ```
@@ -111,9 +104,12 @@ mkdir -p ~/chipseq/results/fastqc
 mkdir -p ~/chipseq/results/bowtie2/intermediate_bams
 ```
 
-Now that we have already created our output directories, we can now specify variables with the path to those directories both for convenience but also to make it easier to see what is going on in a long command.
+Now that we have already created our output directories, we can now create variables using those directories. 
 
 ```
+# directory with bowtie genome index
+genome=~/chipseq/reference_data/chr12
+
 # set up output filenames and locations
 fastqc_out=~/chipseq/results/fastqc/
 
@@ -127,6 +123,8 @@ align_filtered=~/chipseq/results/bowtie2/${base}_aln.bam
 bowtie_results=~/chipseq/results/bowtie2
 intermediate_bams=~/chipseq/results/bowtie2/intermediate_bams
 ```
+
+Creating these variables makes it easier to see what is going on in a long command wherein we can use we can now use `align_out` instead of `~/chipseq/results/bowtie2/${base}_unsorted.sam`. In addition, if there is a need to change the output diretory or the genome being aligned to, the change needs to be made just in the one location instead of throughout the script. 
 
 ### Keeping track of tool versions
 
