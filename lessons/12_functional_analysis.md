@@ -124,6 +124,8 @@ You will be shown a status page describing the inputs and the selected parameter
 
 This may take some time depending on the server load and the size of the file. While you wait, take a look at the [expected results](http://meme-suite.org/info/status?service=DREME&id=appDREME_5.0.115330443284501107678163).
 
+http://meme-suite.org/opal-jobs/appDREME_5.0.115330443284501107678163/dreme.html
+
 ![dreme_output](../img/dreme_output.png)
 
 DREME’s HTML output provides a list of Discovered Motifs displayed as sequence logos (in the forward and reverse complement (RC) orientations), along with an E-value for the significance of the result. 
