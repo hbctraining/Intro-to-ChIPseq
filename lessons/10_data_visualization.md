@@ -225,7 +225,7 @@ If we wanted **both images in one single plot**, we can do that with `plotHeatma
 
 ```bash
 $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz \
--out visualization/figures/TSS_Pou5f1_heatmap.png \
+-out visualization/figures/TSS_Pou5f1_profile-heatmap.png \
 --colorMap RdBu \
 --zMin -2 --zMax 2  
 ```
