@@ -48,7 +48,7 @@
 |15:10 - 15:25 | Break | |
 |15:25 - 15:50 | [Qualitative assessment using IGV](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/11_qualitative_assessment_IGV.html) | Radhika |
 |15:50 - 16:20 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/12_functional_analysis.html) | Kayleigh |
-|16:20 - 16:40 | [Overview of ChIP-seq workflow]() | Meeta |
+|16:20 - 16:40 | [Overview of ChIP-seq workflow](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/ChIP-seq_troubleshooting.pdf) | Meeta |
 |16:40 - 17:00 | [Wrap-up and Survey](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Wrap-up.pdf) | Radhika |
 
 **Dataset:** [Introduction to shell dataset](https://www.dropbox.com/s/3lua2h1oo18gbug/unix_lesson.tar.gz?dl=1)
