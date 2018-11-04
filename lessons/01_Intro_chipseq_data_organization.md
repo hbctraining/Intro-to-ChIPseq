@@ -11,12 +11,12 @@ Approximate time: 45 minutes
 - Describe the best practices for designing a ChIP-seq experiment
 - Recognize the need for data management and project organization
 
-## Introduction to ChIP-Seq
+## Introduction to ChIP-seq
 Chromatin immunoprecipitation (ChIP) experiments are performed to identify DNA bound to specific (chromatin) proteins of interest. The first step involves isolating the chromatin and immunoprecipitating (IP) fragements with an antibody against the protein of interest. In ChIP-seq, the immunoprecipitated DNA fragments are then sequenced, followed by identification of enriched regions of DNA or peaks. These peak calls can then be used to make biological inferences by determining the associated genomic features and/or over-represented sequence motifs.
 
 ![chipseq_overview](../img/chipseq_overall.png)
 
-During this session we will be performing a complete workflow for ChIP-Seq analysis, starting with experimental design and generation of the raw sequencing reads and ending with functional enrichment analyses and motif discovery.
+During this session we will be performing a complete workflow for ChIP-seq analysis, starting with experimental design and generation of the raw sequencing reads and ending with functional enrichment analyses and motif discovery.
 
 ![chipseq_workflow_general](../img/chipseq_workflow_general.png)
 
@@ -35,13 +35,13 @@ Several steps are involved in the library preparation of protein-bound DNA fragm
 
 Within the DNA fragments enriched for the regions binding to a protein of interest, only a fraction correspond to actual signal. The proportion of DNA fragments containing the actual binding site of the protein depends on the **number of active binding sites, the number of starting genomes, and the efficiency of the IP**.
 
-In addition, when performing ChIP-Seq, some sequences may appear enriched due to the following:
+In addition, when performing ChIP-seq, some sequences may appear enriched due to the following:
 
 - Open chromatin regions are fragmented more easily than closed regions
 - Repetitive sequences might seem to be enriched (copy number inaccuracies in genome assembly)
 - Uneven distribution of sequence reads across the genome
 
-Therefore, proper controls are essential. A ChIP-Seq peak should be compared with the same region of the genome in a matched control.
+Therefore, proper controls are essential. A ChIP-seq peak should be compared with the same region of the genome in a matched control.
 
 ![peaks](../img/chipseq_exp_peaks.png)
 
@@ -68,18 +68,27 @@ $ srun --pty -p classroom --mem 8G -n 2 bash
 
 Make sure that your command prompt is now preceded by a character string that contains the word "compute".
 
+>**NOTE:** We are using the `--reservation` argument and the `short` partition during class since we have a dedicated set of computers reserved so that commands run quickly. When starting an interactive session outside of class you will need to leave out this argument and use the `interactive` partition:
+>
+>```bash
+>$ srun --pty -p interactive -t 0-12:00 --mem 8G -n 2 bash
+>```
+
+
 ## Data Management
 
-> *"Data Management is the process of providing the appropriate labeling, storage, and access for data at all stages of a research project. We recognize that best practices for each of these aspects of data management can and often do change over time, and are different for different stages in the data lifecycle."*
->
-> *[- HMS Data Management Working Group](https://datamanagement.hms.harvard.edu/hms-data-management-working-group)*
+One of the most important parts of research that involves large amounts of data, is how best to manage it. We tend to prioritize the analysis, but there are many other important aspects that are  often overlooked in the excitement to get a first look at new data.
+
+The data management lifecycle displayed below, courtesy of the [HMS Data Management Working Group](https://datamanagement.hms.harvard.edu/hms-data-management-working-group), illustrates some things to consider beyond the data creation and analysis components:
 
 <img src="../img/data_life_cycle_gouldv2.png" width="350">
 
-The data lifecycle is not linear and you may find yourself jumping around this lifecycle throughout the course of your
-project. Today we will cover some parts of this lifecycle by talking about **best practices for the Research half** of the above lifecycle. For more information about the full lifecycle and more guidelines, please look at the resources linked below.
+_Image aquired from the [Harvard Biomedical Data Management Website](https://datamanagement.hms.harvard.edu/hms-data-lifecycle)_
+
+We will cover some parts of this lifecycle by talking about best practices for the **Research** half of the above lifecycle. Later in this workshop we will talk a little more about the data storage. For more information about the full lifecycle and more guidelines for data management, please look at the resources linked below.
 
 **Resources**
+
 * The [HMS Data Management Working Group's website](https://datamanagement.hms.harvard.edu/)
 * A guide from the [Harvard library](http://guides.library.harvard.edu/dmp).
 
@@ -91,9 +100,17 @@ During this stage it is important to keep track of how the experiment was perfor
 
 ### Organization
 
-Project organization is one of the most important parts of a sequencing project, but is often overlooked in the excitement to get a first look at new data. While it's best to get yourself organized before you begin analysis, it's never too late to start.
-
 Every computational analysis you do is going to spawn many files, and inevitability you'll want to run some of those analyses again. For each experiment you work on and analyze data for, it is considered best practice to get organized by creating a planned storage space (directory structure).
+
+We will start by creating a directory that we can use for the rest of the ChIP-seq session.
+
+First, make sure that you are in your home directory.
+
+```bash
+$ cd
+$ pwd
+```
+This should return `/home/username`.
 
 Create a `chipseq` directory and change directories into it:
 
@@ -147,17 +164,23 @@ $ cp /home/classroom/hpcbio/chip-seq/reference/* reference_data/
 
 Now we are all set up for our analysis!
 
+> #### File naming conventions
+>
+> Another aspect of staying organized is making sure that all the filenames in an analysis are as consistent as possible, and are not things like `alignment1.bam`, but more like `20170823_kd_rep1_gmap-1.4.bam`. [This link](https://datamanagement.hms.harvard.edu/file-naming-conventions) and [this slideshow](http://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf) have some good guidelines for file naming dos and don'ts.
+
+
 ### Documentation
 
-**Documentation doesn't stop at the sequencer!** Continue to maintain a lab notebook equivalent during the analysis to make your analysis reproducible and efficient.
+**Documentation doesn't stop at the sequencer!** Keeping notes on what happened in what order, and what was done, is essential for reproducible research.
 
 #### Log files
 
 In your lab notebook, you likely keep track of the different reagents and kits used for a specific protocol. Similarly, recording information about the tools and parameters is important for documenting your computational experiments.
 
-- Keep track of software versions
-- Record information on parameters used and summary statistics at every step (e.g., how many adapters were removed, how many reads did not align)
-- Save log files and console output
+- **Make note of the software you use.** Do your research and find out what tools are best for the data you are working with. Don't just work with tools that you are able to easily install.
+- **Keep track of software versions.** Keep up with the literature and make sure you are using the most up-to-date versions.
+- **Record information on parameters used and summary statistics** at every step (e.g., how many adapters were removed, how many reads did not align)
+    - A general rule of thumb is to test on a single sample or a subset of the data before running your entire dataset through. This will allow you to debug quicker and give you a chance to also get a feel for the tool and the different parameters.
     - Different tools have different ways of reporting log messages and you might have to experiment a bit to figure out what output to capture. You can redirect standard output with the `>` symbol which is equivalent to `1> (standard out)`; other tools might require you to use `2>` to re-direct the `standard error` instead.
 
 #### README files
@@ -181,13 +204,9 @@ results:
 scripts:
 ```
 
-### File naming conventions
-
-Another aspect of staying organized is making sure that all the filenames in an analysis are as consistent as possible, and are not things like `alignment1.bam`, but more like `20170823_kd_rep1_STAR-1.4.bam`. [This link](https://datamanagement.hms.harvard.edu/file-naming-conventions) and [this slideshow](http://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf) have some good guidelines for file naming dos and don'ts.
-
 ***
 
-### Exercise
+### Homework Exercise
 
 - Create a README for the `chipseq/` folder (hint: use `vim` to create the file). Give a short description of the project and as homework add brief descriptions of the types of files you will be storing within each of the sub-directories.
 

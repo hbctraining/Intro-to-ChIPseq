@@ -104,13 +104,6 @@ echo "Sample name is $base"
 > 1. the `basename` command: this command takes a path or a name and trims away all the information before the last `\` and if you specify the string to clear away at the end, it will do that as well. In this case, if the variable `$fq` contains the path *"~/chipseq/raw_data/H1hesc_Nanog_Rep1_chr12.fastq"*, `basename $fq _chr12.fastq` will output "H1hesc_Nanog_Rep1".
 > 2. to assign the value of the `basename` command to the `base` variable, we encapsulate the `basename...` command in backticks. This syntax is necessary for assigning the output of a command to a variable.
 
-Next we want to specify how many cores the script should use to run the analysis. This provides us with an easy way to modify the script to run with more or fewer cores without have to replace the number within all commands where cores are specified.
-
-```bash
-# directory with bowtie genome index
-genome=~/chipseq/reference_data/chr12
-```
-
 We'll create output directories, but with the `-p` option. This will make sure that `mkdir` will create the directory only if it does not exist, and it won't throw an error if it does exist.
 
 ```bash
@@ -121,9 +114,12 @@ mkdir -p ~/chipseq/results/fastqc
 mkdir -p ~/chipseq/results/bowtie2/intermediate_bams
 ```
 
-Now that we have already created our output directories, we can now specify variables with the path to those directories both for convenience but also to make it easier to see what is going on in a long command.
+Now that we have already created our output directories, we can now create variables using those directories.
 
-```bash
+```
+# directory with bowtie genome index
+genome=~/chipseq/reference_data/chr12
+
 # set up output filenames and locations
 fastqc_out=~/chipseq/results/fastqc/
 
@@ -137,6 +133,8 @@ align_filtered=~/chipseq/results/bowtie2/${base}_aln.bam
 bowtie_results=~/chipseq/results/bowtie2
 intermediate_bams=~/chipseq/results/bowtie2/intermediate_bams
 ```
+
+Creating these variables makes it easier to see what is going on in a long command wherein we can use we can now use `align_out` instead of `~/chipseq/results/bowtie2/${base}_unsorted.sam`. In addition, if there is a need to change the output diretory or the genome being aligned to, the change needs to be made just in the one location instead of throughout the script.
 
 ### Keeping track of tool versions
 
@@ -184,7 +182,7 @@ samtools view -h -S -b -@ $SLURM_NPROCS -o $align_bam $align_out
 sambamba sort -t $SLURM_NPROCS -o $align_sorted $align_bam
 
 # Filter out duplicates
-sambamba view -h -t $SLURM_NPROCS -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
+sambamba view -h -t $SLURM_NPROCS -f bam -F "[XS] == null and not unmapped and not duplicate" $align_sorted > $align_filtered
 
 # Move intermediate files out of the bowtie2 directory
 mv $bowtie_results/${base}*sorted* $intermediate_bams
@@ -194,8 +192,8 @@ mv $bowtie_results/${base}*sorted* $intermediate_bams
 
 It is best practice to have the script **usage** specified at the top any script. This should have information such that when your future self, or a co-worker, uses the script they know what it will do and what input(s) are needed. For our script, we should have the following lines of comments right at the top after `#!/bin/bash/`:
 
-```bash
-# This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
+```
+# This script takes a fastq file of ChIP-seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
 # USAGE: sh chipseq_analysis_on_input_file.sh <path to the fastq file>
 ```
 
@@ -205,7 +203,8 @@ Here is the complete script:
 
 ```bash
 #!/bin/bash/
-# This script takes a fastq file of ChIP-Seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has duplicate reads removed using sambamba.
+
+# This script takes a fastq file of ChIP-seq data, runs FastQC and outputs a BAM file for it that is ready for peak calling. Bowtie2 is the aligner used, and the outputted BAM file is sorted by genomic coordinates and has multi-mappers and duplicate reads removed using sambamba.
 # USAGE: sh chipseq_analysis_on_input_file.sh <path to the fastq file>
 
 # initialize a variable with an intuitive name to store the name of the input fastq file

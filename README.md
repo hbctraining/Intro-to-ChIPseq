@@ -19,6 +19,9 @@ This repository has teaching materials for a 3-day Introduction to ChIP-sequenci
 ### Lessons
 **[Click here](https://hbctraining.github.io/Intro-to-ChIPseq/schedule/) for links to lessons and the suggested schedule**
 
+### Dataset
+[Introduction to Shell: Dataset](https://www.dropbox.com/s/3lua2h1oo18gbug/unix_lesson.tar.gz?dl=1)
+
 ***
 *These materials have been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 

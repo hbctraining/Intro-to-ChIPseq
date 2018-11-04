@@ -1,5 +1,5 @@
 ---
-title: "ChIP-Seq Quality Assessment"
+title: "ChIP-seq Quality Assessment"
 author: "Mary Piper, Meeta Mistry"
 date: "June 12, 2017"
 ---
@@ -10,7 +10,7 @@ Approximate time: 60 minutes
 
 ## Learning Objectives
 
-* Discuss other quality metrics for evaluating ChIP-Seq data
+* Discuss other quality metrics for evaluating ChIP-seq data
 * Understand the steps required to generate a QC report using the R Bioonductor package `ChIPQC`
 * Interpretation of a report containing quality metrics and associated figures
 * Learn to run R scripts from the command-line
@@ -48,6 +48,8 @@ It is important to keep track of and filter artifact regions that tend to show *
 <img src="../img/blacklist.png" width="600">
 
 These regions tend to have a very high ratio of multi-mapping to unique mapping reads and high variance in mappability. **The signal from blacklisted regions has been shown to contribute to confound peak callers and fragment length estimation.** The RiBL score then may act as a guide for the level of background signal in a ChIP or input and is found to be correlated with SSD in input samples and the read length cross coverage score in both input and ChIP samples. These regions represent around 0.5% of genome, yet can account for high proportion of total signal (> 10%).
+
+> **NOTE:** If you had filtered out blacklisted regions before peak calling, and those filtered BAM files are used as input to `ChIPQC` you will not need to evaluate this metric.
 
 > **How were the 'blacklists compiled?** These blacklists were empirically derived from large compendia of data using a combination of automated heuristics and manual curation. Blacklists were generated for various species including and genome versions including human, mouse, worm and fly. The lists can be [downloaded here.](http://mitra.stanford.edu/kundaje/akundaje/release/blacklists/). For human, they used 80 open chromatin tracks (DNase and FAIRE datasets) and 12 ChIP-seq input/control tracks spanning ~60 cell lines in total. These blacklists are applicable to functional genomic data based on short-read sequencing (20-100bp reads). These are not directly applicable to RNA-seq or any other transcriptome data types. 
 
@@ -194,7 +196,7 @@ When the script is finished running you can check the `results/chip_qc/ChlPQC` d
 
 ### `ChIPQC` report
 
-The report generated using our toy dataset will not give us meaningful plots or metrics and so **we have generated a report using the full dataset for you to look at instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=0). Decompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
+The report generated using our toy dataset will not give us meaningful plots or metrics and so **we have generated a report using the full dataset for you to look at instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=1). Decompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled 'Expand All', click on that to expand all sections.
 
 Let's start with the **QC summary table**:
 

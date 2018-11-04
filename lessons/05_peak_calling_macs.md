@@ -24,13 +24,13 @@ For ChIP-seq experiments, what we observe from the alignment files is a **strand
 
 <img src="../img/chip-fragments.png" width="300" align="middle"></div>
 
-There are various tools that are available for peak calling. One of the more commonly used pack callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
+There are various tools that are available for peak calling. One of the more commonly used peak callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
 
 > **NOTE:** Our dataset is investigating two transcription factors and so our focus is on identifying short degenerate sequences that present as punctate binding sites. ChIP-seq analysis algorithms are specialized in identifying one of **two types of enrichment** (or have specific methods for each): **broad peaks** or broad domains (i.e. histone modifications that cover entire gene bodies) or **narrow peaks** (i.e. a transcription factor binding). Narrow peaks are easier to detect as we are looking for regions that have higher amplitude and are easier to distinguish from the background, compared to broad or dispersed marks. There are also 'mixed' binding profiles which can be hard for algorithms to discern. An example of this is the binding properties of PolII, which binds at promotor and across the length of the gene resulting in mixed signals (narrow and broad).
 
 ## MACS2
 
-A commonly used tool for identifying transcription factor binding sites is named [Model-based Analysis of ChIP-Seq (MACS)](https://github.com/taoliu/MACS). The [MACS algorithm](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137) captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. Although it was developed for the detection of transcription factor binding sites it is also suited for larger regions.
+A commonly used tool for identifying transcription factor binding sites is named [Model-based Analysis of ChIP-seq (MACS)](https://github.com/taoliu/MACS). The [MACS algorithm](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2008-9-9-r137) captures the influence of genome complexity to evaluate the significance of enriched ChIP regions. Although it was developed for the detection of transcription factor binding sites it is also suited for larger regions.
 
 MACS improves the spatial resolution of binding sites through **combining the information of both sequencing tag position and orientation.** MACS can be easily used either for the ChIP sample alone, or along with a control sample which increases specificity of the peak calls. The MACS workflow is depicted below. In this lesson, we will describe the steps in more detail.
 
@@ -56,7 +56,7 @@ To find paired peaks to **build the model**, MACS first scans the whole dataset 
 
 <img src="../img/model_shift.png" width="500">
 
-MACS randomly **samples 1,000 of these high-quality peaks**, separates their Watson and Crick tags, and aligns them by the midpoint between their Watson and Crick tag centers. The **distance between the modes of the Watson and Crick peaks in the alignment is defined as 'd'** and represents the estimated fragment length. MACS shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
+MACS randomly **samples 1,000 of these high-quality peaks**, separates their positive and negative strand tags, and aligns them by the midpoint between their centers. The **distance between the modes of the two peaks in the alignment is defined as 'd'** and represents the estimated fragment length. MACS shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
 
 ### Scaling libraries
 
@@ -68,13 +68,10 @@ To calculate λBG from tag count, MAC2 requires the **effective genome size** or
 
 <img src="../img/mappable.png" width="300">
 
-The mappability or uniqueness influences the average mapped depth (i.e if the effective genome length is small, the proportion of reads that map will be small). As shown in the table below **mappability improves with increased read length**. When low-mappable regions (e.g. a ratio  <  0.25) are of interest, it might be better to include multiple mapped reads or use paired-end reads.
-
-<img src="../img/map_table.png" width="500">
 
 ## Step 2: Peak detection
 
-For ChIP-Seq experiments, tag distribution along the genome can be modeled by a Poisson distribution. After MACS shifts every tag, it then slides 2d windows across the genome to find candidate peaks with a significant tag enrichment (default is p < 10e-5). This is a Poisson distribution p-value based on λ. The Poisson is a one parameter model, where the parameter **λ is the expected number of reads in that window**.
+After MACS shifts every tag by *d/2*, it then slides across the genome using a window size of *2d* to find candidate peaks. The tag distribution along the genome can be modeled by a Poisson distribution. The Poisson is a one parameter model, where the parameter **λ is the expected number of reads in that window**.
 
 <img src="../img/peak_detection.png" width="300">
 
@@ -86,7 +83,9 @@ In this way lambda captures the influence of local biases, and is **robust again
 
 <img src="../img/lambda.png" width="300">
 
-Overlapping enriched peaks are merged, and each tag position is extended 'd' bases from its center. The location with the highest fragment pileup, hereafter referred to as the summit, is predicted as the precise binding location. The ratio between the ChIP-Seq tag count and λlocal is reported as the fold enrichment.
+A region is considered to have a significant tag enrichment if the p-value  < 10e-5 (this can be changed from the default). This is a Poisson distribution p-value based on λ.
+
+Overlapping enriched peaks are merged, and each tag position is extended 'd' bases from its center. The location in the peak with the highest fragment pileup, hereafter referred to as the summit, is predicted as the precise binding location. The ratio between the ChIP-seq tag count and λlocal is reported as the fold enrichment.
 
 ### Estimation of false discovery rate
 
@@ -194,18 +193,9 @@ Before we start exploring the output of MACS2, we'll briefly talk about the new 
 
 **narrowPeak:**
 
-A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichment based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means **the first 6 columns of a standard BED file  with 4 additional fields**:
+A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichment based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means the first 6 columns of a standard BED file  with **4 additional fields**:
 
-1. chromosome
-2. start coordinate
-3. end coordinate
-4. name
-5. score
-6. strand
-7. signalValue - Measurement of overall enrichment for the region
-8. pValue - Statistical significance (-log10)
-9. qValue - Statistical significance using false discovery rate (-log10)
-10. peak - Point-source called for this peak; 0-based offset from chromStart
+<img src="../img/narrowPeak.png">
 
 **WIG format:**
 
