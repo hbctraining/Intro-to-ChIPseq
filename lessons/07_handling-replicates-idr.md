@@ -12,6 +12,23 @@ Approximate time: 75 minutes
 
 * Combining replicates to only get the highly reproducible peaks using the IDR method
 
+## Handling replicates in ChIP-seq
+ 
+As with any high-throughput experiment, a single assay is often subject to a substantial amount of variability. Thus, it is highly recommended to setup your experimental design with a minimum of 2-3 biological replicates. Presumably, two replicates measuring the same underlying biology should have high consistency but that is not always the case. In order to evaluate consistency between replicates **we require metrics that objectively assess the reproducibility of high-throughput assays**.
+
+<img src="../img/chip_workflow_june2017_step4.png" width="700">
+
+Since we have 2 replicates in this example, we want to consider only those peaks that are present in both replicates before we compare the peaks from the two transcription factors to one another.
+
+<img src="../img/idr_samples.png" width="500"> 
+
+Common methods for handling replicates includes taking overlapping peak calls across replicates and then assessing differences in binding regions. Additionally, there are more complex methods that employ statistical testing and evaluate the reproducibility between replicates. In this workshop we will only cover the latter. 
+
+> ### Finding overlapping peaks with `bedtools`
+> [bedtools](http://bedtools.readthedocs.org/en/latest/index.html) from [Aaron Quinlan's group](http://quinlanlab.org/) at University of Utah is easy to use, and an extremely versatile tool that takes genome coordinate information and performs relatively simple arithmetic, like combining, subsetting, intersecting, etc., to obtain all sorts of information. It can be very useful in evaluating overlap between peak calls. If you are interested we have [materials linked](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/handling-replicates-bedtools.html) which walk you through a `bedtools` analysis to compare biological replicates.
+
+> **NOTE: A recent talk on "Accessing and using ENCODE data" [linked here](https://hstalks.com/t/2679/accessing-and-using-encode-data/?biosci) where they talk about handling replicates and the similarities and differences when using an overlap versus IDR analysis.**
+
 ## Handling replicates using the Irreproducibility Discovery Rate (IDR) framework
 
 Another way to assess concordance of peak calls between replicates is to implement a statistical procedure. A popular method is the [IDR framework](https://sites.google.com/site/anshulkundaje/projects/idr) developed by Qunhua Li and Peter Bickel's group. It **compares a pair of ranked lists of regions/peaks and assigns values that reflect its reproducibility.** 
