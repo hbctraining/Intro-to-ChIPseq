@@ -29,9 +29,10 @@
 |10:30 - 10:45 | Break | |
 |10:45 - 12:15| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_combine_chipQC_and_metrics.html) | Meeta |
 |12:15 - 13:15 | Lunch | |
-|13:00 - 13:50 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_handling-replicates-idr.html) | Radhika |
+|13:15 - 14:00 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_handling-replicates-idr.html) | Radhika |
+|14:00 - 15:00 | [Differentially enriched peaks using DiffBind](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_diffbind_differential_peaks.html) | Meeta |
+|15:00 - 15:15 | Break | |
 |13:50 - 15:10 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_data_visualization.html) | Meeta |
-|15:10 - 15:25 | Break | |
 |15:25 - 15:50 | [Qualitative assessment using IGV](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/11_qualitative_assessment_IGV.html) | Radhika |
 |15:50 - 16:20 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/12_functional_analysis.html) | Kayleigh |
 |16:20 - 16:40 | [Overview of ChIP-seq workflow](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/ChIP-seq_troubleshooting.pdf) | Meeta |
