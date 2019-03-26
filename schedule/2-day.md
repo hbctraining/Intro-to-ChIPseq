@@ -27,7 +27,7 @@
 |9:00 - 9:45 | [Peak calling with MACS2 (contd.)](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
 |9:45 - 10:30 | [R Refresher]() | Radhika/Mary |
 |10:30 - 10:45 | Break | |
-|10:45 - 12:15| [Assessing Peak calls and ChIP quality using ChIPQC]() | Meeta |
+|10:45 - 12:15| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_combine_chipQC_and_metrics.html) | Meeta |
 |12:15 - 13:15 | Lunch | |
 |13:00 - 13:50 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/09_handling-replicates-idr.html) | Radhika |
 |13:50 - 15:10 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_data_visualization.html) | Meeta |
