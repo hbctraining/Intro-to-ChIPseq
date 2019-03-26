@@ -22,7 +22,9 @@ Peak calling, the next step in our workflow, is a computational method used to i
 
 For ChIP-seq experiments, what we observe from the alignment files is a **strand asymmetry with read densities on the +/- strand, centered around the binding site**. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the site of enrichment is likely to be a real binding site.
 
-<img src="../img/chip-fragments.png" width="300" align="middle"></div>
+<img src="../img/plos_chipseq_arrow.png"  align="middle"></div>
+
+*Image source: [Wilbanks and Faccioti, PLoS One 2010](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0011471)*
 
 There are various tools that are available for peak calling. One of the more commonly used peak callers is MACS2, and we will demonstrate it in this session. *Note that in this Session the term 'tag' and sequence 'read' are used interchangeably.*
 
@@ -54,9 +56,10 @@ The tag density around a true binding site should show a **bimodal enrichment pa
 
 To find paired peaks to **build the model**, MACS first scans the whole dataset searching for highly significant enriched regions. *This is done only using the ChIP sample!* Given a sonication size (`bandwidth`) and a high-confidence fold-enrichment (`mfold`), MACS slides two `bandwidth` windows across the genome to find regions with **tags more than `mfold` enriched relative to a random tag genome distribution**. 
 
-<img src="../img/model_shift.png" width="500">
-
 MACS randomly **samples 1,000 of these high-quality peaks**, separates their positive and negative strand tags, and aligns them by the midpoint between their centers. The **distance between the modes of the two peaks in the alignment is defined as 'd'** and represents the estimated fragment length. MACS shifts all the tags by d/2 toward the 3' ends to the most likely protein-DNA interaction sites.
+
+<img src="../img/peak_shift3.png" width="400">
+
 
 ### Scaling libraries
 
@@ -117,9 +120,11 @@ Now change directories to the `results` folder:
 $ cd ~/chipseq/results/
 ```
 
-> **NOTE:** If your automation script was successful, you should have alignment information for **all 6 files**. However, if you do not have these BAM files then you can copy them over using the command below:
-> 
->`$ cp /n/groups/hbctraining/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/`
+Since we only created a filtered BAM file for a single sample, **we will need to copy over BAM files for all 6 files**. We have created these for you and you can copy them over using the command below:
+
+```bash
+$ cp /n/groups/hbctraining/chip-seq/bowtie2/*.bam ~/chipseq/results/bowtie2/
+```
 
 ### MACS2 parameters
 
