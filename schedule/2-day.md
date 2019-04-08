@@ -12,19 +12,18 @@
 |11:30 - 12:15 | [Sequence Data QC using FastQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_FASTQC.html) | Mary |
 |12:15 - 13:15 | Lunch | |
 |13:15 - 13:35 | [Alignment theory](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/alignment_theory.pdf) | Meeta |
-|14:00 - 14:45 | [Alignment and filtering of reads](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_align_and_filtering.html) | Mary |
-|14:45 - 15:15 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
-|15:15 - 15:30 | Break | |
-|15:30 - 16:15 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
-|16:15 - 16:35 | [ChIP-seq File Formats](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Workflows_and_fileformats.pdf) | Radhika |
-|16:35 - 17:00 | [Peak calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
+|13:35 - 14:20 | [Alignment and filtering of reads](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_align_and_filtering.html) | Mary |
+|14:20 - 15:00 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
+|15:00 - 15:10 | Break | |
+|15:10 - 15:45 | [Automating generation of alignment files cont'd](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
+|15:45 - 16:00 | [ChIP-seq File Formats](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Workflows_and_fileformats.pdf) | Radhika |
+|16:00 - 17:00 | [Peak calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
 
 
 ## Day 2
 
 | Time            |  Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-|9:00 - 9:45 | [Peak calling with MACS2 (contd.)](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
 |9:45 - 10:30 | [R Refresher]() | Radhika/Mary |
 |10:30 - 10:45 | Break | |
 |10:45 - 12:15| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_combine_chipQC_and_metrics.html) | Meeta |
