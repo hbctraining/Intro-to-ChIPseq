@@ -24,14 +24,13 @@
 
 | Time            |  Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-|9:00 - 10:30| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_combine_chipQC_and_metrics.html) | Radhika |
+|9:00 - 10:30| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_combine_chipQC_and_metrics.html) | Mary |
 |10:30 - 10:40 | Break | |
-|10:40 - 11:25 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_handling-replicates-idr.html) | Radhika |
-|12:15 - 13:15 | Lunch | |
-|13:15 - 14:00 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_handling-replicates-idr.html) | Radhika |
-|14:00 - 15:00 | [Differentially enriched peaks using DiffBind](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_diffbind_differential_peaks.html) | Meeta |
+|10:40 - 11:30 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_handling-replicates-idr.html) | Radhika |
+|11:30 - 12:30 | [Differentially enriched peaks using DiffBind](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_diffbind_differential_peaks.html) | Meeta |
+|12:30 - 13:30 | Lunch | |
+|13:30 - 14:45 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_data_visualization.html) | Meeta |
 |15:00 - 15:15 | Break | |
-|15:15 - 16:30 | [Visualization and exploration of ChIP-seq data](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/10_data_visualization.html) | Meeta |
 |16:30 - 17:00 | [Qualitative assessment using IGV](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/11_qualitative_assessment_IGV.html) | Radhika |
 |??? | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/12_functional_analysis.html) | Kayleigh |
 |???| [Overview of ChIP-seq workflow](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/ChIP-seq_troubleshooting.pdf) | Meeta |
