@@ -7,11 +7,11 @@
 |9:00 - 9:15| [Introduction to Workshop]() | Radhika |
 |9:15 - 10:15 | [Introduction to ChIP-seq](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/Introduction_to_ChIP-seq.pdf) | Meeta/Shannan |
 |10:15 - 10:25 | Break | |
-|10:15 - 11:00 | [Unix review and Working in an HPC environment]() | Radhika |
-|11:00 - 11:20 | [Project Organization and Best Practices in Data Management](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/01_Intro_chipseq_data_organization.html) | Meeta |
-|11:45 - 12:30 | [Sequence Data QC using FastQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_FASTQC.html) | Mary |
-|12:30 - 13:30 | Lunch | |
-|13:30 - 14:00 | [Alignment theory](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/alignment_theory.pdf) | Meeta |
+|10:25 - 11:10 | [Unix review and Working in an HPC environment]() | Radhika |
+|11:10 - 11:30 | [Project Organization and Best Practices in Data Management](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/01_Intro_chipseq_data_organization.html) | Meeta |
+|11:30 - 12:15 | [Sequence Data QC using FastQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_FASTQC.html) | Mary |
+|12:15 - 13:15 | Lunch | |
+|13:15 - 13:45 | [Alignment theory](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/alignment_theory.pdf) | Meeta |
 |14:00 - 14:45 | [Alignment and filtering of reads](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/03_align_and_filtering.html) | Mary |
 |14:45 - 15:15 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
 |15:15 - 15:30 | Break | |
