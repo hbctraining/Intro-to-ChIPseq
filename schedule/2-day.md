@@ -24,9 +24,9 @@
 
 | Time            |  Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-|9:45 - 10:30 | [R Refresher]() | Radhika/Mary |
-|10:30 - 10:45 | Break | |
-|10:45 - 12:15| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_combine_chipQC_and_metrics.html) | Meeta |
+|9:00 - 10:30| [Assessing Peak calls and ChIP quality using ChIPQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/06_combine_chipQC_and_metrics.html) | Radhika |
+|10:30 - 10:40 | Break | |
+|10:40 - 11:25 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_handling-replicates-idr.html) | Radhika |
 |12:15 - 13:15 | Lunch | |
 |13:15 - 14:00 | [Handling Replicates](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/07_handling-replicates-idr.html) | Radhika |
 |14:00 - 15:00 | [Differentially enriched peaks using DiffBind](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/08_diffbind_differential_peaks.html) | Meeta |
