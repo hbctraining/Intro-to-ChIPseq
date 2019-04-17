@@ -112,46 +112,85 @@ Here, we see a table with some known columns and some columns that we have not t
 
 When exploring the quality of our ChIP-seq data, we will assess metrics related to:
 
+- mapping characteristics
 - enrichment of reads in peaks
 - peak profiles
 - signal strength
 
-### Enrichment of reads in peaks metrics
+### Metrics: Mapping 
 
-**SSD:** a measure of read pileup across the genome and is computed by looking at the **uniformity of coverage of reads** across the genome. The metric determines the standard deviation of signal pile-up along the genome normalized to the total number of reads. 
+This table contains **the mapping quality, and duplication rate,** however since we had already filtered our BAM files we find the numbers are not very meaningful for us.
 
-- For IP'd samples we would expect areas with enrichment of reads, or high coverage, and other regions with lower coverage. Whereas for control samples, we would expect less difference in coverage across the genome. 
+### Metrics: Enrichment of reads in peaks
 
-- A "good" or enriched sample typically has regions of significant read pile-up (larger differences in coverage) so **a higher SSD is more indicative of better enrichment**. 
+There are a few metrics that we usually explore when determining whether we have a strong enrichment of reads in peaks, including RiP, SSD, and RiBL.
 
-In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that there is greater enrichment in the Pou5f1 samples, but we cannot conclude that without first looking at some of the other metrics described below. 
+<img src="../img/QCsummary.png" width="500">
 
-Basically, SSD scores are dependent on the degree of total genome wide signal pile-up, and therefore they are sensitive to regions of artificially high signal in addition to genuine ChIP enrichment. So we need to look closely at the rest of the output of ChIPQC to be sure that the high SSD in Pou5f1 is actually a result of ChIP enrichment and not some unknown artifact(s).
+#### RiP (Reads in Peaks)
 
-
-**RiP (Reads in Peaks):** the percentage of reads that overlap called peaks. It can be considered a ”signal-to-noise” measure of what proportion of the library consists of fragments from binding sites vs. background reads. 
+The percentage of reads that overlap called peaks. It can be considered a "signal-to-noise" measure of what proportion of the library consists of fragments from binding sites vs. background reads. 
 
 - RiP (also called FRiP) values will vary depending on the protein of interest:
- - A typical good quality TF (sharp/narrow peaks) with successful enrichment would exhibit a RiP around 5% or higher. 
- - A good quality Pol2 (mix of sharp/narrow anddispersed/broad peaks) would exhibit a RiP of 30% or higher. 
- - There are also known examples of good datasets with RiP < 1% (i.e. RNAPIII).
+  - A typical good quality TF (sharp/narrow peaks) with successful enrichment would exhibit a RiP around 5% or higher. 
+  - A good quality Pol2 (mix of sharp/narrow anddispersed/broad peaks) would exhibit a RiP of 30% or higher. 
+  - There are also known examples of good datasets with RiP < 1% (i.e. RNAPIII).
 
-In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low. This is perhaps an indication that the poor SSD scores for Nanog may not be predictive of poor quality.
+In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low. This could suggest that we have better enrichment for the Nanog replicates, but we still need to explore in more detail the other metrics.
 
-**RiBL (Reads overlapping in Blacklisted Regions):** the percentage of reads overlapping regions with known artificially high signal (likely due to excessive unstructured anomalous reads mapping). **Lower RiBL percentages are better than higher.** 
+**RiP visualizations**
 
-- The blacklisted regions typically appear uniquely mappable so simple mappability filters do not remove them. These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats. 
-- **The signal from blacklisted regions has been shown to contribute to confound peak callers and fragment length estimation.** We should keep track and filter reads mapping to these areas.
+We have two plots that summarize the number of **Reads in Peaks**. ChIP samples with good enrichment will have a higher proportion of their reads overlapping called peaks. Although RiP is higher in Nanog, the boxplot for the Nanog samples shows quite different distributions between the replicates compared to Pou5f1.
 
-<img src="../img/blacklist.png" width="600">
+<img src="../img/Rip.png" width="500">
 
+<img src="../img/Rap.png" width="500">
+
+
+#### SSD 
+
+A measure of read pileup across the genome and is computed by looking at the **uniformity of coverage of reads** across the genome. The metric determines the standard deviation of signal pile-up along the genome normalized to the total number of reads. 
+
+- For IP'd samples we would expect areas with enrichment of reads, or high coverage, and other regions with lower coverage. Whereas for control samples, we would expect less difference in coverage across the genome. A "good" or enriched sample typically has regions of significant read pile-up (larger differences in coverage) so **a higher SSD is more indicative of better enrichment**. 
+
+- SSD scores are sensitive to **regions of artificially high signal** in addition to genuine ChIP enrichment. Therefore, a high SSD could be the result of ChIP enrichment or some artifically high signal in blacklisted regions.
+
+In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that there is greater enrichment in the Pou5f1 samples, but we need to look closely at the rest of the output of ChIPQC to be sure that the high SSD in Pou5f1 is not due to some unknown artifact.
+
+**SSD Visualizations**
+
+The coverage uniformity explored with the SSD can be visualized using the 'Coverage histogram' in the report. The x-axis represents the read pileup height at a basepair position, and the y-axis represents how many positions have this pileup height. This is on a log scale. 
+
+**A ChIP sample with good enrichment should have a reasonable ”tail”, that is more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have most positions (high values on y-axis) in the genome with low pile-up (low x-axis values). 
+
+<img src="../img/CoverageHistogramPlot.png" width="500">
+
+In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. "Heavy tail" refers to the curve being heavier than an exponential curve, with more bulk under the curve. It shows that Nanog samples have more positions in the genome with higher depth. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. 
+
+#### RiBL (Reads overlapping in Blacklisted Regions)
+
+The percentage of reads overlapping regions with known artificially high signal (likely due to excessive unstructured anomalous reads mapping). **Lower RiBL percentages are better than higher.** 
+
+- The blacklisted regions typically appear uniquely mappable so simple mappability filters do not remove them. These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats.
+
+ <img src="../img/blacklist.png" width="600">
+ 
 - The RiBL score acts as a guide for the level of background signal in a ChIP or input. These regions represent around 0.5% of genome, yet can account for high proportion of total signal (> 10%).
+
+- **The signal from blacklisted regions has been shown to contribute to confound peak callers and fragment length estimation.** We should keep track and filter reads mapping to these areas.
 
 In our experiment, the RiBL percentages look reasonable since they not incredibly high (also shown in the plot in the next section).
 
 > **NOTE:** If you had filtered out blacklisted regions before peak calling, and those filtered BAM files are used as input to `ChIPQC` you will not need to evaluate this metric.
 
-> **How were the 'blacklists compiled?** These blacklists were empirically derived from large compendia of data using a combination of automated heuristics and manual curation. Blacklists were generated for various species including and genome versions including human, mouse, worm and fly. The lists can be [downloaded here.](http://mitra.stanford.edu/kundaje/akundaje/release/blacklists/). For human, they used 80 open chromatin tracks (DNase and FAIRE datasets) and 12 ChIP-seq input/control tracks spanning ~60 cell lines in total. These blacklists are applicable to functional genomic data based on short-read sequencing (20-100bp reads). These are not directly applicable to RNA-seq or any other transcriptome data types. 
+> **How were the 'blacklists compiled?** These blacklists were empirically derived from large compendia of data using a combination of automated heuristics and manual curation. Blacklists were generated for various species and genome versions including human, mouse, worm and fly. The lists can be [downloaded here.](http://mitra.stanford.edu/kundaje/akundaje/release/blacklists/). For human, they used 80 open chromatin tracks (DNase and FAIRE datasets) and 12 ChIP-seq input/control tracks spanning ~60 cell lines in total. These blacklists are applicable to functional genomic data based on short-read sequencing (20-100bp reads). These are not directly applicable to RNA-seq or any other transcriptome data types. 
+
+**RiBL Visualizations**
+
+The plot shows the effect of blacklisting, with the proportion of reads that are either inside (dark blue) or outside (lighter blue) the blacklisted regions. *If the black listed regions had already been filtered out before peak calling, this plot would not be informative.*
+
+<img src="../img/Ribl.png" width="500">
+
 
 **Metrics from cross-correlation: FragL (Fragment Length Cross Coverage) and RelCC (Relative Cross Coverage):**
  
@@ -161,15 +200,7 @@ In addition to the three metrics above, we see other statistics related to the s
 
 ***Please note we will discuss cross-correlation later in this lesson and we will come back to both of these metrics then.***
 
-#### Mapping Quality table
 
-This table contains **the mapping quality, and duplication rate,** however since we had already filtered our BAM files we find the numbers are not very meaningful for us.
-
-#### Plot of percentage of reads in blacklists
-
-Next is a plot showing the effect of blacklisting, with the proportion of reads that are either inside (dark blue) or outside (lighter blue) the blacklisted regions. *If the black listed regions had already been filtered out before peak calling, this plot would not be informative.*
-
-<img src="../img/Ribl.png" width="500">
 
 #### Relative Enrichment of Genomic Intervals (REGI)
 
@@ -181,15 +212,7 @@ This is represented as a heatmap showing the enrichment of reads compared to the
 
 In our dataset, the "Promoters500" and "All5UTRs" categories have the highest levels of enrichment, which is great since it meets our expectations of where Nanog and Pou5f1 should be binding as transcription factors.
 
-#### Coverage histogram
 
-The next section, **ChIP Signal Distribution and Structure**, looks at the inherent ”peakiness” of the samples. The first plot is a **coverage histogram**. The x-axis represents the read pileup height at a basepair position, and the y-axis represents how many positions have this pileup height. This is on a log scale. 
-
-**A ChIP sample with good enrichment should have a reasonable ”tail”, that is more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have most positions (high values on y-axis) in the genome with low pile-up (low x-axis values). 
-
-<img src="../img/CoverageHistogramPlot.png" width="500">
-
-In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. "Heavy tail" refers to the curve being heavier than an exponential curve, with more bulk under the curve. It shows that Nanog samples have more positions in the genome with higher depth. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. 
 
 
 #### Strand cross-correlation
@@ -260,13 +283,7 @@ This final set of plots are based on metric computed using the supplied peaks if
 
 The **shape of these profiles can vary depending on what type of mark is being studied** – transcription factor, histone mark, or other DNA-binding protein such as a polymerase – but similar marks usually have a distinctive profile in successful ChIPs. 
 
-#### Reads in Peaks
 
-Next we have two plots that summarize the number of **Reads in Peaks**. ChIP samples with good enrichment will have a higher proportion of their reads overlapping called peaks. Although RiP is higher in Nanog, the boxplot for the Nanog samples shows quite different distributions between the replicates compared to Pou5f1.
-
-<img src="../img/Rip.png" width="500">
-
-<img src="../img/Rap.png" width="500">
 
 
 #### Sample similarity
