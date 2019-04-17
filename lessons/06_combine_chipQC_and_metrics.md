@@ -110,7 +110,11 @@ Here, we see a table with some known columns and some columns that we have not t
 
 > **NOTE**: For some of the metrics we give examples of what is considered a 'good measure' indicative of good quality data. Keep in mind that passing this threshold does not automatically mean that an experiment is successful and a values that fall below the threshold does not automatically mean failure!
 
-Let's take a closer look what these metrics are telling us:
+When exploring the quality of our ChIP-seq data, we will assess metrics related to:
+
+- enrichment of reads in peaks
+- peak profiles
+- signal strength
 
 **SSD**
 
