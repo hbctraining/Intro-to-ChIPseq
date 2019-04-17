@@ -124,7 +124,7 @@ $ module spider
 Then we can load the FastQC module:
 
 ```bash
-$ module load fastqc/0.11.3
+$ module load fastqc/0.11.5
 ```
 
 Once a module for a tool is loaded, you have essentially made it directly available to you like any other basic UNIX command.
@@ -204,7 +204,13 @@ The **"Per base sequence quality"** plot is the most important analysis module i
 
 Based on the sequence quality plot, we see the majority of the reads have high quality, but the whiskers drop into the poor quality regions, indicating that a significant number of reads have low quality bases across the reads. The poor quality reads in the middle of the sequence would be concerning if this was our dataset, and we would probably want to contact the sequencing facility. However, this dataset was created artifically, so does not indicate a problem at the sequencing facility. Trimming could be performed from both ends of the sequences, or we can use an alignment tool that can ignore these poor quality bases at the ends of reads (soft clip). 
 
-This is the main plot explored for ChIP-seq, but if you would like to go through the remaining plots/metrics, FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data. Also, FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.
+This is the main plot explored for ChIP-seq, but if you would like to go through the remaining plots/metrics, FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. For ChIP-seq data, we recommend checking the following metrics:
+
+- **Per base sequence composition:** If fragmenting using transposases inherit an intrinsic bias in the positions at which reads start. 
+- **Sequence duplication levels:** Good to get an idea of what proportion of your library is duplicates. Duplicates are typically removed (even if there is a chance that they are biological duplicates) and so if it there is a large amount duplication this will decrease the total depth of the samples available for mapping and/or used in peak calling.
+- **Over-represented sequences:**  Finding that a single sequence is very overrepresented either means that it is highly biologically significant or indicates that the library is contaminated. With ChIP-seq you expect to see over-represented sequences in the IP sample because that's exactly what you're doing - enriching for particular sequences based on binding affinity. However, lack of over-represented sequences doesn’t mean you have a bad experiment. If you see over-represented sequences in the input, that usually reflects some bias in the protocol to specific regions.
+
+We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data. Also, FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.
 
 > **We also have a [slidedeck](https://github.com/hbctraining/Intro-to-rnaseq-hpc-O2/raw/master/lectures/error_profiles_mm.pdf) of error profiles for Illumina sequencing, where we discuss specific FASTQC plots and possible sources of these types of errors.**
 
