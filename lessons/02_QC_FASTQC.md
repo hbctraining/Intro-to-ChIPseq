@@ -1,7 +1,7 @@
 ---
 title: "FastQC for quality assessment"
 author: "Mary Piper, Radhika Khetani"
-date: "March 14th, 2018"
+date: "April 17th, 2019"
 ---
 
 Contributors: Mary Piper, Radhika Khetani
@@ -101,7 +101,7 @@ $ cd ~/chipseq/raw_data
 $ ls -l
 ```
 
-Before we start using any software, we either have to check if it's available on the cluster, and if it is we have to load it into our environment (or `$PATH`). On the O2 cluster, we can check for, and load packages (or modules) using the **LMOD** system. 
+Before we start using any software, we either have to check if it's available on the cluster, and if it is we have to load it into our environment (or `$PATH`). On the O2 cluster, we can check for and load tools using modules. 
 
 If we check which modules we currently have loaded, we should not see FastQC.
 
@@ -109,11 +109,11 @@ If we check which modules we currently have loaded, we should not see FastQC.
 $ module list
 ```
 
-This is because the FastQC program is not in our $PATH (i.e. its not in a directory that unix will automatically check to run commands/programs).
-
-```bash
-$ echo $PATH
-```
+> **NOTE:** If we check our $PATH variable, we will see that the FastQC program is not in our $PATH (i.e. its not in a directory that unix will automatically check to run commands/programs).
+>
+> ```bash
+> $ echo $PATH
+> ```
 
 To find the FastQC module to load we need to search the versions available:
 
@@ -148,7 +148,7 @@ Exit the interactive session and once you are on a "login node," start a new int
 ```bash
 $ exit  #exit the current interactive session
 
-$ srun --pty -n 6 -p short -t 0-12:00 --mem 8G --reservation=HBC /bin/bash  #start a new one with 6 cpus (-n 6) and 8G RAM (--mem 8G)
+$ srun --pty -n 6 -p short -t 0-12:00 --mem 1G --reservation=HBC /bin/bash  #start a new one with 6 cpus (-n 6) and 1G RAM (--mem 1G)
 
 $ module load fastqc/0.11.3  #reload the module for the new session
 
