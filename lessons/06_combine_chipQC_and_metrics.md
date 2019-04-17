@@ -136,20 +136,17 @@ The percentage of reads that overlap called peaks. It can be considered a "signa
   - A good quality Pol2 (mix of sharp/narrow and dispersed/broad peaks) would exhibit a RiP of 30% or higher. 
   - There are also known examples of good datasets with RiP < 1% (i.e. RNAPIII).
 
-In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low. This could suggest that we have better enrichment for the Nanog replicates, but we still need to explore in more detail the other metrics.
-
-**RiP visualizations**
+*In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low. This could suggest that we have better enrichment for the Nanog replicates, but we still need to explore in more detail the other metrics.*
 
 We have two plots that summarize the number of **Reads in Peaks**. ChIP samples with good enrichment will have a higher proportion of their reads overlapping called peaks. Although RiP is higher in Nanog, the boxplot for the Nanog samples shows quite different distributions between the replicates compared to Pou5f1.
 
-<img src="../img/Rip.png" width="500">
+<img src="../img/Rip.png" width="400">
 
-<img src="../img/Rap.png" width="500">
+<img src="../img/Rap.png" width="400">
 
 
 #### SSD 
-
-A measure representing the **uniformity of coverage of reads** across the genome. The metric determines the standard deviation of signal pile-up along the genome normalized to the total number of reads. 
+This metric represents the **uniformity of coverage of reads** across the genome. Specificly, it determines the standard deviation of signal pile-up along the genome normalized to the total number of reads. 
 
 - For IP'd samples we would expect areas with enrichment of reads, or high coverage, and other regions with lower coverage. Whereas for control samples, we would expect less difference in coverage across the genome. A "good" or enriched sample typically has regions of significant read pile-up (larger differences in coverage) so **a higher SSD is more indicative of better enrichment**. 
 
@@ -177,7 +174,7 @@ The percentage of reads overlapping regions with known artificially high signal 
 
 - **The signal from blacklisted regions has been shown to contribute to confound peak callers and fragment length estimation.** We should keep track and filter reads mapping to these areas.
 
-In our experiment, the RiBL percentages look reasonable since they not incredibly high (also shown in the plot in the next section).
+*In our experiment, the RiBL percentages look reasonable since they not incredibly high.*
 
 > **NOTE:** If you had filtered out blacklisted regions before peak calling, and those filtered BAM files are used as input to `ChIPQC` you will not need to evaluate this metric.
 
@@ -264,7 +261,7 @@ This is represented as a heatmap showing the enrichment of reads compared to the
  
 <img src="../img/GenomicFeatureEnrichment.png" width="500">
 
-In our dataset, the "Promoters500" and "All5UTRs" categories have the highest levels of enrichment, which is great since it meets our expectations of where Nanog and Pou5f1 should be binding as transcription factors.
+*In our dataset, the "Promoters500" and "All5UTRs" categories have the highest levels of enrichment, which is great since it meets our expectations of where Nanog and Pou5f1 should be binding as transcription factors.*
 
 
 #### Peak Profile
