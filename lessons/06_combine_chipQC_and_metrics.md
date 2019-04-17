@@ -1,7 +1,7 @@
 ---
 title: "ChIP-seq Quality Assessment"
 author: "Mary Piper, Meeta Mistry, Radhika Khetani"
-date: "October 1, 2018"
+date: "April 17th, 2019"
 ---
 
 Contributors: Mary Piper, Meeta Mistry and Radhika Khetani
@@ -38,8 +38,8 @@ Your Rstudio interface should look something like the screenshot below:
 > **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3 or higher) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
 >
 ```
-source("http://bioconductor.org/biocLite.R")
-biocLite("ChIPQC")
+library(BiocManager)
+install("ChIPQC")
 ```
 
 ### Get data 
