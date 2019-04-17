@@ -1,7 +1,7 @@
 ---
 title: "Alignment and filtering"
 author: "Mary Piper, Radhika Khetani"
-date: "March 14th, 2018"
+date: "April 17th, 2019"
 ---
 
 Contributors: Mary Piper, Radhika Khetani, Meeta Mistry
@@ -138,14 +138,6 @@ An example read mapping is displayed above. *Note that the example above spans t
 - **`MAPQ`:** is giving us the alignment quality, the scale of which will depend on the aligner being used. 
 - **`CIGAR`:** is a sequence of letters and numbers that represent the *edits or operations* required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e. match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths for each 'operation'.
 
-   | Operation | Description |
-   | ------:|:----------------------:|
-   | M | sequence match or mismatch |
-   | I | insertion to the reference |
-   | D | deletion from reference |
-   | N | skipped region from the reference|
-
-
 Now to the remaning fields in our SAM file:
 
 ![SAM1](../img/sam_bam3.png)
@@ -156,7 +148,8 @@ The next three fields are more pertinent to paired-end data.
 - **`MPOS`:** is the mate position (1-based, leftmost). 
 - **`ISIZE`:** is the inferred insert size.
 
-Finally, you have the raw sequence data from the original FASTQ file stored for each read. 
+Finally, you have the raw sequence data from the original FASTQ file stored for each read:
+
 - **`SEQ`:** is the raw sequence
 - **`QUAL`:** is the associated quality values for each position in the read.
 
