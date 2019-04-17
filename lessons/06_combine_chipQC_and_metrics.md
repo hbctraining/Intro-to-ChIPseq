@@ -149,23 +149,21 @@ We have two plots that summarize the number of **Reads in Peaks**. ChIP samples 
 
 #### SSD 
 
-A measure of read pileup across the genome and is computed by looking at the **uniformity of coverage of reads** across the genome. The metric determines the standard deviation of signal pile-up along the genome normalized to the total number of reads. 
+A measure representing the **uniformity of coverage of reads** across the genome. The metric determines the standard deviation of signal pile-up along the genome normalized to the total number of reads. 
 
 - For IP'd samples we would expect areas with enrichment of reads, or high coverage, and other regions with lower coverage. Whereas for control samples, we would expect less difference in coverage across the genome. A "good" or enriched sample typically has regions of significant read pile-up (larger differences in coverage) so **a higher SSD is more indicative of better enrichment**. 
 
 - SSD scores are sensitive to **regions of artificially high signal** in addition to genuine ChIP enrichment. Therefore, a high SSD could be the result of ChIP enrichment or some artifically high signal in blacklisted regions.
 
-In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that there is greater enrichment in the Pou5f1 samples, but we need to look closely at the rest of the output of ChIPQC to be sure that the high SSD in Pou5f1 is not due to some unknown artifact.
-
-**SSD Visualizations**
+*In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that there is greater enrichment in the Pou5f1 samples, but we need to look closely at the rest of the output of ChIPQC to be sure that the high SSD in Pou5f1 is not due to some unknown artifact.*
 
 The coverage uniformity explored with the SSD can be visualized using the 'Coverage histogram' in the report. The x-axis represents the read pileup height at a basepair position, and the y-axis represents how many positions have this pileup height. This is on a log scale. 
 
-**A ChIP sample with good enrichment should have a reasonable ”tail”, that is more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have most positions (high values on y-axis) in the genome with low pile-up (low x-axis values). 
-
 <img src="../img/CoverageHistogramPlot.png" width="500">
 
-In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. "Heavy tail" refers to the curve being heavier than an exponential curve, with more bulk under the curve. It shows that Nanog samples have more positions in the genome with higher depth. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions. 
+**A ChIP sample with good enrichment should have a reasonable ”tail”, or more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have most positions (high values on y-axis) in the genome with low pile-up (low x-axis values). 
+
+*In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. "Heavy tail" refers to the curve being heavier than an exponential curve, with more bulk under the curve. It shows that Nanog samples have more positions in the genome with higher depth. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions.* 
 
 #### RiBL (Reads overlapping in Blacklisted Regions)
 
