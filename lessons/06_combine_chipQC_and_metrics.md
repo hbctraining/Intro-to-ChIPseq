@@ -106,18 +106,14 @@ Since our report is based only on a small subset of data, the figures will not b
 
 <img src="../img/QCsummary.png">
 
-Here, we see a table with some known columns and some columns that we have not talked about before. The information under the *SSD, RiP and RiBL columns* are metrics developed and described by the [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html), and calculated for us by ChIPQC. These will allow us to **assess the distribution of signal within enriched regions, within/across expected annotations, across the whole genome, and within known artefact regions.**
-
-> **NOTE**: For some of the metrics we give examples of what is considered a 'good measure' indicative of good quality data. Keep in mind that passing this threshold does not automatically mean that an experiment is successful and a values that fall below the threshold does not automatically mean failure!
-
-### QC metrics
-
-When exploring the quality of our ChIP-seq data, the metrics given in the table relate to:
+Here, we see a table with some known columns and some columns that we have not talked about before. The information under the *SSD, RiP and RiBL columns* are metrics developed and described by the [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html), and calculated for us by ChIPQC. These will allow us to **assess the distribution of signal within enriched regions, within/across expected annotations, across the whole genome, and within known artefact regions.** These metrics can be generally categorized as relating to:
 
 - Read and mapping characteristics
 - Enrichment of reads in peaks
 - Peak signal strength
 - Peak profiles
+
+> **NOTE**: For some of the metrics we give examples of what is considered a 'good measure' indicative of good quality data. Keep in mind that passing this threshold does not automatically mean that an experiment is successful and a values that fall below the threshold does not automatically mean failure!
 
 ### Metrics: Read and mapping characteristics
 
@@ -189,9 +185,7 @@ In our experiment, the RiBL percentages look reasonable since they not incredibl
 
 > **How were the 'blacklists compiled?** These blacklists were empirically derived from large compendia of data using a combination of automated heuristics and manual curation. Blacklists were generated for various species and genome versions including human, mouse, worm and fly. The lists can be [downloaded here.](http://mitra.stanford.edu/kundaje/akundaje/release/blacklists/). For human, they used 80 open chromatin tracks (DNase and FAIRE datasets) and 12 ChIP-seq input/control tracks spanning ~60 cell lines in total. These blacklists are applicable to functional genomic data based on short-read sequencing (20-100bp reads). These are not directly applicable to RNA-seq or any other transcriptome data types. 
 
-**RiBL Visualizations**
-
-The plot shows the effect of blacklisting, with the proportion of reads that are either inside (dark blue) or outside (lighter blue) the blacklisted regions. *If the black listed regions had already been filtered out before peak calling, this plot would not be informative.*
+The plot below shows the effect of blacklisting, with the proportion of reads that are either inside (dark blue) or outside (lighter blue) the blacklisted regions. *If the black listed regions had already been filtered out before peak calling, this plot would not be informative.*
 
 <img src="../img/Ribl.png" width="500">
 
@@ -201,7 +195,7 @@ The metrics related to the peak signal strength are FragLength and RelCC (also c
 
 - A high-quality ChIP-seq experiment will produce significant clustering of enriched DNA sequence tags/reads at locations bound by the protein of interest; the expectation is that we can observe a bimodal enrichment of reads (sequence tags) on both the forward and the reverse strands.
 
-- **RelCC values larger than 1 for all ChIP samples suggest good enrichment** & the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
+- **RelCC values larger than 1 for all ChIP samples suggest good signal-to-noise** & the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
 
 #### Strand cross-correlation
 
@@ -233,7 +227,7 @@ The cross-correlation plot **typically produces two peaks**: a peak of enrichmen
 
 In our dataset, for both Nanog and Pou5f1 samples we observe a characteristic cross-correlation curve as described above with the two peaks. The maximum corrleation value (the highest point of the larger peak) is higher in Nanog then in Pou5f1 suggesting a higher amount of signal. The corresponding shift value (x-axis) for that maximum correlation gives us the estimated fragment length. Since this data was obtained from ENCODE and we do not have information at the level of library preparation we have nothing to cross-reference fragment length (FragL) with. 
 
-> **NOTE:** The RelCC (or RSC) value is computed using the minimum and maximum cross-correlation values. To get more detail on how the RSC and NSC (another cross-correlation based metric) are computed, in addition a discussion surrounding the "phantom peak" phenomenon please take a [look at these materials](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/CC_metrics_extra.html). Low RSC values can be due to failed or poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Also, datasets with few binding sites (< 200) which could be due to biological reasons (i.e. a factor that truly binds only a few sites in a particular tissue type) would output low RSC scores.
+The RelCC (or RSC) value is computed using the minimum and maximum cross-correlation values. To get more detail on how the RSC and NSC (another cross-correlation based metric) are computed, in addition a discussion surrounding the "phantom peak" phenomenon please take a [look at these materials](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/CC_metrics_extra.html). Low RSC values can be due to failed or poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Also, datasets with few binding sites (< 200) which could be due to biological reasons (i.e. a factor that truly binds only a few sites in a particular tissue type) would output low RSC scores.
 
 ***
 
@@ -273,9 +267,9 @@ This is represented as a heatmap showing the enrichment of reads compared to the
 In our dataset, the "Promoters500" and "All5UTRs" categories have the highest levels of enrichment, which is great since it meets our expectations of where Nanog and Pou5f1 should be binding as transcription factors.
 
 
-#### Peak Profile and ChIP Enrichment
+#### Peak Profile
 
-This final set of plots are based on metric computed using the supplied peaks if available. These show average peak profiles, centered on the summit (point of highest pileup) for each peak.
+The peak profile plot shows the average peak profiles, centered on the summit (point of highest pileup) for each peak.
 
 <img src="../img/PeakProfile.png" width="500">
 
@@ -286,7 +280,7 @@ The **shape of these profiles can vary depending on what type of mark is being s
 
 Finally, there are plots to show **how similar the samples are**. We will take a closer look at these when we plot them during differential enrichment analysis. 
 
-### Final takehome from ChIPQC
+## Final takehome from ChIPQC
 
 In general, taking all of the evaluated metrics together our data look good even though individually they may not fall within the thresholds we have outlined earlier. This type of QC is first and foremost used to evaluate each sample on it's own to ensure that we are observing values that are good enough that we are comfortable moving forward with. Below, we briefly we compare and contrast these metrics between replicates and the 2 for added discussion.
 
