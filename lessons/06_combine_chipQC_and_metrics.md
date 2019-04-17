@@ -108,14 +108,14 @@ Since our report is based only on a small subset of data, the figures will not b
 
 Here, we see a table with some known columns and some columns that we have not talked about before. The information under the *SSD, RiP and RiBL columns* are metrics developed and described by the [ENCODE consortium](https://genome.ucsc.edu/ENCODE/qualityMetrics.html), and calculated for us by ChIPQC. These will allow us to **assess the distribution of signal within enriched regions, within/across expected annotations, across the whole genome, and within known artefact regions.** These metrics can be generally categorized as relating to:
 
-- Read and mapping characteristics
+- Read characteristics
 - Enrichment of reads in peaks
 - Peak signal strength
 - Peak profiles
 
 > **NOTE**: For some of the metrics we give examples of what is considered a 'good measure' indicative of good quality data. Keep in mind that passing this threshold does not automatically mean that an experiment is successful and a values that fall below the threshold does not automatically mean failure!
 
-### Metrics: Read and mapping characteristics
+### Metrics: Read characteristics
 
 This table contains **the duplication rate,** however since we had already filtered our BAM files we find the numbers are not very meaningful for us. However, the **read depth** and **length** can be useful to note, especially if there appear to be large differences across samples.
 
