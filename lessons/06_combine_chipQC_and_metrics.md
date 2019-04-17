@@ -110,22 +110,26 @@ Here, we see a table with some known columns and some columns that we have not t
 
 > **NOTE**: For some of the metrics we give examples of what is considered a 'good measure' indicative of good quality data. Keep in mind that passing this threshold does not automatically mean that an experiment is successful and a values that fall below the threshold does not automatically mean failure!
 
-When exploring the quality of our ChIP-seq data, we will assess metrics related to:
+### QC metrics
 
-- mapping characteristics
-- enrichment of reads in peaks
-- peak profiles
-- signal strength
+When exploring the quality of our ChIP-seq data, the metrics given in the table relate to:
 
-### Metrics: Mapping 
+- Read and mapping characteristics
+- Enrichment of reads in peaks
+- Peak signal strength
+- Peak profiles
 
-This table contains **the mapping quality, and duplication rate,** however since we had already filtered our BAM files we find the numbers are not very meaningful for us.
+### Metrics: Read and mapping characteristics
+
+This table contains **the mapping quality and duplication rate,** however since we had already filtered our BAM files we find the numbers are not very meaningful for us. However, the **read depth** and **length** can be useful to note, especially if there appear to be large differences across samples.
+
+<img src="../img/QCsummary.png">
 
 ### Metrics: Enrichment of reads in peaks
 
 There are a few metrics that we usually explore when determining whether we have a strong enrichment of reads in peaks, including RiP, SSD, and RiBL.
 
-<img src="../img/QCsummary.png" width="500">
+<img src="../img/QCsummary.png">
 
 #### RiP (Reads in Peaks)
 
@@ -191,35 +195,15 @@ The plot shows the effect of blacklisting, with the proportion of reads that are
 
 <img src="../img/Ribl.png" width="500">
 
+### Metrics: Peak signal strength
 
-**Metrics from cross-correlation: FragL (Fragment Length Cross Coverage) and RelCC (Relative Cross Coverage):**
- 
-In addition to the three metrics above, we see other statistics related to the strand cross-correlation: FragLength and RelCC (also called Relative strand cross-correlation coefficient or RSC). 
+The metrics related to the peak signal strength are FragLength and RelCC (also called Relative strand cross-correlation coefficient or RSC). Both of these values are determined from calculating the strand cross-correlation, which is a quality metric that is independent of peak calling. 
 
-**RelCC values larger than 1 for all ChIP samples suggest good enrichment** & the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
+- A high-quality ChIP-seq experiment will produce significant clustering of enriched DNA sequence tags/reads at locations bound by the protein of interest; the expectation is that we can observe a bimodal enrichment of reads (sequence tags) on both the forward and the reverse strands.
 
-***Please note we will discuss cross-correlation later in this lesson and we will come back to both of these metrics then.***
-
-
-
-#### Relative Enrichment of Genomic Intervals (REGI)
-
-Using the genomic regions identified as called peaks along with genome annotation information, we can obtain **see where reads map in terms of various genomic features**. We then evaluate the relative enrichment across these regions and make note of how this compares to what we expect for enrichment for our protein of interest.
-
-This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. This plot is useful when you expect enrichment of specific genomic regions.  
- 
-<img src="../img/GenomicFeatureEnrichment.png" width="500">
-
-In our dataset, the "Promoters500" and "All5UTRs" categories have the highest levels of enrichment, which is great since it meets our expectations of where Nanog and Pou5f1 should be binding as transcription factors.
-
-
-
+- **RelCC values larger than 1 for all ChIP samples suggest good enrichment** & the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
 
 #### Strand cross-correlation
-
-A very useful ChIP-seq quality metric that is independent of peak calling is **strand cross-correlation**. It is based on the fact that a high-quality ChIP-seq experiment will produce significant clustering of enriched DNA sequence tags at locations bound by the protein of interest; the expectation is that we can observe a bimodal enrichment of reads (sequence tags) on both the forward and the reverse strands.
-
-***
 
 ***How are the Cross-Correlation scores calculated?***
 
@@ -249,7 +233,7 @@ The cross-correlation plot **typically produces two peaks**: a peak of enrichmen
 
 In our dataset, for both Nanog and Pou5f1 samples we observe a characteristic cross-correlation curve as described above with the two peaks. The maximum corrleation value (the highest point of the larger peak) is higher in Nanog then in Pou5f1 suggesting a higher amount of signal. The corresponding shift value (x-axis) for that maximum correlation gives us the estimated fragment length. Since this data was obtained from ENCODE and we do not have information at the level of library preparation we have nothing to cross-reference fragment length (FragL) with. 
 
-> **NOTE:** The RelCC (or RSC) value is computed using the minimum and maximum cross-correlation values. To get more detail on how the RSC and NSC (another cross-correlation based metric) are computed, in addition a discussion surrounding the "phantom peak" phenomenon please take a [look at these materials](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/CC_metrics_extra.html).
+> **NOTE:** The RelCC (or RSC) value is computed using the minimum and maximum cross-correlation values. To get more detail on how the RSC and NSC (another cross-correlation based metric) are computed, in addition a discussion surrounding the "phantom peak" phenomenon please take a [look at these materials](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/CC_metrics_extra.html). Low RSC values can be due to failed or poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Also, datasets with few binding sites (< 200) which could be due to biological reasons (i.e. a factor that truly binds only a few sites in a particular tissue type) would output low RSC scores.
 
 ***
 
@@ -275,6 +259,20 @@ In our dataset, for both Nanog and Pou5f1 samples we observe a characteristic cr
 
 ***
 
+
+### Metrics: Peak profiles
+
+#### Relative Enrichment of Genomic Intervals (REGI)
+
+Using the genomic regions identified as called peaks along with genome annotation information, we can obtain **see where reads map in terms of various genomic features**. We then evaluate the relative enrichment across these regions and make note of how this compares to what we expect for enrichment for our protein of interest.
+
+This is represented as a heatmap showing the enrichment of reads compared to the background levels of the feature. This plot is useful when you expect enrichment of specific genomic regions.  
+ 
+<img src="../img/GenomicFeatureEnrichment.png" width="500">
+
+In our dataset, the "Promoters500" and "All5UTRs" categories have the highest levels of enrichment, which is great since it meets our expectations of where Nanog and Pou5f1 should be binding as transcription factors.
+
+
 #### Peak Profile and ChIP Enrichment
 
 This final set of plots are based on metric computed using the supplied peaks if available. These show average peak profiles, centered on the summit (point of highest pileup) for each peak.
@@ -284,11 +282,9 @@ This final set of plots are based on metric computed using the supplied peaks if
 The **shape of these profiles can vary depending on what type of mark is being studied** – transcription factor, histone mark, or other DNA-binding protein such as a polymerase – but similar marks usually have a distinctive profile in successful ChIPs. 
 
 
-
-
 #### Sample similarity
 
-Finally, there are plots to show **how similar the samples are** using methods we have seen in the RNA-seq lessons. We will take a closer look at these when we plot them during differential enrichment analysis. 
+Finally, there are plots to show **how similar the samples are**. We will take a closer look at these when we plot them during differential enrichment analysis. 
 
 ### Final takehome from ChIPQC
 
