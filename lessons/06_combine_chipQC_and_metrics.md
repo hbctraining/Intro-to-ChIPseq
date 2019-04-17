@@ -23,7 +23,7 @@ Prior to performing any downstream analyses with the results from a peak caller,
 Today, we will be using `ChIPQC`, a Bioconductor package that takes as input BAM files and peak calls to automatically **compute a number of quality metrics and generates a ChIPseq
 experiment quality report**. We are going to use this package to generate a report for our Nanog and Pou5f1 samples.
 
-### Setting up 
+## Setting up 
 
 1. Open up RStudio and create a new project for your ChIP-seq analyses on your Desktop. Select 'File' -> 'New Project' -> 'New directory' and call the new directory `chipseq-project`.
 2. Create a directory structure for your analyses. You will want to create four directories: `data`, `meta`, `results`, and `figures`.
@@ -97,12 +97,12 @@ ChIPQCreport(chipObj, reportName="ChIP QC report: Nanog and Pou5f1", reportFolde
 > If you were unable to run the code successfully you download [this zipped folder](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/raw/master/sessionV/results/ChIPQCreport.zip), and open the html within. However, it may be better to download the report for the full dataset linked below instead.
 
 
-### ChIPQC report
+## ChIPQC report
 
 
 Since our report is based only on a small subset of data, the figures will not be as meaningful. **Take a look at the report generated using the full dataset instead.** Download [this zip archive](https://www.dropbox.com/s/sn8drmjj2tar4xs/ChIPQCreport%20-%20full%20dataset.zip?dl=1), uncompress it and you should find an html file in the resulting directory. Double click it and it will open in your browser. At the top left you should see a button labeled "Expand All", click on that to expand all sections.
 
-#### The QC summary table:
+### The QC summary table:
 
 <img src="../img/QCsummary.png">
 
@@ -116,36 +116,38 @@ When exploring the quality of our ChIP-seq data, we will assess metrics related 
 - peak profiles
 - signal strength
 
-**SSD**
+### Enrichment of reads in peaks metrics
 
-The SSD score is a measure used to indicate evidence of enrichment. It provides a measure of read pileup across the genome and is computed by looking at the standard deviation of signal pile-up along the genome normalised to the total number of reads. A "good" or enriched sample typically has regions of significant read pile-up so **a higher SSD is more indicative of better enrichment**. 
+**SSD:** a measure of read pileup across the genome and is computed by looking at the **uniformity of coverage of reads** across the genome. The metric determines the standard deviation of signal pile-up along the genome normalized to the total number of reads. 
 
-In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that  there is greater enrichment in the Pou5f1 samples, but we cannot conclude that without first looking at some of the other metrics described below. 
+- For IP'd samples we would expect areas with enrichment of reads, or high coverage, and other regions with lower coverage. Whereas for control samples, we would expect less difference in coverage across the genome. 
+
+- A "good" or enriched sample typically has regions of significant read pile-up (larger differences in coverage) so **a higher SSD is more indicative of better enrichment**. 
+
+In our dataset, higher scores are observed for the Pou5f1 replicates compared to the Nanog replicates. This might suggest that there is greater enrichment in the Pou5f1 samples, but we cannot conclude that without first looking at some of the other metrics described below. 
 
 Basically, SSD scores are dependent on the degree of total genome wide signal pile-up, and therefore they are sensitive to regions of artificially high signal in addition to genuine ChIP enrichment. So we need to look closely at the rest of the output of ChIPQC to be sure that the high SSD in Pou5f1 is actually a result of ChIP enrichment and not some unknown artifact(s).
 
 
-**RiP: Fraction of Reads in Peaks**
+**RiP (Reads in Peaks):** the percentage of reads that overlap called peaks. It can be considered a ”signal-to-noise” measure of what proportion of the library consists of fragments from binding sites vs. background reads. 
 
-This value reports the percentage of reads that overlap within called peaks. This is another good indication of how ”enriched” the sample is, or the success of the immunoprecipitation. It can be considered a ”signal-to-noise” measure of what proportion of the library consists of fragments from binding sites vs. background reads. 
-
-RiP (also called FRiP) values will vary depending on the protein of interest:
-
- * A typical good quality TF with successful enrichment would exhibit a RiP around 5% or higher. 
- * A good quality Pol2 would exhibit a RiP of 30% or higher. 
- * There are also known examples of good datasets with RiP < 1% (i.e. RNAPIII).
+- RiP (also called FRiP) values will vary depending on the protein of interest:
+ - A typical good quality TF (sharp/narrow peaks) with successful enrichment would exhibit a RiP around 5% or higher. 
+ - A good quality Pol2 (mix of sharp/narrow anddispersed/broad peaks) would exhibit a RiP of 30% or higher. 
+ - There are also known examples of good datasets with RiP < 1% (i.e. RNAPIII).
 
 In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low. This is perhaps an indication that the poor SSD scores for Nanog may not be predictive of poor quality.
 
-**RiBL: Reads overlapping in Blacklisted Regions**
+**RiBL (Reads overlapping in Blacklisted Regions):** the percentage of reads overlapping regions with known artificially high signal (likely due to excessive unstructured anomalous reads mapping). **Lower RiBL percentages are better than higher.** 
 
-It is important to keep track of and filter artifact regions that tend to show artificially high signal (likely due to excessive unstructured anomalous reads mapping). The blacklisted regions typically appear uniquely mappable so simple mappability filters do not remove them. These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats. **The signal from blacklisted regions has been shown to contribute to confound peak callers and fragment length estimation.** 
+- The blacklisted regions typically appear uniquely mappable so simple mappability filters do not remove them. These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats. 
+- **The signal from blacklisted regions has been shown to contribute to confound peak callers and fragment length estimation.** We should keep track and filter reads mapping to these areas.
 
 <img src="../img/blacklist.png" width="600">
 
-The RiBL score acts as a guide for the level of background signal in a ChIP or input. These regions represent around 0.5% of genome, yet can account for high proportion of total signal (> 10%).
+- The RiBL score acts as a guide for the level of background signal in a ChIP or input. These regions represent around 0.5% of genome, yet can account for high proportion of total signal (> 10%).
 
-**Lower RiBL percentages are better than higher.** In our experiment, the RiBL percentages look reasonable since they not incredibly high (also shown in the plot in the next section).
+In our experiment, the RiBL percentages look reasonable since they not incredibly high (also shown in the plot in the next section).
 
 > **NOTE:** If you had filtered out blacklisted regions before peak calling, and those filtered BAM files are used as input to `ChIPQC` you will not need to evaluate this metric.
 
