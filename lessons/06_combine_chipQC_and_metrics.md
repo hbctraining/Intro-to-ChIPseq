@@ -128,8 +128,8 @@ This value reports the percentage of reads that overlap within called peaks. Thi
 RiP (also called FRiP) values will vary depending on the protein of interest:
 
  * A typical good quality TF with successful enrichment would exhibit a RiP around 5% or higher. 
- * A good quality PolII would exhibit a RiP of 30% or higher. 
- * There are also known examples of good datasets with FRiP < 1% (i.e. RNAPIII).
+ * A good quality Pol2 would exhibit a RiP of 30% or higher. 
+ * There are also known examples of good datasets with RiP < 1% (i.e. RNAPIII).
 
 In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low. This is perhaps an indication that the poor SSD scores for Nanog may not be predictive of poor quality.
 
