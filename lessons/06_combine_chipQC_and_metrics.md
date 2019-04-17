@@ -133,7 +133,7 @@ The percentage of reads that overlap called peaks. It can be considered a "signa
 
 - RiP (also called FRiP) values will vary depending on the protein of interest:
   - A typical good quality TF (sharp/narrow peaks) with successful enrichment would exhibit a RiP around 5% or higher. 
-  - A good quality Pol2 (mix of sharp/narrow anddispersed/broad peaks) would exhibit a RiP of 30% or higher. 
+  - A good quality Pol2 (mix of sharp/narrow and dispersed/broad peaks) would exhibit a RiP of 30% or higher. 
   - There are also known examples of good datasets with RiP < 1% (i.e. RNAPIII).
 
 In our dataset, RiP percentages are higher for the Nanog replicates as compared to Pou5f1, with Pou5f1-rep2 being very low. This could suggest that we have better enrichment for the Nanog replicates, but we still need to explore in more detail the other metrics.
