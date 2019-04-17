@@ -119,13 +119,13 @@ Here, we see a table with some known columns and some columns that we have not t
 
 This table contains **the mapping quality and duplication rate,** however since we had already filtered our BAM files we find the numbers are not very meaningful for us. However, the **read depth** and **length** can be useful to note, especially if there appear to be large differences across samples.
 
-<img src="../img/QCsummary.png">
+<img src="../img/QCsummary_reads.png">
 
 ### Metrics: Enrichment of reads in peaks
 
 There are a few metrics that we usually explore when determining whether we have a strong enrichment of reads in peaks, including RiP, SSD, and RiBL.
 
-<img src="../img/QCsummary.png">
+<img src="../img/QCsummary_enrich.png">
 
 #### RiP (Reads in Peaks)
 
@@ -191,11 +191,13 @@ The plot below shows the effect of blacklisting, with the proportion of reads th
 
 The metrics related to the peak signal strength are FragLength and RelCC (also called Relative strand cross-correlation coefficient or RSC). Both of these values are determined from calculating the strand cross-correlation, which is a quality metric that is independent of peak calling. 
 
-- A high-quality ChIP-seq experiment will produce significant clustering of enriched DNA sequence tags/reads at locations bound by the protein of interest; the expectation is that we can observe a bimodal enrichment of reads (sequence tags) on both the forward and the reverse strands.
+<img src="../img/QCsummary_cc.png">
 
 - **RelCC values larger than 1 for all ChIP samples suggest good signal-to-noise** & the **FragL values should be roughly the same as the fragment length you picked in the size selection step during library prepation**. 
 
 #### Strand cross-correlation
+
+A high-quality ChIP-seq experiment will produce significant clustering of enriched DNA sequence tags/reads at locations bound by the protein of interest; the expectation is that we can observe a bimodal enrichment of reads (sequence tags) on both the forward and the reverse strands.
 
 ***How are the Cross-Correlation scores calculated?***
 
@@ -223,7 +225,7 @@ The cross-correlation plot **typically produces two peaks**: a peak of enrichmen
 
 <img src="../img/CCPlot.png" width ="500">
 
-In our dataset, for both Nanog and Pou5f1 samples we observe a characteristic cross-correlation curve as described above with the two peaks. The maximum corrleation value (the highest point of the larger peak) is higher in Nanog then in Pou5f1 suggesting a higher amount of signal. The corresponding shift value (x-axis) for that maximum correlation gives us the estimated fragment length. Since this data was obtained from ENCODE and we do not have information at the level of library preparation we have nothing to cross-reference fragment length (FragL) with. 
+*In our dataset, for both Nanog and Pou5f1 samples we observe a characteristic cross-correlation curve as described above with the two peaks. The maximum corrleation value (the highest point of the larger peak) is higher in Nanog then in Pou5f1 suggesting a higher amount of signal. The corresponding shift value (x-axis) for that maximum correlation gives us the estimated fragment length. Since this data was obtained from ENCODE and we do not have information at the level of library preparation we have nothing to cross-reference fragment length (FragL) with. *
 
 The RelCC (or RSC) value is computed using the minimum and maximum cross-correlation values. To get more detail on how the RSC and NSC (another cross-correlation based metric) are computed, in addition a discussion surrounding the "phantom peak" phenomenon please take a [look at these materials](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/CC_metrics_extra.html). Low RSC values can be due to failed or poor quality ChIP, low read sequence quality and hence lots of mismappings, shallow sequencing depth or a combination of these. Also, datasets with few binding sites (< 200) which could be due to biological reasons (i.e. a factor that truly binds only a few sites in a particular tissue type) would output low RSC scores.
 
