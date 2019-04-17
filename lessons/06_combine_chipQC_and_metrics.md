@@ -159,9 +159,9 @@ A measure representing the **uniformity of coverage of reads** across the genome
 
 The coverage uniformity explored with the SSD can be visualized using the 'Coverage histogram' in the report. The x-axis represents the read pileup height at a basepair position, and the y-axis represents how many positions have this pileup height. This is on a log scale. 
 
-<img src="../img/CoverageHistogramPlot.png" width="500">
+- **A ChIP sample with good enrichment should have a reasonable ”tail”, or more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have most positions (high values on y-axis) in the genome with low pile-up (low x-axis values). 
 
-**A ChIP sample with good enrichment should have a reasonable ”tail”, or more positions (higher values on the y-axis) having higher sequencing depth**. Samples with low enrichment (i.e input), consisting of mostly background reads will have most positions (high values on y-axis) in the genome with low pile-up (low x-axis values). 
+<img src="../img/CoverageHistogramPlot.png" width="500">
 
 *In our dataset, the Nanog samples have quite heavy tails compared to Pou5f1, especially replicate 2. "Heavy tail" refers to the curve being heavier than an exponential curve, with more bulk under the curve. It shows that Nanog samples have more positions in the genome with higher depth. The SSD scores, however, are higher for Pou5f1. When SSD is high but coverage looks low it is possibly due to the presence of large regions of high depth and a flag for blacklisting of genomic regions.* 
 
@@ -171,7 +171,7 @@ The percentage of reads overlapping regions with known artificially high signal 
 
 - The blacklisted regions typically appear uniquely mappable so simple mappability filters do not remove them. These regions are often found at specific types of repeats such as centromeres, telomeres and satellite repeats.
 
- <img src="../img/blacklist.png" width="600">
+  <img src="../img/blacklist.png" width="600">
  
 - The RiBL score acts as a guide for the level of background signal in a ChIP or input. These regions represent around 0.5% of genome, yet can account for high proportion of total signal (> 10%).
 
