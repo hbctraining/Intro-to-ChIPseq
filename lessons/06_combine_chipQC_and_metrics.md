@@ -129,7 +129,7 @@ There are a few metrics that we usually explore when determining whether we have
 
 #### RiP (Reads in Peaks)
 
-This metric represents the percentage of reads that overlap called peaks. It can be considered a "signal-to-noise" measure of what proportion of the library consists of fragments from binding sites vs. background reads. 
+This metric represents the **percentage of reads that overlap 'called peaks'**. It can be considered a "signal-to-noise" measure of what proportion of the library consists of fragments from binding sites vs. background reads. 
 
 - RiP (also called FRiP) values will vary depending on the protein of interest:
   - A typical good quality TF (sharp/narrow peaks) with successful enrichment would exhibit a RiP around 5% or higher. 
