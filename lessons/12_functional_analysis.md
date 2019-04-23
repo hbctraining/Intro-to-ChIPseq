@@ -277,7 +277,7 @@ cluster_summary <- data.frame(ego)
 write.csv(cluster_summary, "results/clusterProfiler_Nanog.csv")
 ```
 
-We can also use the `ego` object to visualize the results using the `dotplot()` function. The dotplot shows the number of genes associated with the first 50 terms (size) and the p-adjusted values for these terms (color). This plot displays the top 50 genes by gene ratio (# genes related to GO term / total number of sig genes), not p-adjusted value.
+We can also use the `ego` object to **visualize the results** using the `dotplot()` function. The **dotplot** shows the number of genes associated with the first 50 terms (size) and the p-adjusted values for these terms (color). This plot displays the top 50 genes by gene ratio (# genes related to GO term / total number of sig genes), not p-adjusted value.
 
 ```
 # Dotplot visualization
@@ -287,10 +287,10 @@ dotplot(ego, showCategory=50)
 <img src="../img/dotplot.png">
 
 
-We find many terms related to **development and differentiation** and amongst those we see the term 'stem cell population maintenance'. Functionally, Nanog blocks differentiation. Thus, negative regulation of Nanog is required to promote differentiation during embryonic development. Recently, Nanog has been shown to be involved in neural stem cell differentiation which might explain the abundance of neuro terms we observe.
+We find many terms related to **development and differentiation** and amongst those we see the term 'stem cell population maintenance'. This makes sense since functionally, Nanog blocks differentiation. Thus, negative regulation of Nanog is required to promote differentiation during embryonic development. Recently, Nanog has been shown to be involved in neural stem cell differentiation which might explain the abundance of brain-related terms we observe.
 
 
-Let's try a **KEGG pathway enrichment** and visualize again using the the dotplot. Again, we see a relevant pathway 'Signaling pathways regulating pluripotency of stem cells'.
+Another popular resource for pathway level annotations is the [KEGG database](https://www.genome.jp/kegg/catalog/org_list.html). There is a function in `clusterProfiler` that allows us to  of Let's try a **KEGG pathway enrichment** and visualize again using the the dotplot. Again, we see a relevant pathway 'Signaling pathways regulating pluripotency of stem cells'.
 
 ```
 ekegg <- enrichKEGG(gene = entrez,
