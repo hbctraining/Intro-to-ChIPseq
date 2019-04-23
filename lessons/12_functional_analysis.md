@@ -168,7 +168,7 @@ Genomic Annotation Summary:
 
 ChIPseeker provides several functions to visualize the annotations using various plots. We will demonstrate a few of these using the Nanog sample. We will also show you how some of the functions can support comparing annotation information across samples.
 
-**Pie chart of genomic feature representation**
+### Pie chart of genomic feature representation
 
 ```
 plotAnnoPie(peakAnnoList[["Nanog"]])
@@ -176,7 +176,7 @@ plotAnnoPie(peakAnnoList[["Nanog"]])
 
 <img src="../img/pie.png" width="500">
 
-**Vennpie of genomic region annotation**
+### Vennpie of genomic region annotation
 
 ```
 vennpie(peakAnnoList[["Nanog"]])
@@ -184,7 +184,7 @@ vennpie(peakAnnoList[["Nanog"]])
 
 <img src="../img/vennpie.png" width="500">
 
-**Barchart of genomic feature representation**
+### Barchart of genomic feature representation
 
 ```
 plotAnnoBar(peakAnnoList)
@@ -192,7 +192,7 @@ plotAnnoBar(peakAnnoList)
 ```
 <img src="../img/feature-distribution.png">
 
-**Distribution of TF-binding loci relative to TSS**
+### Distribution of TF-binding loci relative to TSS
 
 ```
 plotDistToTSS(peakAnnoList, title="Distribution of transcription factor-binding loci \n relative to TSS")
@@ -248,14 +248,16 @@ nanog_annot %>%
 
 Once we have obtained gene annotations for our peak calls, we can perform functional enrichment analysis to **identify predominant biological themes among these genes** by incorporating knowledge from biological ontologies such as Gene Ontology, KEGG and Reactome. The gene lists we have obtained through annotation can be interepreted using freely available web- and R-based tools. In this workshop we will focus on the latter, but we will also mention the former and provide resources if you are interested in web-based tools.
 
-Enrichment analysis is a widely used approach to identify biological themes given a set of genes, and the methods presented here are similar to what we use in differential gene expression analysis (using RNA-seq data). We will use the  `clusterProfiler` package (Yu et al., 2012), with a few examples here.
 
+### Over-representation analysis
 
-### Single sample analysis
+There are a plethora of functional enrichment tools that perform some type of over-representation analysis by querying databases containing information about gene function and interactions. Querying these databases for gene function requires the use of a consistent vocabulary to describe gene function. One of the **most widely-used vocabularies is the Gene Ontology (GO)**. This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as GO terms.
 
-Let's start with something we have seen before with RNA-seq functional analysis. We will take our gene list from **Nanog annotations** and use them as input for a **GO enrichment analysis**.
+We will be using [`clusterProfiler`](http://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) to perform over-representation analysis on GO terms associated with our list of significant genes. The tool takes as input a significant gene list and a background gene list and performs statistical enrichment analysis using hypergeometric testing. The basic arguments allow the user to select the appropriate organism and GO ontology (BP, CC, MF) to test.
 
-```
+Let's start with our gene list from **Nanog annotations** and use them as input for a **GO enrichment analysis**.
+
+```r
 # Run GO enrichment analysis 
 ego <- enrichGO(gene = entrez, 
                     keytype = "ENTREZID", 
