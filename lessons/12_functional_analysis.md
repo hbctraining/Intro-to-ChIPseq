@@ -290,21 +290,21 @@ dotplot(ego, showCategory=50)
 We find many terms related to **development and differentiation** and amongst those we see the term 'stem cell population maintenance'. This makes sense since functionally, Nanog blocks differentiation. Thus, negative regulation of Nanog is required to promote differentiation during embryonic development. Recently, Nanog has been shown to be involved in neural stem cell differentiation which might explain the abundance of brain-related terms we observe.
 
 
-Another popular resource for pathway level annotations is the [KEGG database](https://www.genome.jp/kegg/catalog/org_list.html). There is a function in `clusterProfiler` that allows us to  of Let's try a **KEGG pathway enrichment** and visualize again using the the dotplot. Again, we see a relevant pathway 'Signaling pathways regulating pluripotency of stem cells'.
+Another popular resource for pathway level annotations is the [KEGG database](https://www.genome.jp/kegg/catalog/org_list.html). There is a function in `clusterProfiler` that allows us to perform **KEGG pathway enrichment** and visualize the results using the the dotplot. Again, we see a relevant pathway 'Signaling pathways regulating pluripotency of stem cells' is enriched.
 
 ```
 ekegg <- enrichKEGG(gene = entrez,
                  organism = 'hsa',
                  pvalueCutoff = 0.05)
 
-dotplot(kk)
+dotplot(ekegg)
 ```
 
 <img src="../img/kegg-dotplot.png">
 
-### Multiple samples
+### Comparing enrichment across samples
 
-Our dataset consist of two different transcription factor peak calls, so it would be useful to compare functional enrichment results from both. We will do this using the `compareCluster` function. We see similar terms showing up, and in particular the stem cell term is more significant (and a higher gene ratio) in the Pou5f1 data.
+Our dataset consists of two different transcription factor peak calls, so it would be useful to be able to compare functional enrichment results side-by-side in the same plot. We can do this using the `compareCluster` function. We see similar terms showing up, and in particular the stem cell term is more significant (with a higher gene ratio) in the Pou5f1 target gene list.
 
 ```
 # Create a list with genes from each sample
@@ -323,6 +323,11 @@ plot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
 
 
 ## Functional enrichment: Web-based tools
+
+There are also web-based tool for enrichment analysis on genomic regions, and a popular one is [GREAT](http://great.stanford.edu/public/html/) (Genomic Regions Enrichment of Annotations Tool). GREAT is used to analyze the functional significance of cis-regulatory regions identified by localized measurements of DNA binding events across an entire genome[1](http://bejerano.stanford.edu/papers/GREAT.pdf). It incorporates annotations from 20 different ontologies and is an easy to use tool which generates annotation and downstream functional enrichement results for genomic coordinate files. The utility of GREAT is not limited to ChIP-seq, as it could also be applied to open chromatin, localized epigenomic markers and similar functional data sets, as well as comparative genomics sets.
+
+In the interest of time we will not go into the details of using GREAT, however we have ]materials linked here]() if you are interested in testing it out with this dataset. There also [demo datasets](http://great.stanford.edu/public/html/demo.php) on the site that you can use to test out the functionality of the tool.
+
 
 ## Motif discovery
 
