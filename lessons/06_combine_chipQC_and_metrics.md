@@ -117,7 +117,7 @@ Here, we see a table with some known columns and some columns that we have not t
 
 ### Metrics: Read characteristics
 
-This table contains **the duplication rate,** however since we had already filtered our BAM files we find the numbers are not very meaningful for us. However, the **read depth** and **length** can be useful to note, especially if there appear to be large differences across samples.
+These metrics include read depth, read length, and **duplication rate**. The **read depth** and **length** can be useful to note, especially if there appear to be large differences across samples. However, since we have already filtered our BAM files we find the duplication rate numbers are not very meaningful for us.
 
 <img src="../img/QCsummary_reads.png">
 
