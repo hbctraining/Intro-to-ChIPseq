@@ -8,18 +8,18 @@ Approximate time: 40 minutes
 
 ## Learning Objectives
 
-* to explore web-based tools for motif discovery and functional enrichment analysis of the peak calls
+* Explore web-based tools for functional enrichment analysis of the peak calls
 
-# Web-based functional analysis and motif discovery
+## Web-based Functional Enrichement and Motif Analysis
 
 <img src="../img/chip_workflow_march2018_step5.png" width="700">
 
-We have identified regions of the genome where the number of reads aligning to these areas differ significantly between our Nanog IP samples and the input controls. These enriched regions represent the likely locations of where Nanog binds to the genome. 
+We have identified regions of enrichment in the genome which represent the potential binding sites for Nanog and Pou5f1. 
 
 After identifying likely binding sites, downstream analyses will often include: 
 
-1. determining the binding motifs for the protein of interest
-2. identifying which genes are associated with the binding sites and exploring whether there is any associated enrichment of processes, pathways, or networks.
+1. Identifying which genes are associated with the binding sites and exploring whether there is any associated enrichment of processes, pathways, or networks.
+2. Determining the binding motifs for the protein of interest.
 
 We will explore a few useful web-based tools for performing these analyses using our Nanog peak calls.
 
