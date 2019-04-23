@@ -326,7 +326,7 @@ plot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
 
 There are also web-based tool for enrichment analysis on genomic regions, and a popular one is [GREAT](http://great.stanford.edu/public/html/) (Genomic Regions Enrichment of Annotations Tool). GREAT is used to analyze the functional significance of cis-regulatory regions identified by localized measurements of DNA binding events across an entire genome[1](http://bejerano.stanford.edu/papers/GREAT.pdf). It incorporates annotations from 20 different ontologies and is an easy to use tool which generates annotation and downstream functional enrichement results for genomic coordinate files. The utility of GREAT is not limited to ChIP-seq, as it could also be applied to open chromatin, localized epigenomic markers and similar functional data sets, as well as comparative genomics sets.
 
-In the interest of time we will not go into the details of using GREAT, however we have ]materials linked here]() if you are interested in testing it out with this dataset. There also [demo datasets](http://great.stanford.edu/public/html/demo.php) on the site that you can use to test out the functionality of the tool.
+In the interest of time we will not go into the details of using GREAT, however we have [materials linked here]() if you are interested in testing it out with this dataset. There also [demo datasets](http://great.stanford.edu/public/html/demo.php) on the site that you can use to test out the functionality of the tool.
 
 
 ## Motif discovery
@@ -391,6 +391,8 @@ MEME-ChIP is a tool that is part of the MEME Suite that is specifically designed
 > ![](../img/meme_chip_output.png)
 
 
+***
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
 
 
