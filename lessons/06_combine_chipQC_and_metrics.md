@@ -35,7 +35,7 @@ Your Rstudio interface should look something like the screenshot below:
 <img src="../img/rstudio-screenshot.png">
 
 
-> **NOTE:** This next section assumes you have the `ChIPQC` package (vChIPQC_1.10.3 or higher) installed for R 3.3.3. If you haven't done this please run the following lines of code before proceeding.
+> **NOTE:** This next section assumes you have the most up-to-date `ChIPQC` package. If you haven't done this please run the following lines of code before proceeding.
 >
 ```
 library(BiocManager)
