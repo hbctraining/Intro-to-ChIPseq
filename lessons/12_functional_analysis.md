@@ -13,7 +13,7 @@ Approximate time: 60 minutes
 
 ## Peak Annotation
 
-<img src="../img/chip_workflow_march2018_step5.png" width="700">
+<img src="../img/chip_workflow_june2017_step5.png" width="700">
 
 We have identified regions of the genome that are enriched in the number of aligned reads for each of our transcription factors of interest, Nanog and Pou5f1. These enriched regions represent the likely locations of where these proteins bind to the genome. After we obtain a list of peak coordinates, **it is important to study the biological implications of the protein–DNA bindings**. Certain questions have always been asked: what are the **genomic annotations and the functions** of these peak regions?
 
