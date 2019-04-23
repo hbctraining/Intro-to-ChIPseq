@@ -255,7 +255,7 @@ There are a plethora of functional enrichment tools that perform some type of ov
 
 We will be using [`clusterProfiler`](http://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) to perform over-representation analysis on GO terms associated with our list of significant genes. The tool takes as input a significant gene list and a background gene list and performs statistical enrichment analysis using hypergeometric testing. The basic arguments allow the user to select the appropriate organism and GO ontology (BP, CC, MF) to test.
 
-Let's start with our gene list from **Nanog annotations** and use them as input for a **GO enrichment analysis**.
+Let's start with our gene list from **Nanog annotations** and use them as input for a **GO enrichment analysis of biological process terms**.
 
 ```r
 # Run GO enrichment analysis 
@@ -267,12 +267,17 @@ ego <- enrichGO(gene = entrez,
                     qvalueCutoff = 0.05, 
                     readable = TRUE)
 
+```
+
+The `ego` object we created contains the results of the over-representation analysis. We can extract it into a data frame and **write the results to file**:
+
+```r
 # Output results from GO analysis to a table
 cluster_summary <- data.frame(ego)
 write.csv(cluster_summary, "results/clusterProfiler_Nanog.csv")
 ```
 
-We can visualize the results using the `dotplot` function. We find many terms related to **development and differentiation** and amongst those in the bottom half of the list we see 'stem cell population maintenance'. Functionally, Nanog blocks differentiation. Thus, negative regulation of Nanog is required to promote differentiation during embryonic development. Recently, Nanog has been shown to be involved in neural stem cell differentiation which might explain the abundance of neuro terms we observe.
+We can also use the `ego` object to visualize the results using the `dotplot()` function. The dotplot shows the number of genes associated with the first 50 terms (size) and the p-adjusted values for these terms (color). This plot displays the top 50 genes by gene ratio (# genes related to GO term / total number of sig genes), not p-adjusted value.
 
 ```
 # Dotplot visualization
@@ -280,6 +285,9 @@ dotplot(ego, showCategory=50)
 ```
 
 <img src="../img/dotplot.png">
+
+
+We find many terms related to **development and differentiation** and amongst those we see the term 'stem cell population maintenance'. Functionally, Nanog blocks differentiation. Thus, negative regulation of Nanog is required to promote differentiation during embryonic development. Recently, Nanog has been shown to be involved in neural stem cell differentiation which might explain the abundance of neuro terms we observe.
 
 
 Let's try a **KEGG pathway enrichment** and visualize again using the the dotplot. Again, we see a relevant pathway 'Signaling pathways regulating pluripotency of stem cells'.
