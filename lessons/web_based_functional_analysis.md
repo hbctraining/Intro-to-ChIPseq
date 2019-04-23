@@ -10,7 +10,7 @@ Approximate time: 40 minutes
 
 * Explore web-based tools for functional enrichment analysis of the peak calls
 
-## Web-based Functional Enrichement and Motif Analysis
+## Web-based Functional Enrichment: GREAT
 
 <img src="../img/chip_workflow_march2018_step5.png" width="700">
 
@@ -18,19 +18,19 @@ We have identified regions of enrichment in the genome which represent the poten
 
 After identifying likely binding sites, downstream analyses will often include: 
 
-1. Identifying which genes are associated with the binding sites and exploring whether there is any associated enrichment of processes, pathways, or networks.
-2. Determining the binding motifs for the protein of interest.
+1. Identifying which genes are associated with the binding sites 
+2. Exploring whether there is any associated enrichment of processes, pathways, or networks
 
-We will explore a few useful web-based tools for performing these analyses using our Nanog peak calls.
+We will explore a web-based tool called [GREAT](http://great.stanford.edu/public/html/) for performing these analyses using our Nanog peak calls.
 
-Since the motif and functional enrichment analyses are unlikely to give reliable results using only the 32.8 Mb of reads mapping to chr12,  we will use the **full set of peak calls output from the IDR analysis**.
+Since the functional enrichment analyses are unlikely to give reliable results using only the 32.8 Mb of reads mapping to chr12,  we will use the **full set of peak calls output from the IDR analysis**.
 
 ## Set-up
 
 Start an interactive session:
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash	
+$ srun --pty -p interactive -t 0-12:00 --mem 8G --reservation=HBC bash	
 ```
 
 Extract the first three columns of the IDR peak calls for the whole genome of Nanog:
@@ -47,18 +47,8 @@ $ cp /n/groups/hbctraining/chip-seq/full-dataset/idr/*.bed .
 $ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-great.bed
 ```
 
-To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [bedtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. 
 
-```bash
-$ module load gcc/6.2.0 bedtools/2.26.0
-
-$ bedtools getfasta -fi \
-/n/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
--bed Nanog-idr-merged-great.bed \
--fo Nanog-idr-merged-dreme.fasta
-```
-
-Using `scp` or **FileZilla** on your local computer, transfer `Nanog-idr-merged-great.bed` and `Nanog-idr-merged-dreme.fasta` to your Desktop.
+Using `scp` or **FileZilla** on your local computer, transfer `Nanog-idr-merged-great.bed` to your Desktop.
 
 ```bash
 $ scp username@transfer.rc.hms.harvard.edu:~/chipseq/results/functional_analysis/*merged-* Desktop/
@@ -101,70 +91,7 @@ We will use [GREAT](http://bejerano.stanford.edu/great/public/html/index.php) to
 8. Click on `NOTCH1`. Explore the binding regions directly within the UCSC Genome Browser.
 
 
-## Motif discovery
 
-![MEME_suite](../img/meme_suite.png)
-
-To identify over-represented motifs, we will use DREME from the MEME suite of sequence analysis tools. [DREME](http://meme-suite.org/tools/dreme) is a motif discovery algorithm designed to find short, core DNA-binding motifs of eukaryotic transcription factors and is optimized to handle large ChIP-seq data sets.
-
-DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleotides) encompassing the DNA-binding region of most eukaryotic monomeric transcription factors. Therefore it may miss wider motifs due to binding by large transcription factor complexes. This analysis takes quite a while to run, but [materials are available](https://hbctraining.github.io/In-depth-NGS-Data-Analysis-Course/sessionV/lessons/12_functional_analysis.html) for walking through on your own.
-
-
-### DREME
-
-Visit the [DREME website](http://meme-suite.org/tools/dreme) and perform the following steps:
-
-1. Select the downloaded `Nanog-idr-merged-dreme.fasta` as input to DREME
-2. Enter your email address so that DREME can email you once the analysis is complete
-3. Enter a job description so you will recognize which job has been emailed to you and then start the search
-
-You will be shown a status page describing the inputs and the selected parameters, as well as links to the results at the top of the screen.
-
-![results_page](../img/dreme_processing.png)
-
-This may take some time depending on the server load and the size of the file. While you wait, take a look at the [expected results](http://meme-suite.org/info/status?service=DREME&id=appDREME_5.0.115330443284501107678163).
-
-http://meme-suite.org/opal-jobs/appDREME_5.0.115330443284501107678163/dreme.html
-
-![dreme_output](../img/dreme_output.png)
-
-DREME’s HTML output provides a list of Discovered Motifs displayed as sequence logos (in the forward and reverse complement (RC) orientations), along with an E-value for the significance of the result. 
-
-Motifs are significantly enriched if the fraction of sequences in the input dataset matching the motif is significantly different from the fraction of sequences in the background dataset using Fisher’s Exact Test. Typically, background dataset is either similar data from a different ChIP-seq experiment or shuffled versions of the input dataset [[1](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3106199/)].
-
-Clicking on `More` displays the number of times the motif was identified in the Nanog dataset (positives) versus the background dataset (negatives). The `Details` section displays the number of sequences matching the motif, while `Enriched Matching Words` displays the number of times the motif was identified in the sequences (more than one word possible per sequence).
-
-### Tomtom
-To determine if the identified motifs resemble the binding motifs of known transcription factors, we can submit the motifs to Tomtom, which searches a database of known motifs to find potential matches and provides a statistical measure of motif-motif similarity. We can run the analysis individually for each motif prediction by performing the following steps:
-
-1. Click on the `Submit / Download` button for motif `ATGYWAAT` in the DREME output
-2. A dialog box will appear asking you to Select what you want to do or Select a program. Select `Tomtom` and click `Submit`. This takes you to the input page. 
-3. Tomtom allows you to select the database you wish to search against. Keep the default parameters selected, but keep in mind that there are other options when performing your own analyses.
-4. Enter your email address and job description and start the search.
-
-You will be shown a status page describing the inputs and the selected parameters, as well as a link to the results at the top of the screen. Clicking the link displays an output page that is continually updated until the analysis has completed. Like DREME, Tomtom will also email you the results.
-
-The HTML output for Tomtom shows a list of possible motif matches for the DREME motif prediction generated from your Nanog regions. Clicking on the match name shows you an alignment of the predicted motif versus the match.
-
-![tomtom_output](../img/tomtom_output.png)
-
-The short genomic regions identified by ChIP-seq are generally very highly enriched with binding sites of the ChIP-ed transcription factor, but Nanog is not in the databases of known motifs. The regions identified also tend to be enriched for the binding sites of other transcription factors that bind *cooperatively or competitively* with the ChIP-ed transcription factor.
-
-If we compare our results with what is known about our transcription factor, Nanog, we find that Sox2 and Pou5f1 (Oct4) co-regulate many of the same genes as Nanog. 
-
-
-![nanog](../img/nanog_binding.png)[https://www.qiagen.com/us/shop/genes-and-pathways/pathway-details/?pwid=309](https://www.qiagen.com/us/shop/genes-and-pathways/pathway-details/?pwid=309)
-
-
-### MEME-ChIP
-
-MEME-ChIP is a tool that is part of the MEME Suite that is specifically designed for ChIP-seq analyses. MEME-ChIP performs DREME and Tomtom analysis in addition to using tools to assess which motifs are most centrally enriched (motifs should be centered in the peaks) and to combine related motifs into similarity clusters. It is able to identify longer motifs < 30bp, but takes much longer to run.
-
-> ![](../img/meme_chip_output.png)
-
-
-## Other functional analysis tools
-
-ChIPseeker is an R package for annotating ChIP-seq data analysis. It supports annotating ChIP peaks and provides functions to visualize ChIP peaks coverage over chromosomes and profiles of peaks binding to TSS regions. Comparison of ChIP peak profiles and annotation are also supported, and can be useful to compare biological replicates. Several visualization functions are implemented to visualize the peak annotation and statistical tools for enrichment analyses of functional annotations. If interested, there are [materials](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/ChIPseeker_functional_analysis.html) available for using ChIPseeker for functional analysis.
-
+***
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
