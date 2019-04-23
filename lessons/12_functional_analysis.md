@@ -11,11 +11,15 @@ Approximate time: 60 minutes
 * Annotating peaks with gene and genomic feature information
 * Obtaining biological context for identified binding sites using functional enrichment tools
 
-## Peak Annotation
+
+## Annotation and Functional Analysis
+
+We have identified regions of the genome that are enriched in the number of aligned reads for each of our transcription factors of interest, Nanog and Pou5f1. These enriched regions represent the likely locations of where these proteins bind to the genome. After we obtain a list of peak coordinates, **it is important to study the biological implications of the protein–DNA bindings**. Certain questions have always been asked: what are the **genomic annotations and the functions** of these peak regions?
+
 
 <img src="../img/chip_workflow_june2017_step5.png" width="700">
 
-We have identified regions of the genome that are enriched in the number of aligned reads for each of our transcription factors of interest, Nanog and Pou5f1. These enriched regions represent the likely locations of where these proteins bind to the genome. After we obtain a list of peak coordinates, **it is important to study the biological implications of the protein–DNA bindings**. Certain questions have always been asked: what are the **genomic annotations and the functions** of these peak regions?
+## Peak Annotation
 
 Because many cis-regulatory elements are close to TSSs of their targets, it is common to associate each peak to its nearest gene, either upstream or downstream. [ChIPseeker](http://bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html) is an R Bioconductor package for annotating peaks. Additionally, it has various visualization functions to assess peak coverage over chromosomes and profiles of peaks binding to TSS regions. 
 
