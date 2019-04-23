@@ -39,8 +39,9 @@ BiocManager::install("ChIPseeker")
 # Load libraries
 library(ChIPseeker)
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+library(EnsDb.Hsapiens.v75)
 library(clusterProfiler)
-library(AnnotationHub)
+library(AnnotationDbi)
 ```
 
 ### Loading data 
@@ -123,7 +124,6 @@ The **`annotatePeak` function**, as part of the ChIPseeker package, uses the nea
 <img src="../img/annotate-genes.png" width="800">
 
 
-
 Let's start by retrieving annotations for our Nanog and Pou5f1 peaks calls:
 
 ```
@@ -131,7 +131,7 @@ peakAnnoList <- lapply(samplefiles, annotatePeak, TxDb=txdb,
                        tssRegion=c(-1000, 1000), verbose=FALSE)
 ```
 
-If you take a look at what is stored in `peakAnnoList`, you will see a summary of genomic features for each sample:
+If you take a look at what is stored in `peakAnnoList`, you will see that the peak annotations have been summarized for you based on genomic features:
 
 ```
 > peakAnnoList
@@ -166,9 +166,9 @@ Genomic Annotation Summary:
 5  Distal Intergenic 52.6526835
 ```
 
-To visualize this annotation data ChIPseeker provides several functions. We will demonstrate a few using the Nanog sample only. We will also show how some of the functions can also support comparing across samples.
+ChIPseeker provides several functions to visualize the annotations using various plots. We will demonstrate a few of these using the Nanog sample. We will also show you how some of the functions can support comparing annotation information across samples.
 
-### Pie chart of genomic region annotation
+**Pie chart of genomic feature representation**
 
 ```
 plotAnnoPie(peakAnnoList[["Nanog"]])
@@ -176,7 +176,7 @@ plotAnnoPie(peakAnnoList[["Nanog"]])
 
 <img src="../img/pie.png" width="500">
 
-### Vennpie of genomic region annotation
+**Vennpie of genomic region annotation**
 
 ```
 vennpie(peakAnnoList[["Nanog"]])
@@ -184,9 +184,7 @@ vennpie(peakAnnoList[["Nanog"]])
 
 <img src="../img/vennpie.png" width="500">
 
-### Barchart (multiple samples for comparison)
-
-**Here, we see that Nanog has a much larger percentage of peaks in promotor regions.**
+**Barchart of genomic feature representation**
 
 ```
 plotAnnoBar(peakAnnoList)
@@ -194,9 +192,7 @@ plotAnnoBar(peakAnnoList)
 ```
 <img src="../img/feature-distribution.png">
 
-### Distribution of TF-binding loci relative to TSS (multiple samples)
-
-**Nanog has also majority of binding regions falling in closer proximity to the TSS (0-10kb).**
+**Distribution of TF-binding loci relative to TSS**
 
 ```
 plotDistToTSS(peakAnnoList, title="Distribution of transcription factor-binding loci \n relative to TSS")
@@ -204,13 +200,11 @@ plotDistToTSS(peakAnnoList, title="Distribution of transcription factor-binding 
 <img src="../img/tss-dist.png">
 
 
-### Writing annotations to file 
+Finally, it would be nice to have the **annotations for each peak call written to file**, as it can be useful to browse the data and subset calls of interest. The annotation information is stored in the `peakAnnoList` object. To retrieve it we use the following syntax:
 
-It would be nice to have the annotations for each peak call written to file, as it can be useful to browse the data and subset calls of interest. The **annotation information** is stored in the `peakAnnoList` object. To retrieve it we use the following syntax:
+	nanog_annot <- data.frame(peakAnnoList[["Nanog"]]@anno)
 
-	nanog_annot <- as.data.frame(peakAnnoList[["Nanog"]]@anno)
-
-Take a look at this dataframe. You should see columns corresponding to your input BED file and addditional columns containing nearest gene(s), the distance from peak to the TSS of its nearest gene, genomic region of the peak and other information. Since some annotation may overlap, ChIPseeker has adopted the following priority in genomic annotation.
+Take a look at this data frame. You should see columns corresponding to your input BED file and addditional columns containing nearest gene(s), the distance from peak to the TSS of its nearest gene, genomic feature annotation of the peak and other information. Since some annotations may overlap, ChIPseeker has adopted the following priority in how it lists information:
 
 * Promoter
 * 5’ UTR
@@ -220,41 +214,41 @@ Take a look at this dataframe. You should see columns corresponding to your inpu
 * Downstream (defined as the downstream of gene end)
 * Intergenic
 
-One thing we **don't have is gene symbols** listed in table, but we can fetch them using **Biomart** and add them to the table before we write to file. This makes it easier to browse through the results.
+One thing you will notice is that the gene identifiers that are listed are EntrezIDs. It would be easier to browse through the results if we had gene symbols. We will obtain this information using `AnnotationDbi`, an R package that provides an interface for connecting and querying various annotation databases using SQLite data storage. The AnnotationDbi packages can query the OrgDb, TxDb, EnsDb, Go.db, and BioMart annotations. There is [helpful documentation](https://bioconductor.org/packages/release/bioc/vignettes/AnnotationDbi/inst/doc/IntroToAnnotationPackages.pdf) available to reference when extracting data from any of these databases.
+
+Although we have been using the TxDb database with ChIPseeker, there is limited options as to what other identifiers can be retrieved.
+
+```r
+
+keytypes(TxDb.Hsapiens.UCSC.hg19.knownGene)
+[1] "CDSID"    "CDSNAME"  "EXONID"   "EXONNAME" "GENEID"   "TXID"     "TXNAME"  
+```
+
+Since we want to map our EntrezIDs to gene symbols, we will need to use another database. The `EnsDb.Hsapiens.v75` database corresponds to hg19, and so is an appropriate option.
+
 
 ```
 # Get entrez gene Ids
-entrez <- nanog_annot$geneId
+entrez <- as.character(nanog_annot$geneId)
 
-# Choose Biomart database
-ensembl_genes <- useMart('ENSEMBL_MART_ENSEMBL',
-                        host =  'www.ensembl.org')
-
-# Create human mart object
-human <- useDataset("hsapiens_gene_ensembl", useMart('ENSEMBL_MART_ENSEMBL',
-                           host =  'www.ensembl.org'))
-
-# Get entrez to gene symbol mappings
-entrez2gene <- getBM(filters = "entrezgene",
-                     values = entrez,
-                     attributes = c("external_gene_name", "entrezgene"),
-                     mart = human)
-
-# Match the rows and add gene symbol as a column                   
-m <- match(nanog_annot$geneId, entrez2gene$entrezgene)
-out <- cbind(nanog_annot[,1:13], geneSymbol=entrez2gene$external_gene_name[m], nanog_annot[,14:ncol(nanog_annot)])
-
+# Return the gene symbol for the set of Entrez IDs
+annotations_edb <- AnnotationDbi::select(EnsDb.Hsapiens.v75,
+                                           keys = entrez,
+                                           columns = c("GENENAME"),
+                                           keytype = "ENTREZID")
 # Write to file
-write.table(out, file="results/Nanog_annotation.txt", sep="\t", quote=F, row.names=F)
+nanog_annot %>% 
+  left_join(annotations_edb, by=c("geneId"="ENTREZID")) %>% 
+  write.table(file="results/Nanog_peak_annotation.txt", sep="\t", quote=F, row.names=F)
 ```
 
 
 
-## Functional enrichment analysis
+## Functional enrichment: R-based tools
 
-Once we have obtained gene annotations for our peak calls, we can perform functional enrichment analysis to **identify predominant biological themes among these genes** by incorporating knowledge from biological ontologies such as Gene Ontology, KEGG and Reactome.
+Once we have obtained gene annotations for our peak calls, we can perform functional enrichment analysis to **identify predominant biological themes among these genes** by incorporating knowledge from biological ontologies such as Gene Ontology, KEGG and Reactome. The gene lists we have obtained through annotation can be interepreted using freely available web- and R-based tools. In this workshop we will focus on the latter, but we will also mention the former and provide resources if you are interested in web-based tools.
 
-Enrichment analysis is a widely used approach to identify biological themes, and we talked about this in great detail during our RNA-seq analysis. Once we have the gene list, it can be used as input to functional enrichment tools such as clusterProfiler (Yu et al., 2012), DOSE (Yu et al., 2015) and ReactomePA. We will go through a few examples here.
+Enrichment analysis is a widely used approach to identify biological themes given a set of genes, and the methods presented here are similar to what we use in differential gene expression analysis (using RNA-seq data). We will use the  `clusterProfiler` package (Yu et al., 2012), with a few examples here.
 
 
 ### Single sample analysis
@@ -318,8 +312,9 @@ plot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
 <img src="../img/compareCluster.png"> 
 
 
-We have only scratched the surface here with functional analyses. Since the data is compatible with many current R packages for functional enrichment the possibilities there is alot of flexibility and room for customization. For more detailed analysis we encourage you to browse through the [ChIPseeker vignette](http://bioconductor.org/packages/release/bioc/vignettes/ChIPseeker/inst/doc/ChIPseeker.html) and the [clusterProfiler vignette](https://www.bioconductor.org/packages/devel/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html).
+## Functional enrichment: Web-based tools
 
+## Motif discovery
 
 
 
