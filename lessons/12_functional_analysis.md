@@ -331,96 +331,6 @@ In the interest of time we will not go into the details of using GREAT, however 
 
 ## Motif discovery
 
-
-
-
-After identifying likely binding sites, downstream analyses will often include: 
-
-1. determining the binding motifs for the protein of interest
-2. identifying which genes are associated with the binding sites and exploring whether there is any associated enrichment of processes, pathways, or networks.
-
-We will explore a few useful web-based tools for performing these analyses using our Nanog peak calls.
-
-Since the motif and functional enrichment analyses are unlikely to give reliable results using only the 32.8 Mb of reads mapping to chr12,  we will use the **full set of peak calls output from the IDR analysis**.
-
-## Set-up
-
-Start an interactive session:
-
-```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G --reservation=HBC bash	
-```
-
-Extract the first three columns of the IDR peak calls for the whole genome of Nanog:
-
-```bash
-$ cd ~/chipseq/results
-
-$ mkdir functional_analysis
-
-$ cd functional_analysis
-
-$ cp /n/groups/hbctraining/chip-seq/full-dataset/idr/*.bed .
-
-$ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-great.bed
-```
-
-To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [bedtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file. 
-
-```bash
-$ module load gcc/6.2.0 bedtools/2.26.0
-
-$ bedtools getfasta -fi \
-/n/groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
--bed Nanog-idr-merged-great.bed \
--fo Nanog-idr-merged-dreme.fasta
-```
-
-Using `scp` or **FileZilla** on your local computer, transfer `Nanog-idr-merged-great.bed` and `Nanog-idr-merged-dreme.fasta` to your Desktop.
-
-```bash
-$ scp username@transfer.rc.hms.harvard.edu:~/chipseq/results/functional_analysis/*merged-* Desktop/
-```
-
-## Functional enrichment analysis
-
-We will use [GREAT](http://bejerano.stanford.edu/great/public/html/index.php) to perform the functional enrichment analysis. GREAT takes a list of regions, associates them with nearby genes, and then analyzes the gene annotations to assign biological meaning to the data.
-
- Open [GREAT](http://bejerano.stanford.edu/great/public/html/index.php), and perform the following steps:
-
-1. Choose the `Nanog-idr-merged-great.bed` file and use the `Whole genome` for Background regions. Click Submit. GREAT provides the output in HTML format organized by section.
-
-2. Expand the `Job Description` section. Click on `View all genomic region-gene associations`. Note that each associated gene is listed with location from the transcription start site as shown below:
-
-	![tss_gene](../img/tss_distance.png)
-
-	Within this section, you have the option to download the list of genes associated with Nanog binding sites or you could view all of the binding sites as a custom track in the UCSC Genome Browser.
-	
-3. Scroll down to the `Region-Gene Association Graphs`. Observe the graphics displaying the summary of the number of genes associated with each binding site and the binding site locations relative to the transcription start sites of the associated genes
-	
-	![tss_graphs](../img/great_region_assoc.png)
-
-4. Below the `Region-Gene Association Graphs` are the `Global Controls`, where you can select the annotation information to display. Keep the default settings and scroll down to view the information displayed. 
-
-5. Explore the GO Biological Process terms associated with the Nanog binding sites. Notice the options available at the top of the tables for exporting data, changing settings, and visualization.
-
-	![annot](../img/great_annot.png)
-	
-	GREAT calculates two measures of statistical enrichment: "one using a binomial test over genomic regions and one using a hypergeometric test over genes" [[2](http://bejerano.stanford.edu/help/display/GREAT/Statistics)]. Each test has its own biases, which are compensated for by the other test. 
-	
-6. Click on the term `negative regulation of stem cell differentiation`:
-
-	![select_go](../img/great_selection_go.png)
-	
-	Note that summary information about the binding sites of Nanog for genes associated with this GO term are displayed.
-	
-7. Expand the section for `This term's genomic region-gene association tables`. Notice that you have the option to download the gene table.
-
-8. Click on `NOTCH1`. Explore the binding regions directly within the UCSC Genome Browser.
-
-
-## Motif discovery
-
 ![MEME_suite](../img/meme_suite.png)
 
 To identify over-represented motifs, we will use DREME from the MEME suite of sequence analysis tools. [DREME](http://meme-suite.org/tools/dreme) is a motif discovery algorithm designed to find short, core DNA-binding motifs of eukaryotic transcription factors and is optimized to handle large ChIP-seq data sets.
@@ -481,8 +391,6 @@ MEME-ChIP is a tool that is part of the MEME Suite that is specifically designed
 > ![](../img/meme_chip_output.png)
 
 
-## Other functional analysis tools
 
-ChIPseeker is an R package for annotating ChIP-seq data analysis. It supports annotating ChIP peaks and provides functions to visualize ChIP peaks coverage over chromosomes and profiles of peaks binding to TSS regions. Comparison of ChIP peak profiles and annotation are also supported, and can be useful to compare biological replicates. Several visualization functions are implemented to visualize the peak annotation and statistical tools for enrichment analyses of functional annotations. If interested, there are [materials](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/ChIPseeker_functional_analysis.html) available for using ChIPseeker for functional analysis.
 
 
