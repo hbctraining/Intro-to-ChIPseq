@@ -174,7 +174,7 @@ The percentage of reads overlapping regions with known artificially high signal 
 
 - **The signal from blacklisted regions has been shown to contribute to confound peak callers and fragment length estimation.** We should keep track and filter reads mapping to these areas.
 
-*In our experiment, the RiBL percentages look reasonable since they not incredibly high.*
+*In our experiment, the RiBL percentages look reasonable since they not incredibly high. It is possible that the higher SSD values could be due to open chromatin regions that fragment more easily or hyper-ChIPable regions, which are highly expressed loci enriched in ChIP-seq experiments of many unrelated proteins - systematic false positives.*
 
 > **NOTE:** If you had filtered out blacklisted regions before peak calling, and those filtered BAM files are used as input to `ChIPQC` you will not need to evaluate this metric.
 
