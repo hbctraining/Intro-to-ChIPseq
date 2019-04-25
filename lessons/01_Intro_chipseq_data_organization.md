@@ -16,19 +16,6 @@ Chromatin immunoprecipitation (ChIP) experiments are performed to identify DNA b
 
 ![chipseq_overview](../img/chipseq_overall.png)
 
-## The ChIP-seq Analysis Workflow
-
-Below is the workflow that we will be using today. Bioinformatics workflows, like this one, adopt a plug-and-play approach in that the output of one tool can be easily used as input to another tool without any extensive configuration. The tools that are used to analyze data at different stages of the workflow are built under the assumption that the data will be provided in a specific format to facilitate a more streamlined analysis. Hence, different tools that can be implemented at specific steps in the workflow will have similar outputs.
-
-<img src="../img/chip_workflow_june2017.png" width="900">
-
-## Decisions, decisions, decisions
-
-For ChIP-seq the above workflow is a good guide to the analysis however, **there are several steps along the way which require one to use different tools and assess metrics in a fairly subjective manner**. As such, we have created a decision tree that is complementary to the workflow above. As we work through each step in the workflow, we will also discuss the considerations and decisions you need to think about before proceeding.
-
-<img src="../img/decision_tree-2.png" width="800">
-
-
 
 ## Setting up
 
@@ -43,15 +30,15 @@ ssh username@o2.hms.harvard.edu
 Next we will start an interactive session on O2 with 2 cores (add the `-n 2`):
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G -n 2 --reservation=HBC bash
+$ srun --pty -p interactive -t 0-12:00 --mem 1G -n 1 --reservation=HBC2 /bin/bash
 ```
 
-Make sure that your command prompt is now preceded by a character string that contains the word "compute".
+**Make sure that your command prompt is now preceded by a character string that contains the word "compute".**
 
->**NOTE:** We are using the `--reservation` argument and the `short` partition during class since we have a dedicated set of computers reserved so that commands run quickly. When starting an interactive session outside of class you will need to leave out this argument and use the `interactive` partition:
+>**NOTE:** We are using the `--reservation` argument during class since we have a dedicated set of computers reserved so that commands run quickly. When starting an interactive session outside of class you will need to leave out this argument. You may also want to increase othe resources (i.e. memory and number of cores) depending on what you plan on doing.
 >
 >```bash
->$ srun --pty -p interactive -t 0-12:00 --mem 8G -n 2 bash
+>$ srun --pty -p interactive -t 0-12:00 --mem 8G -n 2 /bin/bash
 >```
 
 
@@ -124,7 +111,7 @@ $ mkdir -p results/fastqc results/bowtie2
 $ tree     # this will show you the directory structure you just created
 ```
 
-> Note that we are using the parents flag (`-p` or `--parents`) with `mkdir` to complete the file path by creating any parent directories that do not exist. In our case, we have not yet created the `results` directory and so since it does not exist it will be created. This flag can be very useful when scripting workflows. 
+> **NOTE:** We are using the parents flag (`-p` or `--parents`) with `mkdir` to complete the file path by creating any parent directories that do not exist. In our case, we have not yet created the `results` directory and so since it does not exist it will be created. This flag can be very useful when scripting workflows. 
 
 **This is a generic directory structure and can be tweaked based on personal preference and analysis workflow.**
 
