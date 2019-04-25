@@ -46,10 +46,10 @@ MACS provides different options for dealing with **duplicate tags** at the exact
 Reads with the same start position are considered duplicates. These duplicates can arise from experimental artifacts, but can also contribute to genuine ChIP-signal.
 >
 > * **The bad kind of duplicates:** If initial starting material is low this can lead to overamplification of this material before sequencing. Any biases in PCR will compound this problem and can lead to artificially enriched regions. Also blacklisted (repeat) regions with ultra high signal will also be high in duplicates. Masking these regions prior to analysis can help remove this problem.
-> * **The good kind of duplicates:** You can expect some biological duplicates with ChIP-seq since you are only sequencing a small part of the genome. This number can increase if your depth of coverage is excessive or if your protein only binds to few sites. Removal of these duplicates can lead to an underestimation of the ChIP signal.
+> * **The good kind of duplicates:** You can expect some biological duplicates with ChIP-seq since you are only sequencing a small part of the genome. This number can increase if your depth of coverage is excessive or if your protein only binds to few sites. If there are a good proportion of biological dupicates, removal can lead to an underestimation of the ChIP signal. 
 >
 > **The take-home:** 
-> * Consider your enrichment efficiency and sequencing depth. Try to discriminate via genome browser of your non-deduplicated data. Bona fide peaks will have multiple overlapping reads with offsets, while samples with only PCR duplicates will stack up perfectly without offsets.
+> * Consider your enrichment efficiency and sequencing depth. Try to discriminate via genome browser of your non-deduplicated data. Bona fide peaks will have multiple overlapping reads with offsets, while samples with only PCR duplicates will stack up perfectly without offsets. A possible solution to distinguishing biological duplicate from PCR artifact would be to include UMIs into your experimental setup.
 > * Retain duplicates for differential binding analysis. 
 > * If you are expecting binding in repetitive regions, use paired-end sequencing and keep duplicates.
 > 
