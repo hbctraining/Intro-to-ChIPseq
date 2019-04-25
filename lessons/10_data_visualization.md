@@ -30,7 +30,7 @@ The first thing we want to do is take our alignment files (BAM) and convert them
 Start an interactive session with 6 cores. *If you are already logged on to a compute node you will want to exit and start a new session*.
 
 ```bash
-$ srun --pty -p short -t 0-12:00 --mem 8G -n 6 --reservation=HBC bash
+$ srun --pty -p interactive -t 0-12:00 --mem 8G -n 6 --reservation=HBC2 bash
 ```
 
 We will begin by creating a directory for the visualization output and loading the required modules to run `deepTools`.
@@ -42,7 +42,7 @@ $ mkdir -p visualization/bigWig visualization/figures
 
 ```bash
 $ module load gcc/6.2.0  python/2.7.12
-$ module load deeptools/2.5.3 
+$ module load deeptools/3.0.2 
 ```
 
 One last thing we need to do is **create an index file for each one of our BAM files**. To perform some functions on the BAM file, many tools require an index. Think of an index located at the back of a textbook. When you are interested in a particular subject area you look for the keyword in the index and identify the pages that contain the relevant information. Similarily, indexing the BAM file aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignment file. 
@@ -74,7 +74,7 @@ Now, to create our bigWig files there are two tools that can be useful: `bamCove
 
 Let's **create a bigWig file for Nanog replicate 2** using the `bamCoverage` command. In addition to the input and output files, there are a few additional parameters we have added. 
 
-* `normalizeTo1x`: Report read coverage normalized to 1x sequencing depth (also known as Reads Per Genomic Content (RPGC)). Sequencing depth is defined as: (total number of mapped reads * fragment length) / effective genome size). So **the number provided here represents the effective genome size**. Some examples of values for commonly used organisms can be [found here](http://deeptools.readthedocs.io/en/latest/content/feature/effectiveGenomeSize.html).
+* `normalizeUsing`: Possible choices: RPKM, CPM, BPM, RPGC. We will use BPM (Bins Per Million), which is similar to TPM in RNA-seq. BPM (per bin) = number of reads per bin / sum of all reads per bin (in millions).
 * `binSize`: size of bins in bases
 * `smoothLength`: defines a window, larger than the `binSize`, to average the number of reads over. This helps produce a more continuous plot.
 * `centerReads`: reads are centered with respect to the fragment length as specified by `extendReads`. This option is useful to get a sharper signal around enriched regions.
@@ -83,7 +83,7 @@ Let's **create a bigWig file for Nanog replicate 2** using the `bamCoverage` com
 $ bamCoverage -b bowtie2/H1hesc_Nanog_Rep2_aln.bam \
 -o visualization/bigWig/H1hesc_Nanog_Rep2.bw \
 --binSize 20 \
---normalizeTo1x 130000000 \
+--normalizeUsing BPM \
 --smoothLength 60 \
 --extendReads 150 \
 --centerReads \
@@ -95,7 +95,7 @@ We can do the same for the **Pou5f1 replicate 1**:
 $ bamCoverage -b bowtie2/H1hesc_Pou5f1_Rep1_aln.bam \
 -o visualization/bigWig/H1hesc_Pou5f1_Rep1.bw \
 --binSize 20 \
---normalizeTo1x 130000000 \
+--normalizeUsing BPM \
 --smoothLength 60 \
 --extendReads 150 \
 --centerReads \
@@ -112,14 +112,14 @@ $ bamCompare -b1 bowtie2/H1hesc_Pou5f1_Rep1_aln.bam \
 -b2 bowtie2/H1hesc_Input_Rep1_chr12_aln.bam \
 -o visualization/bigWig/H1hesc_Pou5f1_Rep1_bgNorm.bw \
 --binSize 20 \
---normalizeTo1x 130000000 \
+--normalizeUsing BPM \
 --smoothLength 60 \
 --extendReads 150 \
 --centerReads \
 -p 6 2> ../logs/Pou5f1_rep1_bamCompare.log
 ```
 
-> **NOTE:** When you are creating bigWig files for your full dataset, this will take considerably longer and you will not want to run this interactively (except for testing purposes). Instead, you might want to consider writing a job submission script with a loop that runs this command over all of your BAM files.
+> **NOTE:** When you are creating bigWig files for your full dataset, this will take considerably longer and you will not want to run this interactively (except for testing purposes). Instead, you will want to write a job submission script with a loop that runs this command over all of your BAM files.
 
 Since we are using a toy dataset which contains only a subset of the data, using these bigWigs for visualization would not give us meaningful results. As such, **we have created bigWig files from the full dataset that you can use for the rest of this lesson.**
 
@@ -139,9 +139,9 @@ Before we start plotting our data, we first need to prepare an intermediate file
 <img src="../img/computeMatrix_overview.png" width="700">
 
 
-The `computeMatrix` command accepts multiple bigWig files and multiple region files (BED format) to create a count matrix which is the intermediate file. It can also be used to filter and sort regions according to their score. Our region file will be the BED file we just copied over and our bigWog files will be those generated from the full dataset that we have provided for you. Additionally, We will specify a window of +/- 1000bp around the TSS of genes (`-b` and `-a`). For each window, `computeMatrix` will calculate scores based on the read density values in the bigWig files.
+The `computeMatrix` command accepts multiple bigWig files and multiple region files (BED format) to create a count matrix which is the intermediate file. It can also be used to filter and sort regions according to their score. Our region file will be the BED file we just copied over and our bigWig files will be those generated from the full dataset that we have provided for you. Additionally, we will specify a window of +/- 1000bp around the TSS of genes (`-b` and `-a`). For each window, `computeMatrix` will calculate scores based on the read density values in the bigWig files.
 
-First, let's create a matrix one for the Nanog replicates:
+First, let's create a matrix for one of the Nanog replicates:
 
 ```bash
 
@@ -151,6 +151,7 @@ $ computeMatrix reference-point --referencePoint TSS \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
 --skipZeros \
 -o ~/chipseq/results/visualization/matrixNanog_TSS_chr12.gz \
+-p 6 \
 --outFileSortedRegions ~/chipseq/results/visualization/regions_TSS_chr12.bed
 
 ```
@@ -165,7 +166,9 @@ $ computeMatrix reference-point --referencePoint TSS \
 -b 1000 -a 1000 \
 -R ~/chipseq/results/visualization/chr12_genes.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw \
---skipZeros -o ~/chipseq/results/visualization/matrixPou5f1_TSS_chr12.gz \
+--skipZeros \
+-p 6 \
+-o ~/chipseq/results/visualization/matrixPou5f1_TSS_chr12.gz \
 --outFileSortedRegions ~/chipseq/results/visualization/regionsPou5f1_TSS_chr12.bed
 
 ```
@@ -231,7 +234,7 @@ $ plotHeatmap -m visualization/matrixPou5f1_TSS_chr12.gz \
 
 <img src="../img/TSS_Pou5f1_heatmap_and_profile.png" width="400">
 
-> **NOTE:** Both `plotProfile` and `plotHeatmap` have many options, including the ability to change the type of lines plotted and to plot by group rather than sample. Explore the documentation to find out more detail.
+> **NOTE:** Both `plotProfile` and `plotHeatmap` have many options, including the ability to change the type of lines plotted and to plot by group rather than sample. We encourage you to explore the documentation to find out more detail.
 
 ## Visualizing enrichment in differentially enriched regions
 
@@ -241,14 +244,20 @@ Previously, we had evaluated differential enrichment between the two factors in 
 
 <img src="../img/filezilla_diffbind.png">
 
-Now we can **use some of the `deepTools` commands we had explored previously.** Let's start with Nanog file which contains 33 regions that were identified as increased in enrichment compared to Pou5f1. The plot confirms what we had expected, that is, Pou5f1 don't have much read depth in these regions. 
+Now we can use some of the `deepTools` commands we had explored previously. **Note that we have changed the command from `reference-point` to `scale-regions`.** In the `scale-regions` mode, all regions in the BED file are stretched or shrunken to the length in bases indicated by the user (`--regionBodyLength`).
+
+<img src="../img/computeMatrix_modes.png">
+
+Let's **start with Nanog file which contains 33 regions** that were identified as increased in enrichment compared to Pou5f1. The plot confirms what we had expected, that is, Pou5f1 don't have much read depth in these regions. 
 
 ```bash
 
  $ computeMatrix scale-regions \
 -R ~/chipseq/results/visualization/Nanog_enriched.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
---skipZeros -p 6 \
+--skipZeros \
+-p 6 \
+--regionBodyLength 2000 \
 -a 500 -b 500 \
 -o ~/chipseq/results/visualization/matrixAll_Nanog_binding_sites.gz
 
@@ -258,20 +267,23 @@ $ plotProfile -m visualization/matrixAll_Nanog_binding_sites.gz \
 --perGroup  --plotTitle "" \
 --samplesLabel "Pou5f1-Rep1" "Pou5f1-Rep2" "Nanog-Rep1" "Nanog-Rep2" \
 -T "Nanog only binding sites"  -z "" \
---startLabel "" --endLabel "" \
+--startLabel "" \
+--endLabel "" \
 --colors red red darkblue darkblue
 ```
 
 <img src="../img/Allsamples_NanogSites_profile.png" width="500">
 
-With Pou5f1, remember we only had one region. We are still able to plot this data but you will notice that it is a bit more boxy in nature. This is because values are not being averaged over multiple regions.
+With **Pou5f1, remember we only had one region**. We are still able to plot this data but you will notice that it is a bit more boxy in nature. This is because values are not being averaged over multiple regions.
 
 ```bash
 
  $ computeMatrix scale-regions \
 -R ~/chipseq/results/visualization/Pou5f1_enriched.bed \
 -S /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Pou5f1*.bw /n/groups/hbctraining/chip-seq/full-dataset/bigWig/Encode_Nanog*.bw \
---skipZeros -p 6 \
+--skipZeros \
+-p 6 \
+--regionBodyLength 2000 \
 -a 500 -b 500 \
 -o ~/chipseq/results/visualization/matrixAll_Pou5f1_binding_sites.gz 
 
