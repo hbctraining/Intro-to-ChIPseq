@@ -250,7 +250,7 @@ Open up the pdf file for Nanog-rep1. The first plot illustrates **the distance b
 
 The second plot is the  **cross-correlation plot**. This is a graphical representation of the Pearson correlation of positive- and negative- strand tag densities, shifting the strands relative to each other by increasing distance. We will talk about this in more detail in the next lesson.
 
-> **NOTE:** [SPP](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) is another very commonly used tool for *narrow* peak calling. While we will not be going through the steps for this peak caller in this workshop, we do have [a lesson on SPP](https://github.com/hbctraining/In-depth-NGS-Data-Analysis-Course/blob/may2017/sessionV/lessons/peak_calling_spp.md) that we encourage you to browse through if you are interested in learning more.
+> **NOTE:** [SPP](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) is another very commonly used tool for *narrow* peak calling. While we will not be going through the steps for this peak caller in this workshop, we do have [a lesson on SPP](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/peak_calling_spp.html) that we encourage you to browse through if you are interested in learning more.
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
