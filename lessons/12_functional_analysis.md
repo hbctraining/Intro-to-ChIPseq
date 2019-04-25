@@ -46,6 +46,7 @@ library(TxDb.Hsapiens.UCSC.hg19.knownGene)
 library(EnsDb.Hsapiens.v75)
 library(clusterProfiler)
 library(AnnotationDbi)
+library(org.Hs.eg.db)
 ```
 
 ### Loading data 
