@@ -1,7 +1,7 @@
 ---
 title: "ChIP-seq Functional Analysis"
 author: "Mary Piper, Radhika Khetani, Meeta Mistry"
-date: "Thursday, June 29th, 2017"
+date: "Thursday, April 25th, 2019"
 ---
 
 Approximate time: 60 minutes
@@ -28,13 +28,13 @@ Because many cis-regulatory elements are close to TSSs of their targets, it is c
 1. Open up RStudio and open up the `chipseq-project` that we created previously.
 2. Open up a new R script ('File' -> 'New File' -> 'Rscript'), and save it as `chipseeker.R`
 
-> **NOTE:** This next section assumes you have the `ChIPseeker` package installed for R 3.5 or higher. You will also need one additional library for gene annotation. If you haven't done this please run the following lines of code before proceeding.
->
+	> **NOTE:** This next section assumes you have the `ChIPseeker` package installed for R 3.5 or higher. You will also need one additional library for gene annotation. If you haven't done this please run the following lines of code before proceeding.
+	>
 
-```
-BiocManager::install("ChIPseeker")
-
-```
+	```
+	BiocManager::install("ChIPseeker")
+	
+	```
 
 
 3. Now we can load all required libraries:
