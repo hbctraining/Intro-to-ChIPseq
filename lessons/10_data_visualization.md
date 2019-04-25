@@ -246,7 +246,7 @@ Previously, we had evaluated differential enrichment between the two factors in 
 
 Now we can use some of the `deepTools` commands we had explored previously. **Note that we have changed the command from `reference-point` to `scale-regions`.** In the `scale-regions` mode, all regions in the BED file are stretched or shrunken to the length in bases indicated by the user (`--regionBodyLength`).
 
-<img src="../img/computeMatrix_modes.png" width="700">
+<img src="../img/computeMatrix_modes.png" width="600">
 
 Let's **start with Nanog file which contains 33 regions** that were identified as increased in enrichment compared to Pou5f1. The plot confirms what we had expected, that is, Pou5f1 don't have much read depth in these regions. 
 
@@ -298,6 +298,7 @@ $ plotProfile -m visualization/matrixAll_Pou5f1_binding_sites.gz \
 ```
 
 <img src="../img/Allsamples_Pou5f1Sites_profile2.png" width="500">
+
 
 
 
