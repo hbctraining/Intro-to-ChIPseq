@@ -58,7 +58,7 @@ Now that we are setup let's load the DiffBind and Tidyverse libraries.
 
 ```
 library(DiffBind)
-library(Tidyverse)
+library(tidyverse)
 ```	
 > **NOTE:** You may not need to load this library since it was loaded as a dependency of the ChIPQC package.
 
