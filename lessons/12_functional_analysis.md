@@ -232,14 +232,15 @@ Since we want to map our EntrezIDs to gene symbols, we will need to use another 
 
 
 ```
-# Get entrez gene Ids
-entrez <- as.character(nanog_annot$geneId)
-
 # Return the gene symbol for the set of Entrez IDs
 annotations_edb <- AnnotationDbi::select(EnsDb.Hsapiens.v75,
-                                           keys = entrez,
-                                           columns = c("GENENAME"),
-                                           keytype = "ENTREZID")
+                                         keys = nanog_annot$geneId,
+                                         columns = c("GENENAME"),
+                                         keytype = "ENTREZID")
+
+# Change IDs to character type to merge
+annotations_edb$ENTREZID <- as.character(annotations_edb$ENTREZID)
+
 # Write to file
 nanog_annot %>% 
   left_join(annotations_edb, by=c("geneId"="ENTREZID")) %>% 
