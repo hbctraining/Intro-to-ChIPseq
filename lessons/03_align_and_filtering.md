@@ -178,7 +178,7 @@ To use `samtools` we will need to load the module:
 
 ```bash
 $ module load gcc/6.2.0 # you may not need to load this if you are working in the same session from Bowtie2
-$ module load samtools/1.3.1
+$ module load samtools/1.9
 ```
 
 The command we will use is `samtools view` with the following parameters:
