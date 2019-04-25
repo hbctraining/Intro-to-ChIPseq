@@ -325,7 +325,7 @@ compKEGG <- compareCluster(geneCluster = genes,
                          organism = "human",
                          pvalueCutoff  = 0.05, 
                          pAdjustMethod = "BH")
-plot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
+dotplot(compKEGG, showCategory = 20, title = "KEGG Pathway Enrichment Analysis")
 ```
 
 <img src="../img/compareCluster.png"> 
