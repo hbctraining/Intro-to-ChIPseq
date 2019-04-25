@@ -269,7 +269,7 @@ Let's start with our gene list from **Nanog annotations** and use them as input 
 ```r
 # Run GO enrichment analysis 
 ego <- enrichGO(gene = entrez, 
-                    keytype = "ENTREZID", 
+                    keyType = "ENTREZID", 
                     OrgDb = org.Hs.eg.db, 
                     ont = "BP", 
                     pAdjustMethod = "BH", 
