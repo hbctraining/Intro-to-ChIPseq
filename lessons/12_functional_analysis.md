@@ -351,9 +351,10 @@ DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleot
 
 Visit the [DREME website](http://meme-suite.org/tools/dreme) and perform the following steps:
 
-1. Select the downloaded `Nanog-idr-merged-dreme.fasta` as input to DREME
-2. Enter your email address so that DREME can email you once the analysis is complete
-3. Enter a job description so you will recognize which job has been emailed to you and then start the search
+1. You will **need a FASTA file which contains the sequences of all of the genomic regions of interest**. This can be generated from your IDR BED files by following the instructions in our [materials linked here](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/motif_analysis_prep.html). In the interest of time, we have generated this file for you (using the full dataset) and it can be [downloaded via this link](https://github.com/hbctraining/Intro-to-ChIPseq/raw/master/Nanog-idr-merged-dreme.fasta).
+2. Select the downloaded `Nanog-idr-merged-dreme.fasta` as input to DREME
+3. Enter your email address so that DREME can email you once the analysis is complete
+4. Enter a job description so you will recognize which job has been emailed to you and then start the search
 
 You will be shown a status page describing the inputs and the selected parameters, as well as links to the results at the top of the screen.
 
