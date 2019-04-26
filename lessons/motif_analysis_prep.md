@@ -15,7 +15,7 @@ Tools for motif analyis often require sequence information for each of your bind
 
 Start an interactive session:	
 
- ```bash
+```bash
 $ srun --pty -p interactive -t 0-12:00 --mem 1G --reservation=HBC2 /bin/bash
 ```	
 
@@ -32,7 +32,7 @@ Extract the **first three columns** of the IDR peak calls for the Nanog file:
 
 ```bash
 	$ cut -f 1,2,3 Nanog-idr-merged.bed  > Nanog-idr-merged-simple.bed
-```	```
+```
 
 
 To extract the sequences corresponding to the peak coordinates for motif discovery, we will use the [bedtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools. **The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file**. 	
