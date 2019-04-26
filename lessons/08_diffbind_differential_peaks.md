@@ -16,19 +16,17 @@ Approximate time: 90 minutes
 
 ## Differential enrichment analysis
 
-To provide a more complex picture of biological processes in a cell, many studies aim to compare different datasets obtained by ChIP-seq. In our dataset, we have peak calls from two different transcription factors: Nanog and Pou5f1. For each factor **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. For this analysis, we will use as input not only the peak calls but also incorporate the BAM files.
+To provide a more complex picture of biological processes in a cell, many studies aim to compare different datasets obtained by ChIP-seq. In our dataset, we have peak calls from two different transcription factors: Nanog and Pou5f1. For each of the factors, we have evaluated consensus across the replicates within a group, but we haven't yet compared the peaks identified by each of the factors against each other. **What binding regions are present in Nanog samples, but absent/less enriched in the Pou51 samples (and vice versa)?**
 
 <img src="../img/chip_workflow_sept2018_diffbind.png" width="800"> 
 
 ## Tools for evaluating differential enrichment
 
-An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Because differential enrichment has become of practical importance in biological and medical research, more tools have become available for this type of analysis. 
+An increasing number of ChIP-seq experiments are investigating transcription factor binding under multiple experimental conditions, for example, various treatment conditions, several distinct time points and different treatment dosage levels. Because differential enrichment has become of practical importance in biological and medical research, **more tools have become available for this type of analysis**. 
 
 <img src="../img/diffpeaks-software.png" width="800"> 
 
-When choosing which tool to use there are several criterion to consider. 
-
-1. You want software that can be **implemented without the need for extensive efforts** for porting the code. Also, keep track of whether this tool is being maintained and frequently updated.
+The tools vary in their methods
 
 2. What **inputs** are required by the user? Some tools  require preliminary detection of enriched regions by external peak-calling algorithms, while others implement their own detection method.
 
@@ -36,6 +34,7 @@ When choosing which tool to use there are several criterion to consider.
 
 4. Some tools have been specifically designed for particular ChIP-seq data (**signal type**), such as histone modifications or transcription factor (TF) binding.
 
+For each factor **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. For this analysis, we will use as input not only the peak calls but also incorporate the BAM files.
 
 ## DiffBind
 
