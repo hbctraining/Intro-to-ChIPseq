@@ -30,7 +30,7 @@ Since the functional enrichment analyses are unlikely to give reliable results u
 Start an interactive session:
 
 ```bash
-$ srun --pty -p interactive -t 0-12:00 --mem 8G --reservation=HBC bash	
+$ srun --pty -p interactive -t 0-12:00 --mem 1G --reservation=HBC2 bash	
 ```
 
 Extract the first three columns of the IDR peak calls for the whole genome of Nanog:
