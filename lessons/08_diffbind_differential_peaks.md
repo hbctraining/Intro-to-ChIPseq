@@ -26,19 +26,18 @@ An increasing number of ChIP-seq experiments are investigating transcription fac
 
 <img src="../img/diffpeaks-software.png" width="800"> 
 
-The tools vary in their methods
+Each of the tools work different from one another but have the same overarching goal. Whihc one you choose will come down to the dataset you are working with and your biological question. Some things to consider:
 
-2. What **inputs** are required by the user? Some tools  require preliminary detection of enriched regions by external peak-calling algorithms, while others implement their own detection method.
+* What **inputs** are required by the user? Some tools require preliminary detection of enriched regions by external peak-calling algorithms, while others implement their own detection method.
+* Does the tool facilitate the use of replicates within each sample group?
+* What is the underlying **statistical model** used for signal distribution? Is it based either on the Poisson distribution or on a more flexible negative binomial distribution.
+* Some tools have been specifically designed for particular ChIP-seq data (**signal type**), such as histone modifications or transcription factor (TF) binding.
 
-3. What is the underlying **statistical model** used for signal distribution? Is it based either on the Poisson distribution or on a more flexible negative binomial distribution.
-
-4. Some tools have been specifically designed for particular ChIP-seq data (**signal type**), such as histone modifications or transcription factor (TF) binding.
-
-For each factor **we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html)**, [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. For this analysis, we will use as input not only the peak calls but also incorporate the BAM files.
+For both Nanog and Pou5f1 **we have two replicates, and it would be best to use a tool such as [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html) that make use of these replicates**. 
 
 ## DiffBind
 
-DiffBind is an R package that is used for identifying sites that are **differentially bound between two or more sample groups**. It works primarily with sets of peak calls ('peaksets'), which are sets of genomic intervals representing candidate protein binding sites for each sample. It includes functions that support the processing of peaksets, including **overlapping and merging peak sets across an entire dataset, counting sequencing reads in overlapping intervals in peak sets, and identifying statistically significantly differentially bound sites** based on evidence of binding affinity (measured by differences in read densities). We will discuss the importance of each step but for more information take a look at the [DiffBind vignette](http://bioconductor.org/packages/release/bioc/vignettes/DiffBind/inst/doc/DiffBind.pdf).
+DiffBind is an R Bioconductor package that is used for identifying sites that are **differentially enriched between two or more sample groups**. It works primarily with sets of peak calls ('peaksets'), which are sets of genomic intervals representing candidate protein binding sites for each sample. It includes functions that support the processing of peaksets, including **overlapping and merging peak sets across an entire dataset, counting sequencing reads in overlapping intervals in peak sets, and identifying statistically significantly differentially bound sites** based on evidence of binding affinity (measured by differences in read densities). We will discuss the importance of each step but for more detailed information please take a look at the [DiffBind vignette](http://bioconductor.org/packages/release/bioc/vignettes/DiffBind/inst/doc/DiffBind.pdf).
 
 > **NOTE:** The required input for DiffBind is all samples in the dataset and all peaks (not just the high confidence peaks) for each sample. **Replicate peak calls are used individually, and not merged.** 
 
