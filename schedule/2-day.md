@@ -7,7 +7,7 @@
 |9:00 - 9:15| [Introduction to Workshop]() | Radhika |
 |9:15 - 10:15 | [Introduction to ChIP-seq](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/Introduction_to_ChIP-seq.pdf) | Meeta/Shannan |
 |10:15 - 10:25 | Break | |
-|10:25 - 11:10 | [Unix review and Working in an HPC environment]() | Radhika |
+|10:25 - 11:10 | [Unix review and Working in an HPC environment](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/shell_review.html) | Radhika |
 |11:10 - 11:30 | [Project Organization and Data Management](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/01_Intro_chipseq_data_organization.html) | Meeta |
 |11:30 - 12:15 | [Sequence Data QC using FastQC](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/02_QC_FASTQC.html) | Mary |
 |12:15 - 13:15 | Lunch | |
