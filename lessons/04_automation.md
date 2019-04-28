@@ -28,7 +28,7 @@ $ sacct
 We need to have an interactive session with 6 cores, if you already have one you are set. If you have a session with fewer cores then `exit` out of your current interactive session and start a new one with `-n 6`.
 
 ```bash
-$ srun --pty -p short -t 0-12:00 -n 6 --mem 8G --reservation=HBC /bin/bash
+$ srun --pty -p short -t 0-12:00 -n 6 --mem 4G --reservation=HBC2 /bin/bash
 ```
 
 ### More Flexibility with variables
@@ -132,10 +132,10 @@ All of our variables are now staged. Next, let's make sure all the modules are l
 
 ```
 # set up the software environment
-module load fastqc/0.11.3
-module load gcc/6.2.0  
+module load fastqc/0.11.5
+module load gcc/6.2.0
 module load bowtie2/2.2.9
-module load samtools/1.3.1
+module load samtools/1.9
 export PATH=/n/app/bcbio/tools/bin:$PATH 	# for using 'sambamba'
 ```
 
