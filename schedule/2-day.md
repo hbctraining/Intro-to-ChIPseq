@@ -16,7 +16,7 @@
 |14:20 - 15:00 | [Automating generation of alignment files](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
 |15:00 - 15:10 | Break | |
 |15:10 - 15:45 | [Automating generation of alignment files cont'd](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/04_automation.html) | Radhika |
-|15:45 - 16:00 | [ChIP-seq File Formats](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Workflows_and_fileformats.pdf) | Radhika |
+|15:45 - 16:00 | [ChIP-seq File Formats](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Fileformats.pdf) | Radhika |
 |16:00 - 17:00 | [Peak calling with MACS2](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/05_peak_calling_macs.html) | Meeta |
 
 
