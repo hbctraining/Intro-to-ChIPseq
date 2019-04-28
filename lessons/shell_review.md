@@ -44,7 +44,7 @@ There are multiple ways to connect with, and do work on, a compute node; a compu
 You will get practice with running batch jobs, for now we are going to start an interactive session on O2 using `srun`. 
 
 ```bash
-$ srun --pty -p interactive -t 0-8:00 --mem 1G --reservation=HBC /bin/bash
+$ srun --pty -p interactive -t 0-8:00 --mem 1G --reservation=HBC2 /bin/bash
 ```
 
 In the above command the parameters we are using are requesting specific resources:
@@ -52,7 +52,7 @@ In the above command the parameters we are using are requesting specific resourc
 * `-p interactive` - on the "partition" called "interactive" (a partition is a group of computers dedicated to certain types of jobs, interactive, long, short, high-memory, etc.)
 * `-t 0-8:00` - time needed for this work: 0 days, 8 hours, 0 minutes.
 * `--mem 1G` - memory needed - 1 gigabyte
-* `--reservation=HBC` - *this is only for this workshop, make sure you don't use it in the future with your own accounts*
+* `--reservation=HBC2` - ***this is only for this workshop, make sure you don't use it in the future with your own accounts***
 * `/bin/bash` - You want to interact with the compute node using the *bash* shell
 
 > These resources are listed slightly differently in the specialized script that is submitted directly using `sbatch`. We will be reviewing the arguments above and what that specialized script looks like at the end of this lesson.
