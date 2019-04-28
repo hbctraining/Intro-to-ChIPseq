@@ -52,7 +52,7 @@ In order to index a BAM file, we will use [SAMtools](http://samtools.sourceforge
 First, let's load the module:
 
 ```bash
-$ module load samtools/1.3.1
+$ module load samtools/1.9
 ```
 
 Now, at the command prompt start the **`for` loop**:
