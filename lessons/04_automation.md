@@ -227,10 +227,10 @@ bowtie_results=~/chipseq/results/bowtie2
 intermediate_bams=~/chipseq/results/bowtie2/intermediate_bams
 
 # set up the software environment
-module load fastqc/0.11.3
+module load fastqc/0.11.5
 module load gcc/6.2.0  
 module load bowtie2/2.2.9
-module load samtools/1.3.1
+module load samtools/1.9
 export PATH=/n/app/bcbio/tools/bin:$PATH 	# for using 'sambamba'
 
 echo "Processing file $fq"
