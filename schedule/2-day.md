@@ -1,5 +1,11 @@
 # Workshop Schedule
 
+## Homework:
+
+For Day 2 please **install the package below** in addition to everything listed in the preparation email:
+
+> `BiocManager::install('org.Hs.eg.db')`
+
 ## Day 1
 
 | Time            |   Topic  | Instructor |
