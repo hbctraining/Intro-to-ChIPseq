@@ -148,7 +148,7 @@ Exit the interactive session and once you are on a "login node," start a new int
 ```bash
 $ exit  #exit the current interactive session
 
-$ srun --pty -n 6 -p interactive -t 0-12:00 --mem 1G --reservation=HBC2 /bin/bash  #start a new one with 6 cpus (-n 6) and 1G RAM (--mem 1G)
+$ srun --pty -c 6 -p interactive -t 0-12:00 --mem 1G --reservation=HBC2 /bin/bash  #start a new one with 6 cpus (-n 6) and 1G RAM (--mem 1G)
 
 $ module load fastqc/0.11.5  #reload the module for the new session
 
