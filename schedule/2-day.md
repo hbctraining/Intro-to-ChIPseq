@@ -4,9 +4,9 @@
 
 | Time            |   Topic  | Instructor |
 |:------------------------:|:----------:|:--------:|
-|9:00 - 9:15| [Introduction to Workshop]() | Radhika |
-|9:15 - 10:00 | [Introduction to ChIP-seq](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/Introduction%20to%20ChIP-seq%202019.pdf) | Dr. Shannan Ho Sui |
-|10:00 - 10:15 | [ChIP-seq Analysis Overview](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/ChIP-seq_workflow_scope.pdf) | Meeta |
+|9:00 - 9:15| [Introduction to Workshop](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Intro_to_workshop.pdf) | Radhika |
+|9:15 - 10:00 | [Introduction to ChIP-seq](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Introduction%20to%20ChIP-seq%202019.pdf) | Dr. Shannan Ho Sui |
+|10:00 - 10:15 | [ChIP-seq Analysis Overview](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/ChIP-seq_workflow_scope.pdf) | Meeta |
 |10:15 - 10:25 | Break | |
 |10:25 - 11:10 | [Unix review and Working in an HPC environment](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/shell_review.html) | Radhika |
 |11:10 - 11:30 | [Project Organization and Data Management](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/01_Intro_chipseq_data_organization.html) | Meeta |
