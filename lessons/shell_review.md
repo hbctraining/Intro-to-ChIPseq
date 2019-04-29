@@ -5,9 +5,12 @@ date: "April 2019"
 ---
 
 ## Learning Objectives
-- Review shell commands and concepts
+- Review shell commands
+- Review HPC concepts 
 
 ## Setting up
+
+Let's look at some of the basic HPC concepts with the **first few slides in [this slide deck](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lectures/HPC_intro_O2_review.pdf)**, then we will come back and get some practice.
 
 ### Connecting to a *login* node on O2
 
@@ -139,7 +142,7 @@ We need to use one tool that is unavailable as a module on O2, but it is availab
 
 ### Resources on O2 and asking Slurm for them
 
-Finally, let's review some of the information for O2 and slurm in [these slides](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lectures/HPC_intro_O2_review.pdf)
+Finally, let's review some of the information for O2 and slurm in [the rest of the slides](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lectures/HPC_intro_O2_review.pdf)
 
 ****
 
