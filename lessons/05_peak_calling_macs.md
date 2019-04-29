@@ -76,7 +76,7 @@ To calculate λBG from tag count, MAC2 requires the **effective genome size** or
 
 <img src="../img/mappable.png" width="300">
 
-> #### How do I compute the effective genome length?
+> #### How do I obtain the effective genome length?
 > The MACS2 software has some pre-computed values for commonly used organisms (human, mouse, worm and fly). If you wanted you could compute a more accurate values based on your organism and build. The [deepTools docs](https://deeptools.readthedocs.io/en/develop/content/feature/effectiveGenomeSize.html) has additional pre-computed values for more recent builds but also has some good materials on how to go about computing it.
 
 ### Peak detection
