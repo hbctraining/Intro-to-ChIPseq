@@ -28,9 +28,8 @@ Open up `FileZilla` and connect to the transfer node on O2. Navigate to the corr
 
 * Nanog-Rep2: `~/chipseq/results/visualization/bigWig/H1hesc_Nanog_Rep2.bw`
 * Pou5f1-Rep1: `~/chipseq/results/visualization/bigWig/H1hesc_Pou5f1_Rep1.bw `
-* Nanog-only BED: `~/chipseq/results/bedtools/Nanog_only_peaks.bed`
-* Pou5f1-only BED: `~/chipseq/results/bedtools/Pou5f1_only_peaks.bed`
 
+You will also want to **locate the BED files we generated from the differential enrichment analysis** using DiffBind. These files will be in your `chipseq` project in your `results` folder.
 
 > **NOTE:** We are copying over only a single sample bigWig from each group. Since we observed that in each case there was a stronger replicate (high read density) that is what we used to make our selection.
 
