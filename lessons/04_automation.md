@@ -174,6 +174,9 @@ sambamba sort -t 6 -o $align_sorted $align_bam
 # Filter out multi-mappers and duplicates
 sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped and not duplicate" $align_sorted > $align_filtered
 
+# Create indices for all the bam files for visualization and QC
+samtools index $align_filtered
+
 # Move intermediate files out of the bowtie2 directory
 mv $bowtie_results/${base}*sorted* $intermediate_bams
 ```
@@ -250,6 +253,9 @@ sambamba sort -t 6 -o $align_sorted $align_bam
 
 # Filter out duplicates
 sambamba view -h -t 6 -f bam -F "[XS] == null and not unmapped " $align_sorted > $align_filtered
+
+# Create indices for all the bam files for visualization and QC
+samtools index $align_filtered
 
 # Move intermediate files out of the bowtie2 directory
 mv $bowtie_results/${base}*sorted* $intermediate_bams
