@@ -87,6 +87,10 @@ Next we will create a ChIPQC object which might take a few minutes to run. `ChIP
 chipObj <- ChIPQC(samples, annotation="hg19") 
 ```
 
+> **NOTE:** For PC users `BiocParallel` can be problematic. To avoid this conflict, run the code below first to indicate that you would like to run the process in serial.
+>
+> `register(SerialParam())`
+
 Now let's take those quality metrics and summarize information into an HTML report with tables and figures.
 
 ```
