@@ -48,7 +48,7 @@ Your IGV interface should now look something like the screenshot below. By defau
 > 
 > * Right click on the left-hand side panel. You should see many options available to you. If "Autoscale" is not checked go ahead and do this. You can do the same for both bigWig tracks.
 
-The interaction between Pou5f1, and Nanog is supported by immunoprecipitation, functional analysis, and co-localization of binding sites, and so it is not surprising that they share the **same target genes**. While our BED files congtain peaks that are non-overlapping, the target genes that harbor these peaks can still be overlapping.
+The interaction between Pou5f1, and Nanog is supported by immunoprecipitation, functional analysis, and co-localization of binding sites, and so it is not surprising that they share the **same target genes**. While our BED files contain peaks that are non-overlapping, the target genes that harbor these peaks can still be overlapping.
 
 * For example take a look at **Sox5** (use the search box to zoom into the gene). How many peaks are associated with this gene for Nanog? For Pou5f1?
 * How convincing is the difference in enrichment?
