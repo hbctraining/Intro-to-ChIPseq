@@ -40,5 +40,5 @@ For Day 2 please **install the package below** in addition to everything listed 
 |14:45 - 15:15 | [Qualitative assessment using IGV](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/11_qualitative_assessment_IGV.html) | Radhika |
 |15:15 - 15:25 | Break | |
 |15:25 - 16:25 | [Functional analysis](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/12_functional_analysis.html) | Mary |
-|16:25 - 16:50| [Overview of ChIP-seq workflow](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/ChIP-seq_troubleshooting.pdf) | Meeta |
+|16:25 - 16:50| [Overview of ChIP-seq workflow](https://github.com/hbctraining/Intro-to-ChIPseq/blob/master/lectures/ChIP-seq_troubleshooting_2019.pdf) | Meeta |
 |16:50 - 17:00| [Wrap-up and Survey](https://hbctraining.github.io/Intro-to-ChIPseq/lectures/Wrap-up.pdf) | Radhika |
