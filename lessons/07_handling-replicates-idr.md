@@ -80,7 +80,7 @@ _We will only be running Step 1 in this lesson, but will discuss steps 2 and 3 i
 
 To run IDR *we should be using the full dataset*, and if you are interested the full BAM files can be downloaded from ENCODE, however for timeliness and consistency we will continue with our subsetted data for this lesson.
 
-To run IDR the recommendation is to **run MACS2 less stringently** to allow a larger set of peaks to be identified for each replicate. In addition the narrowPeak files have to be **sorted by the `-log10(p-value)` column**. We have already performed these 2 steps for the samples from both groups, and the commands we used for it as listed below. To reiterate, _you do NOT NEED TO RUN the following lines of code, we have already generated narrowPeak files for you!_
+To run IDR the recommendation is to **run MACS2 less stringently**. The IDR algorithm requires sampling of both signal and noise distributions to separate the peaks into two groups, so having a more liberal threshold allows us to bring in some noise. In addition the narrowPeak files have to be **sorted by the `-log10(p-value)` column**. We have already performed these 2 steps for the samples from both groups, and the commands we used for it as listed below. To reiterate, _you do NOT NEED TO RUN the following lines of code, we have already generated narrowPeak files for you!_
 
 ```bash
 ###DO NOT RUN THIS###
