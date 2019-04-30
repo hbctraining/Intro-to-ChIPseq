@@ -78,7 +78,7 @@ Next, we need to **assign annotation databases** generated from UCSC to a variab
 
 ### Visualization
 
-First, let's take a look at peak locations across the genome. The `covplot` function calculates **coverage of peak regions** across the genome and generates a figure to visualize this across chromosomes. We do this for the Nanog peaks and find a considerable number of peaks on all chromosomes. We specify in the function which column represents the amount of enrichment (`weightCol="V5"`), and that is what is plotted on the y-axis. This is usually some score value; in our case this is the IDR score.
+First, let's take a look at peak locations across the genome. The `covplot` function calculates **coverage of peak regions** across the genome and generates a figure to visualize this across chromosomes. We do this for the Nanog peaks and find a considerable number of peaks on all chromosomes. 
 
 ```
 # Assign peak data to variables
@@ -89,6 +89,8 @@ pou5f1 <- readPeakFile(samplefiles[[2]])
 covplot(nanog, weightCol="V5")
 
 ```
+
+> **NOTE:** In the `covplot()` function we provide the column which represents the amount of enrichment (`weightCol="V5"`), and that is the value plotted on the y-axis. This is usually some score value; in our case this is the IDR score.
 
 <img src="../img/covplot.png">
 
