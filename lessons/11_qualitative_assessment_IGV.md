@@ -37,7 +37,7 @@ You will also want to **locate the BED files we generated from the differential 
 
 * Start [IGV](https://www.broadinstitute.org/software/igv/download).
 * Load the Human genome (hg19) into IGV using the dropdown menu at the top left of your screen. _Note: there is also an option to "Load Genomes from File..." under the "Genomes" pull-down menu - this is useful when working with non-model organisms_.
-* Load the bigWig files and BED files using the **"Load from File..."** option under the **"File"** pull-down menu. 
+* Load the 2 bigWig files and 4 BED files using the **"Load from File..."** option under the **"File"** pull-down menu. 
 
 Your IGV interface should now look something like the screenshot below. By default, you will be in a zoomed out view. You will notice that for both bigWig tracks there appears to be a dense blue chunk at the beginning of chromosome 12, which makes sense considering the subsetted toy dataset we are working with. **Use the pulldown menu to zoom into chromosome 12.**
 
@@ -47,13 +47,13 @@ Your IGV interface should now look something like the screenshot below. By defau
 > 
 > * Right click on the left-hand side panel. You should see many options available to you. If "Autoscale" is not checked go ahead and do this. You can do the same for both bigWig tracks.
 
-The interaction between Pou5f1, and Nanog is supported by immunoprecipitation, functional analysis, and co-localization of binding sites, and so it is not surprising that they share the **same target genes**. While our BED files contain peaks that are non-overlapping, the target genes that harbor these peaks can still be overlapping.
+The interaction between Pou5f1, and Nanog is supported by immunoprecipitation, functional analysis, and co-localization of binding sites, and so it is not surprising that they share the **same target genes**. While the 2 BED files output by `DiffBind` contain peaks that are non-overlapping, the narrowPeak files output by macs2 (raw peaks) along with the bigWig display will display the areas where both proteins bind. 
 
 * For example take a look at **Sox5** (use the search box to zoom into the gene). How many peaks are associated with this gene for Nanog? For Pou5f1?
 * How convincing is the difference in enrichment?
 * For the **Erc1** gene, there is only one peak associated with this gene. Which factor binds here? Is the differential enrichment obvious?
 
-* Finally, we are going to visually **compare our data** to the output from the **full dataset from ENCODE**, by loading that data from the IGV server.
+* Finally, we are going to visually **compare our data** to the output from the **full dataset from ENCODE**, by loading that data from the IGV server using the **"Load from ENCODE (2012)..."** option under the **"File"** pull-down menu
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
