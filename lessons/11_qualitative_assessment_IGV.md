@@ -26,8 +26,10 @@ In order to visualize our ChIP-seq enrichment we will first need to move over th
 
 Open up `FileZilla` and connect to the transfer node on O2. Navigate to the correct directory on the cluster panel and copy over the following files:
 
-* Nanog-Rep2: `~/chipseq/results/visualization/bigWig/H1hesc_Nanog_Rep2.bw`
-* Pou5f1-Rep1: `~/chipseq/results/visualization/bigWig/H1hesc_Pou5f1_Rep1.bw `
+* Nanog-Rep2-bigWig: `~/chipseq/results/visualization/bigWig/H1hesc_Nanog_Rep2.bw`
+* Pou5f1-Rep1-bigWig: `~/chipseq/results/visualization/bigWig/H1hesc_Pou5f1_Rep1.bw`
+* Nanog-Rep2-narrowPeak: `~/chipseq/results/macs2/Nanog-rep2_peaks.narrowPeak`
+* Pou5f1-Rep1-narrowPeak: `~/chipseq/results/macs2/Pou5f1-rep1_peaks.narrowPeak`
 
 You will also want to **locate the BED files we generated from the differential enrichment analysis** using DiffBind. These files will be in your `chipseq` project in your `results` folder.
 
