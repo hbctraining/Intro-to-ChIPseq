@@ -1,5 +1,5 @@
 ---
-title: "ChIP-seq Functional Analysis"
+title: "ChIP-seq Peak Annotation and Functional Analysis"
 author: "Mary Piper, Radhika Khetani, Meeta Mistry"
 date: "Thursday, April 25th, 2019"
 ---
@@ -10,6 +10,7 @@ Approximate time: 60 minutes
 
 * Annotating peaks with gene and genomic feature information
 * Obtaining biological context for identified binding sites using functional enrichment tools
+* Using the seqqunce data for peaks to identify possible over-represented motifs
 
 
 ## Annotation and Functional Analysis
@@ -76,50 +77,6 @@ Next, we need to **assign annotation databases** generated from UCSC to a variab
 	
 > **NOTE:** *ChIPseeker supports annotating ChIP-seq data of a wide variety of species if they have transcript annotation TxDb object available.* To find out which genomes have the annotation available follow [this link](http://bioconductor.org/packages/3.5/data/annotation/) and scroll down to "TxDb". Also, if you are interested in creating your own TxDb object you will find [more information here](https://bioconductor.org/packages/devel/bioc/vignettes/GenomicFeatures/inst/doc/GenomicFeatures.pdf). 
 
-### Visualization
-
-First, let's take a look at peak locations across the genome. The `covplot` function calculates **coverage of peak regions** across the genome and generates a figure to visualize this across chromosomes. We do this for the Nanog peaks and find a considerable number of peaks on all chromosomes. 
-
-```
-# Assign peak data to variables
-nanog <- readPeakFile(samplefiles[[1]])
-pou5f1 <- readPeakFile(samplefiles[[2]])
-
-# Plot covplot
-covplot(nanog, weightCol="V5")
-
-```
-
-> **NOTE:** In the `covplot()` function we provide the column which represents the amount of enrichment (`weightCol="V5"`), and that is the value plotted on the y-axis. This is usually some score value; in our case this is the IDR score.
-
-<img src="../img/covplot.png">
-
-
-Using a window of +/- 1000bp around the TSS of genes we can plot the **density of read count frequency to see where binding is relative to the TSS** or each sample.
-
-```
-# Prepare the promotor regions
-promoter <- getPromoters(TxDb=txdb, upstream=1000, downstream=1000)
-
-# Calculate the tag matrix
-tagMatrixList <- lapply(as.list(samplefiles), getTagMatrix, windows=promoter)
-
-## Profile plots
-plotAvgProf(tagMatrixList, xlim=c(-1000, 1000), conf=0.95,resample=500, facet="row")
-```
-<img src="../img/density_profileplots.png">
-
-With these plots the confidence interval is estimated by bootstrap method (500 iterations) and is shown in the grey shading that follows each curve. The Nanog peaks exhibit a nice narrow peak at the TSS with small confidence intervals, whereas the Pou5f1 peaks display a bit wider and less smoothed peak around the TSS with larger confidence intervals.
-
-The **heatmap is another method of visualizing the read count frequency** relative to the TSS.
-
-	# Plot heatmap
-	tagHeatmap(tagMatrixList, xlim=c(-1000, 1000), color=NULL)
-
-<img src="../img/Rplot.png" width="500">
-
-> **NOTE:**  The profile plots and heatmaps are similar to what we did using `deepTools` in the visualization lesson, however here the amplitude of the peak is based on the number of peaks and not on the number of reads aligning (since BAM files are not involved). ChIPseeker is useful for getting a quick look at your data, but for increased accuracy and flexibility in customizing your figure we recommend the `deeptTools` methods.
-
 
 ### Annotation
 
@@ -175,21 +132,8 @@ Genomic Annotation Summary:
 
 ChIPseeker provides several functions to visualize the annotations using various plots. We will demonstrate a few of these using the Nanog sample. We will also show you how some of the functions can support comparing annotation information across samples.
 
-### Pie chart of genomic feature representation
+> **NOTE**: ChIPseeker also has functionality to **generate figures for visualization** (similar to what we did in `deepTools`). If you are interested in testing out those functions on this data, please see the [materials linked here](https://hbctraining.github.io/Intro-to-ChIPseq/lessons/chipseeker_visualization.html).
 
-```
-plotAnnoPie(peakAnnoList[["Nanog"]])
-```
-
-<img src="../img/pie.png" width="500">
-
-### Vennpie of genomic region annotation
-
-```
-vennpie(peakAnnoList[["Nanog"]])
-```
-
-<img src="../img/vennpie.png" width="500">
 
 ### Barchart of genomic feature representation
 
