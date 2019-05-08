@@ -281,6 +281,12 @@ The **shape of these profiles can vary depending on what type of mark is being s
 
 Finally, there are plots to show **how similar the samples are**. We will take a closer look at these when we plot them during differential enrichment analysis. 
 
+> ### Running ChIPQC on your own data
+> Since we are working with a small subset of data, it was feasible to move over the data to our computers and run it locally. However, when you are working with your own data which will be much larger in size (and therefore require much more intensive compute time and resources) we recommend working on the cluster. 
+> 
+> In order to generate the report on **O2 you require the X11 system**, which we are currently not setup to do with the training accounts. If you are interested in learning more about using X11 applications you can [find out more on the O2 wiki page](https://wiki.rc.hms.harvard.edu/display/O2/Using+X11+Applications+Remotely). Additionally, you will need to install the `ChIPQC` package and all required dependencies on the cluster.
+
+
 ## Final takehome from ChIPQC
 
 In general, taking all of the evaluated metrics together our data look good even though individually they may not fall within the thresholds we have outlined earlier. This type of QC is first and foremost used to evaluate each sample on it's own to ensure that we are observing values that are good enough that we are comfortable moving forward with. Below, we briefly we compare and contrast these metrics between replicates and the 2 for added discussion.
