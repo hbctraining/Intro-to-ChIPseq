@@ -36,9 +36,9 @@ SPP is an R package which can be installed in one of two ways: There is [source 
 
 Start an interactive session with a single core (if you don't already have one going) since we are working with such a small dataset; for parallel processing options with SPP see note below.
 
-	$ bsub -Is -q interactive bash
+	$ srun --pty -p interactive -t 0-12:00 /bin/bash
 
-Now let's setup the directory structure. Navigate to `~/ngs_course/chipseq/` if you are not already there. Within the results directory we will create directory called `spp`:
+Now let's setup the directory structure. Navigate to `~/chipseq/` if you are not already there. Within the results directory we will create directory called `spp`:
 
 	$ mkdir results/spp
 	$ cd results
@@ -52,9 +52,9 @@ The last thing we need to before getting started is to load the appropriate soft
 > 	
 > When working with large datasets it can be beneficial to use multiple cores during some of the more computationally intensive processes of peak calling. In order to do so, you will need to install the `snow` package in R. Using snow you can initialize a cluster of nodes for parallel processing (in the example below we have a cluster of 8 nodes). *See `snow` package manual for details.* This cluster variable can then be used as input to functions that allow for parallel processing.
 > 
-> 	`library(snow)`
+> 	library(snow)
 > 	
-> 	`cluster <- makeCluster(8)`
+> 	cluster <- makeCluster(8)
 
 
 ## An R script for running SPP
@@ -67,7 +67,7 @@ For this class, we have put together an R script that contains all of the method
 
 Open it up using `vim`, as there is a modification we need to make in order for you to be able to run this from your working directory. Use `:set number` in `vim` to add numbers to your lines. Now scroll down to line 16. Here, you need to change the path to where your `spp` directory is located. It will look something like this:
 
-	/home/user_name/ngs_course/chipseq/results/spp/
+	/home/user_name/chipseq/results/spp/
 
 Save and exit vim. We can now run this script from the command line by using the `Rscript` command followed by the name of our script and need to pass in two arguments:
 
