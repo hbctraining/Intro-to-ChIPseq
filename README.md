@@ -60,6 +60,7 @@ clusterProfiler
 AnnotationDbi
 TxDb.Hsapiens.UCSC.hg19.knownGene
 EnsDb.Hsapiens.v75
+org.Hs.eg.db
 ```
 
 > **NOTE:** The library used for the annotations associated with genes (here we are using `TxDb.Hsapiens.UCSC.hg19.knownGene` and `EnsDb.Hsapiens.v75`) will change based on organism (e.g. if studying mouse, would need to install and load `TxDb.Mmusculus.UCSC.mm10.knownGene`). The list of different organism packages are given [here](https://github.com/hbctraining/Training-modules/raw/master/DGE-functional-analysis/img/available_annotations.png).
