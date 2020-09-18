@@ -17,7 +17,7 @@ This repository has teaching materials for a 3-day Introduction to ChIP-sequenci
 2.	Understand best practices for designing a ChIP-seq experiment and analysis the resulting data.
 
 ### Lessons
-**[Click here](https://hbctraining.github.io/Intro-to-ChIPseq/schedule/2-day.html) for links to lessons and the suggested schedule**
+**[Click here](schedule/2-day.html) for links to lessons and the suggested schedule**
 
 ### Dataset
 
