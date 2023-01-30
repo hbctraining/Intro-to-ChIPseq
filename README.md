@@ -1,4 +1,6 @@
-## Introduction to ChIP-seq using high performance computing
+> **NOTE**: The materials in this repository are **no longer actively maintained.**  More recent content can be found at: https://hbctraining.github.io/Intro-to-ChIPseq-flipped/
+
+## OLD - Introduction to ChIP-seq using high performance computing
 
 
 | Audience | Computational Skills | Prerequisites | Duration |
